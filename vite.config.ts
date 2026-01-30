@@ -11,8 +11,8 @@ export default defineConfig(({ mode }) => ({
       usePolling: true
     }
   },
-  // Option B: Relative base path for serving from any subdirectory
-  base: './',
+  // Option A: Fixed base path /kliv/
+  base: '/kliv/',
   plugins: [
     react(),
   ],
