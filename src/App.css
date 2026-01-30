@@ -1,0 +1,156 @@
+/* Global Styles */
+:root {
+  --radius: 0.75rem;
+}
+
+* {
+  @apply border-border selection:bg-primary/10 selection:text-primary;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+/* Background Patterns */
+.bg-pattern-dots {
+  background-image: radial-gradient(circle at 1px 1px, hsl(var(--muted-foreground) / 0.15) 1px, transparent 0);
+}
+
+.bg-pattern-grid {
+  background-image: 
+    linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
+}
+
+/* Glass Effects */
+.glass {
+  @apply backdrop-blur-xl bg-white/60 dark:bg-white/5 border border-white/20/50 dark:border-white/10 shadow-lg;
+}
+
+.glass-card {
+  @apply backdrop-blur-md bg-white/70 dark:bg-black/30 border border-white/20 dark:border-white/10 shadow-sm;
+}
+
+.glass-header {
+  @apply backdrop-blur-2xl bg-white/80 dark:bg-black/40 border-b border-border;
+}
+
+/* Gradient backgrounds for pages */
+.bg-gradient-page {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #fce7f3 100%);
+}
+
+.dark .bg-gradient-page {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1f1115 100%);
+}
+
+.bg-gradient-subtle {
+  background: linear-gradient(180deg, transparent 0%, rgba(139, 92, 246, 0.03) 50%, rgba(217, 70, 239, 0.02) 100%);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
+}
+
+::-webkit-scrollbar-corner {
+  @apply bg-transparent;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }  
+}
+
+/* Card hover effects */
+.hover-lift {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 hover:shadow-xl hover:shadow-primary/10;
+}
+
+/* Loading shimmer */
+.shimmer {
+  background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted) / 0.5) 50%, hsl(var(--muted)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Professional gradients */
+.text-gradient-primary {
+  @apply bg-gradient-to-r from-blue-600 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent;
+}
+
+.dark .text-gradient-primary {
+  @apply bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent;
+}
+
+.bg-gradient-glow {
+  @apply bg-gradient-to-r from-blue-50 via-violet-50 to-fuchsia-50;
+}
+
+.dark .bg-gradient-glow {
+  @apply bg-gradient-to-r from-blue-950/30 via-violet-950/30 to-fuchsia-950/30;
+}
+
+/* Utility classes for consistent spacing */
+.container-page {
+  @apply container mx-auto px-4 py-6 md:px-6 lg:px-8;
+}
+
+/* Focus styles for accessibility */
+* {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+}
+
+/* Image handling */
+img {
+  @apply max-w-full h-auto;
+}

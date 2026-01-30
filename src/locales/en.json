@@ -1,0 +1,328 @@
+{
+  "common": {
+    "appName": "Amazon Connecter",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "status": "Status",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "actions": "Actions",
+    "noData": "No data available",
+    "error": "Error",
+    "success": "Success"
+  },
+  "billingAlert": {
+    "title": "Billing Terms Not Accepted",
+    "message": "You must accept the billing terms before using the app. Please go to Settings and accept the terms.",
+    "goToSettings": "Go to Settings"
+  },
+  "language": {
+    "title": "Language",
+    "english": "English",
+    "japanese": "日本語"
+  },
+  "nav": {
+    "settings": "Settings",
+    "products": "Product Mapping",
+    "shipments": "Shipments",
+    "billing": "Billing & Usage"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Configure your Amazon Connecter integration",
+    "routing": {
+      "title": "MCF Routing Configuration",
+      "description": "Configure which Amazon MCF connections to use for fulfillment based on destination country.",
+      "enabledConnectionsTitle": "Enabled Connections (max 5)",
+      "enabledConnectionsDescription": "Select your Amazon marketplace accounts to use for MCF fulfillment.",
+      "connectionUS": "United States (US)",
+      "connectionJP": "Japan (JP)",
+      "connectionDE": "Germany (DE)",
+      "connectionFR": "France (FR)",
+      "connectionIT": "Italy (IT)",
+      "connectionES": "Spain (ES)",
+      "euDefaultTitle": "EU Default Connection",
+      "euDefaultDescription": "For EU countries without a specific override, use this connection (DE/FR/IT/ES). Must be enabled.",
+      "overridesTitle": "Country Overrides",
+      "overridesDescription": "Specify which connection to use for specific destination countries. Overrides take precedence over defaults.",
+      "addOverrideRow": "+ Add Override",
+      "destinationCountryPlaceholder": "Country code (e.g., NL, BE)",
+      "connectionPlaceholder": "Select connection",
+      "removeOverride": "Remove",
+      "connectionFee": "Connection Fee",
+      "connectionFeeDescription": "$20 per enabled connection per month. Separate from shipment charges.",
+      "testRoutingTitle": "Test Routing",
+      "testRoutingDescription": "Enter a destination country to see which MCF connection would be used.",
+      "testRoutingPlaceholder": "Enter country code (e.g., US, JP, DE, NL)",
+      "testRoutingButton": "Test Routing",
+      "testRoutingResult": "Routing Result",
+      "connection": "Connection",
+      "reason": "Reason",
+      "save": "Save Configuration",
+      "saveSuccess": "Routing configuration saved.",
+      "saveError": "Failed to save configuration.",
+      "maxConnectionsError": "Maximum 5 connections allowed."
+    },
+    "shopify": {
+      "title": "Shopify Connection",
+      "connected": "Connected to Shopify",
+      "disconnected": "Not connected to Shopify",
+      "shopDomain": "Shop Domain",
+      "connect": "Connect",
+      "disconnect": "Disconnect"
+    },
+    "amazon": {
+      "title": "Amazon MCF Connection",
+      "connected": "Connected to Amazon MCF",
+      "disconnected": "Not connected to Amazon MCF",
+      "apiKey": "API Key",
+      "apiSecret": "API Secret",
+      "region": "Region",
+      "region_us": "United States",
+      "region_jp": "Japan",
+      "region_de": "Germany",
+      "region_fr": "France",
+      "region_it": "Italy",
+      "region_es": "Spain",
+      "connect": "Connect",
+      "disconnect": "Disconnect"
+    },
+    "billing": {
+      "title": "Billing Acknowledgment",
+      "subtitle": "Please review and accept the billing terms before using the app."
+    },
+    "billingDisclosure": {
+      "title": "Billing Terms",
+      "description": {
+        "intro": "This app charges based on the number of shipments processed through Amazon MCF:",
+        "free": "First 5 shipments each month: FREE",
+        "tier1": "Shipments 6-200: $20 one-time charge per month (billed when you reach the 6th shipment)",
+        "tier2": "Shipments 201 and beyond: $0.50 per additional shipment",
+        "important": {
+          "title": "Important Notice",
+          "noReduction": "Cancellations, returns, refunds do NOT reduce your shipment count or charges",
+          "chargesApply": "Once a shipment is processed, the charge applies for that monthly cycle",
+          "nonRefundable": "All charges are non-refundable within the monthly cycle"
+        },
+        "outro": "By checking the box below, you acknowledge that you have read and understood these billing terms."
+      },
+      "checkbox": "I acknowledge and accept the billing terms above",
+      "checkboxError": "Please accept the billing terms to continue"
+    },
+    "locale": {
+      "title": "Language Preference",
+      "autoDetect": "Auto-detect from Shopify Admin",
+      "manual": "Manual selection"
+    }
+  },
+  "products": {
+    "title": "Product Mapping",
+    "subtitle": "Configure which products are fulfilled by Amazon FBA",
+    "helpText": "Enable products to be fulfilled from Amazon FBA inventory. Each variant must have a corresponding Amazon SKU.",
+    "variant": "Variant",
+    "sku": "SKU",
+    "amazonSku": "Amazon SKU",
+    "inventory": "Inventory",
+    "actions": "Actions",
+    "toggleEnabled": "Toggle FBA fulfillment",
+    "amazonSkuPlaceholder": "Enter Amazon SKU",
+    "noProductsFound": "No products found",
+    "searchPlaceholder": "Search by product name or SKU...",
+    "bulkActions": "Bulk Actions",
+    "selectAll": "Select All",
+    "bulkEnable": "Enable Selected",
+    "bulkDisable": "Disable Selected"
+  },
+  "shipments": {
+    "title": "Shipments",
+    "subtitle": "Track and manage your fulfillment requests to Amazon",
+    "filters": {
+      "all": "All",
+      "pending": "Pending",
+      "sent": "Sent to Amazon",
+      "accepted": "Accepted",
+      "shipped": "Shipped",
+      "failed": "Failed",
+      "pendingRetry": "Pending Retry"
+    },
+    "shipment": {
+      "orderId": "Order ID",
+      "items": "Items",
+      "amazonOrderId": "Amazon Order ID",
+      "trackingNumbers": "Tracking Numbers",
+      "carrier": "Carrier",
+      "status": "Status",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "retry": "Retry Shipment",
+      "viewInShopify": "View in Shopify"
+    },
+    "status": {
+      "pending": "Pending",
+      "sent": "Sent to Amazon",
+      "accepted": "Accepted",
+      "shipped": "Shipped",
+      "failed": "Failed",
+      "pendingRetry": "Pending Retry"
+    },
+    "empty": "No shipments found for the selected filter",
+    "failure": {
+      "title": "Shipment Failed",
+      "retry": "Retry Shipment",
+      "changeRoute": "Select Different Connection",
+      "openSettings": "Open Settings",
+      "howToFix": "How to Fix",
+      "OVERRIDE_CONNECTION_DISABLED": {
+        "title": "Override Connection Disabled",
+        "message": "Routing override points to a disabled connection.",
+        "fix": "Enable the connection in Settings or change the override to use an enabled connection."
+      },
+      "DESTINATION_CONNECTION_NOT_ENABLED": {
+        "title": "Destination Connection Not Enabled",
+        "message": "Destination is a marketplace country, but that connection is not enabled.",
+        "fix": "Enable the connection for this marketplace in Settings, or set an override to use a different enabled connection."
+      },
+      "NO_EU_ROUTE": {
+        "title": "No EU Route Configured",
+        "message": "No EU route is configured for this destination country.",
+        "fix": "Enable one of DE/FR/IT/ES connections and set it as the EU default in Settings, or add a specific override for this country."
+      },
+      "NO_US_ROUTE": {
+        "title": "US Connection Required",
+        "message": "US destination requires the US connection to be enabled.",
+        "fix": "Enable the US connection in Settings. The US connection is required for US domestic shipments."
+      },
+      "NO_JP_ROUTE": {
+        "title": "Japan Connection Required",
+        "message": "Japan destination requires the JP connection to be enabled.",
+        "fix": "Enable the JP (Japan) connection in Settings. The JP connection is required for Japan domestic shipments."
+      },
+      "DESTINATION_NOT_SUPPORTED": {
+        "title": "Destination Not Supported",
+        "message": "Destination country is not supported by your enabled MCF connections.",
+        "fix": "Enable a connection that covers this destination (US, JP, or DE/FR/IT/ES for EU) or set a specific country override in Settings."
+      },
+      "MAPPING_MISSING": {
+        "title": "Amazon SKU Missing",
+        "message": "Amazon SKU is missing for one or more items.",
+        "fix": "Go to Product Mapping and set the Amazon SKU for all FBA-enabled variants."
+      },
+      "AMAZON_API_ERROR": {
+        "title": "Amazon API Error",
+        "message": "Failed to communicate with Amazon MCF API.",
+        "fix": "Check your Amazon MCF connection credentials. If the issue persists, contact Amazon MCF support."
+      },
+      "CONNECTION_UNAVAILABLE": {
+        "title": "MCF Connection Unavailable",
+        "message": "The selected MCF connection is currently unavailable.",
+        "fix": "Check your Amazon MCF account status. You may need to re-connect the marketplace account."
+      },
+      "UNKNOWN_ERROR": {
+        "title": "Unknown Error",
+        "message": "An unexpected error occurred during fulfillment.",
+        "fix": "Please try retrying the shipment. If the issue persists, contact support."
+      }
+    },
+    "pendingRetry": {
+      "title": "Auto-Retry in Progress",
+      "message": "This shipment will be retried automatically. If all retries fail, it will be marked as FAILED.",
+      "retryCount": "Retry attempt {{count}} of 3"
+    },
+    "mixedOrder": {
+      "title": "Mixed Order - Partial Fulfillment",
+      "description": "MCF items were fulfilled by Amazon Connecter. Remaining items must be fulfilled separately (MFN) using your normal shipping process.",
+      "notice": "This order contains both MCF-fulfilled and MFN items.",
+      "mfnItemsTitle": "Remaining MFN Items (Manual Fulfillment Required)",
+      "mfnItemsDescription": "These items were not included in the Amazon MCF shipment and must be fulfilled manually.",
+      "noMfnItems": "No remaining MFN items."
+    }
+  },
+  "billing": {
+    "title": "Billing & Usage",
+    "subtitle": "View your usage and charges for this month",
+    "connectionFee": {
+      "title": "Connection Fees",
+      "description": "Monthly charge for enabled MCF connections. Separate from shipment-based charges.",
+      "enabledConnections": "Enabled Connections",
+      "monthlyFee": "Monthly Fee",
+      "perConnection": "per connection",
+      "maxConnections": "(max 5)"
+    },
+    "currentCycle": "Current Billing Cycle",
+    "usage": {
+      "totalShipments": "Total Shipments",
+      "freeRemaining": "Free Shipments Remaining",
+      "tier1Remaining": "Included in Base Plan",
+      "over200Count": "Over 200 Shipments",
+      "totalBilled": "Total Billed This Month"
+    },
+    "breakdown": {
+      "title": "Billing Breakdown",
+      "baseCharge": "Base Charge (Shipment #6)",
+      "over200Charges": "Over 200 Shipments",
+      "total": "Total"
+    },
+    "history": {
+      "title": "Usage History",
+      "month": "Month",
+      "shipments": "Shipments",
+      "charged": "Amount Billed"
+    },
+    "disclaimer": {
+      "title": "Billing Disclaimer",
+      "noReductions": "Note: Cancellations, returns, and refunds do NOT reduce your shipment count or any charges already applied for this monthly cycle."
+    },
+    "connectionDisclaimer": {
+      "title": "Connection Fees Notice",
+      "description": "Connection fees are billed monthly based on the number of enabled MCF connections. Changes take effect on the next billing cycle."
+    }
+  },
+  "errors": {
+    "generic": "An error occurred. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "shopifyConnection": "Failed to connect to Shopify. Please check your credentials.",
+    "amazonConnection": "Failed to connect to Amazon MCF. Please check your API credentials.",
+    "fetchProducts": "Failed to load products from Shopify.",
+    "saveProduct": "Failed to save product mapping.",
+    "fetchShipments": "Failed to load shipments.",
+    "retryShipment": "Failed to retry shipment to Amazon.",
+    "fetchBilling": "Failed to load billing information.",
+    "routingConfig": "Failed to load routing configuration.",
+    "routingSave": "Failed to save routing configuration.",
+    "testRouting": "Failed to test routing."
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to Amazon Connecter!",
+      "subtitle": "Streamline your fulfillment process by routing selected products through Amazon FBA",
+      "nextStep": "Next Step: Connect Your Accounts"
+    },
+    "steps": {
+      "title": "Get Started in 3 Steps",
+      "step1": {
+        "title": "Connect Shopify",
+        "description": "Authorize the app to access your Shopify store for order and fulfillment data."
+      },
+      "step2": {
+        "title": "Connect Amazon MCF",
+        "description": "Link your Amazon MCF account to handle fulfillment requests."
+      },
+      "step3": {
+        "title": "Map Your Products",
+        "description": "Select products and specify their Amazon SKUs to enable FBA fulfillment."
+      }
+    },
+    "documentation": {
+      "title": "Documentation",
+      "setup": "Setup Guide",
+      "api": "API Reference",
+      "support": "Support"
+    }
+  }
+}

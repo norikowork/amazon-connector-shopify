@@ -1,0 +1,328 @@
+{
+  "common": {
+    "appName": "Amazon Connecter",
+    "loading": "読み込み中...",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "retry": "再試行",
+    "delete": "削除",
+    "edit": "編集",
+    "search": "検索",
+    "filter": "フィルター",
+    "status": "ステータス",
+    "enabled": "有効",
+    "disabled": "無効",
+    "actions": "アクション",
+    "noData": "データがありません",
+    "error": "エラー",
+    "success": "成功"
+  },
+  "billingAlert": {
+    "title": "課金条件未同意",
+    "message": "アプリを使用するには課金条件に同意する必要があります。設定ページで条件に同意してください。",
+    "goToSettings": "設定へ移動"
+  },
+  "language": {
+    "title": "言語",
+    "english": "English",
+    "japanese": "日本語"
+  },
+  "nav": {
+    "settings": "設定",
+    "products": "商品マッピング",
+    "shipments": "出荷",
+    "billing": "課金と使用量"
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "Amazon Connecterの連携を設定します",
+    "routing": {
+      "title": "MCFルーティング設定",
+      "description": "配送先国に基づいてフルフィルメントに使用するAmazon MCF接続先を設定します。",
+      "enabledConnectionsTitle": "有効な接続先（最大5つ）",
+      "enabledConnectionsDescription": "MCFフルフィルメントで使用するAmazonマーケットプレイスアカウントを選択します。",
+      "connectionUS": "アメリカ合衆国 (US)",
+      "connectionJP": "日本 (JP)",
+      "connectionDE": "ドイツ (DE)",
+      "connectionFR": "フランス (FR)",
+      "connectionIT": "イタリア (IT)",
+      "connectionES": "スペイン (ES)",
+      "euDefaultTitle": "EUデフォルト接続先",
+      "euDefaultDescription": "特定のオーバーライドがないEU国に対し、この接続先（DE/FR/IT/ES）を使用します。有効にする必要があります。",
+      "overridesTitle": "国別オーバーライド",
+      "overridesDescription": "特定の配送先国に対して使用する接続先を指定します。オーバーライドはデフォルトより優先されます。",
+      "addOverrideRow": "+ オーバーライドを追加",
+      "destinationCountryPlaceholder": "国コード (例: NL, BE)",
+      "connectionPlaceholder": "接続先を選択",
+      "removeOverride": "削除",
+      "connectionFee": "接続料金",
+      "connectionFeeDescription": "有効なMCF接続先ごとに月額$20。出荷ごとの課金とは別です。",
+      "testRoutingTitle": "ルーティングテスト",
+      "testRoutingDescription": "配送先国を入力して、どのMCF接続先が使用されるかを確認します。",
+      "testRoutingPlaceholder": "国コードを入力 (例: US, JP, DE, NL)",
+      "testRoutingButton": "ルーティングテスト",
+      "testRoutingResult": "ルーティング結果",
+      "connection": "接続先",
+      "reason": "理由",
+      "save": "設定を保存",
+      "saveSuccess": "ルーティング設定を保存しました。",
+      "saveError": "設定の保存に失敗しました。",
+      "maxConnectionsError": "最大5つの接続先のみ許可されています。"
+    },
+    "shopify": {
+      "title": "Shopify連携",
+      "connected": "Shopifyに接続済み",
+      "disconnected": "Shopifyに未接続",
+      "shopDomain": "ショップドメイン",
+      "connect": "接続",
+      "disconnect": "切断"
+    },
+    "amazon": {
+      "title": "Amazon MCF連携",
+      "connected": "Amazon MCFに接続済み",
+      "disconnected": "Amazon MCFに未接続",
+      "apiKey": "APIキー",
+      "apiSecret": "APIシークレット",
+      "region": "リージョン",
+      "region_us": "アメリカ合衆国",
+      "region_jp": "日本",
+      "region_de": "ドイツ",
+      "region_fr": "フランス",
+      "region_it": "イタリア",
+      "region_es": "スペイン",
+      "connect": "接続",
+      "disconnect": "切断"
+    },
+    "billing": {
+      "title": "課金の確認",
+      "subtitle": "アプリを使用する前に、以下の利用規約を確認して同意してください。"
+    },
+    "billingDisclosure": {
+      "title": "課金条件",
+      "description": {
+        "intro": "このアプリはAmazon MCFを通じて処理された出荷数に基づいて課金されます：",
+        "free": "毎月の最初の5出荷：無料",
+        "tier1": "出荷6〜200回：月額$20の定額課金（6回目の出荷時に請求）",
+        "tier2": "出荷201回以降：追加出荷1回につき$0.50",
+        "important": {
+          "title": "重要なお知らせ",
+          "noReduction": "キャンセル、返品、退款は出荷数や課金金額を減額しません",
+          "chargesApply": "出荷が処理されると、その月のサイクル内で課金が適用されます",
+          "nonRefundable": "すべての請求は月間サイクル内で返金不可です"
+        },
+        "outro": "以下のチェックボックスをオンにすることで、課金条件を読み理解したことを確認します。"
+      },
+      "checkbox": "上記の課金条件に同意します",
+      "checkboxError": "続行するには課金条件に同意してください"
+    },
+    "locale": {
+      "title": "言語設定",
+      "autoDetect": "Shopify管理画面から自動検出",
+      "manual": "手動選択"
+    }
+  },
+  "products": {
+    "title": "商品マッピング",
+    "subtitle": "Amazon FBAでフルフィルメントする商品を設定します",
+    "helpText": "Amazon FBA在庫からフルフィルメントする商品を有効にします。各バリアントには対応するAmazon SKUが必要です。",
+    "variant": "バリアント",
+    "sku": "SKU",
+    "amazonSku": "Amazon SKU",
+    "inventory": "在庫",
+    "actions": "アクション",
+    "toggleEnabled": "FBAフルフィルメントの切り替え",
+    "amazonSkuPlaceholder": "Amazon SKUを入力",
+    "noProductsFound": "商品が見つかりません",
+    "searchPlaceholder": "商品名またはSKUで検索...",
+    "bulkActions": "一括操作",
+    "selectAll": "すべて選択",
+    "bulkEnable": "選択項目を有効化",
+    "bulkDisable": "選択項目を無効化"
+  },
+  "shipments": {
+    "title": "出荷",
+    "subtitle": "Amazonへのフルフィルメントリクエストを追跡・管理します",
+    "filters": {
+      "all": "すべて",
+      "pending": "保留中",
+      "sent": "送信済み",
+      "accepted": "受諾済み",
+      "shipped": "出荷済み",
+      "failed": "失敗",
+      "pendingRetry": "再試行保留中"
+    },
+    "shipment": {
+      "orderId": "注文ID",
+      "items": "商品",
+      "amazonOrderId": "Amazon注文ID",
+      "trackingNumbers": "追跡番号",
+      "carrier": "配送業者",
+      "status": "ステータス",
+      "createdAt": "作成日時",
+      "updatedAt": "更新日時",
+      "retry": "出荷を再試行",
+      "viewInShopify": "Shopifyで表示"
+    },
+    "status": {
+      "pending": "保留中",
+      "sent": "送信済み",
+      "accepted": "受諾済み",
+      "shipped": "出荷済み",
+      "failed": "失敗",
+      "pendingRetry": "再試行保留中"
+    },
+    "empty": "選択したフィルターで出荷が見つかりません",
+    "failure": {
+      "title": "出荷失敗",
+      "retry": "出荷を再試行",
+      "changeRoute": "別の接続先を選択",
+      "openSettings": "設定を開く",
+      "howToFix": "解決方法",
+      "OVERRIDE_CONNECTION_DISABLED": {
+        "title": "オーバーライド接続先が無効です",
+        "message": "ルーティングオーバーライドが無効な接続先を指しています。",
+        "fix": "設定で接続先を有効にするか、オーバーライドを変更して有効な接続先を使用してください。"
+      },
+      "DESTINATION_CONNECTION_NOT_ENABLED": {
+        "title": "配送先接続先が無効です",
+        "message": "配送先はマーケットプレイス国ですが、その接続先は有効ではありません。",
+        "fix": "設定でそのマーケットプレイスの接続先を有効にするか、有効な接続先を使用するオーバーライドを設定してください。"
+      },
+      "NO_EU_ROUTE": {
+        "title": "EUルートが設定されていません",
+        "message": "この配送先国に対してEUルートが設定されていません。",
+        "fix": "DE/FR/IT/ESの接続先の1つを有効にして設定でEUデフォルトとして設定するか、この国に特定のオーバーライドを追加してください。"
+      },
+      "NO_US_ROUTE": {
+        "title": "US接続先が必要です",
+        "message": "米国向けの配送にはUS接続先を有効にする必要があります。",
+        "fix": "設定でUS接続先を有効にしてください。US接続先は米国内の出荷に必要です。"
+      },
+      "NO_JP_ROUTE": {
+        "title": "日本接続先が必要です",
+        "message": "日本向けの配送にはJP接続先を有効にする必要があります。",
+        "fix": "設定でJP（日本）接続先を有効にしてください。JP接続先は日本国内の出荷に必要です。"
+      },
+      "DESTINATION_NOT_SUPPORTED": {
+        "title": "配送先がサポートされていません",
+        "message": "配送先国は有効なMCF接続先でサポートされていません。",
+        "fix": "この配送先をカバーする接続先（US、JP、またはEU用のDE/FR/IT/ES）を有効にするか、設定で特定の国オーバーライドを設定してください。"
+      },
+      "MAPPING_MISSING": {
+        "title": "Amazon SKUが見つかりません",
+        "message": "1つ以上の商品のAmazon SKUが見つかりません。",
+        "fix": "商品マッピングに移動し、FBAが有効なすべてのバリアントのAmazon SKUを設定してください。"
+      },
+      "AMAZON_API_ERROR": {
+        "title": "Amazon APIエラー",
+        "message": "Amazon MCF APIとの通信に失敗しました。",
+        "fix": "Amazon MCF接続認証情報を確認してください。問題が続く場合は、Amazon MCFサポートにお問い合わせください。"
+      },
+      "CONNECTION_UNAVAILABLE": {
+        "title": "MCF接続先が利用できません",
+        "message": "選択されたMCF接続先は現在利用できません。",
+        "fix": "Amazon MCFアカウントのステータスを確認してください。マーケットプレイスアカウントの再接続が必要な場合があります。"
+      },
+      "UNKNOWN_ERROR": {
+        "title": "不明なエラー",
+        "message": "フルフィルメント中に予期しないエラーが発生しました。",
+        "fix": "出荷の再試行を行ってください。問題が続く場合は、サポートにお問い合わせください。"
+      }
+    },
+    "pendingRetry": {
+      "title": "自動再試行中",
+      "message": "この出荷は自動的に再試行されます。すべての再試行が失敗した場合、失敗としてマークされます。",
+      "retryCount": "再試行 {{count}} / 3"
+    },
+    "mixedOrder": {
+      "title": "混合注文 - 部分フルフィルメント",
+      "description": "MCF商品はAmazon Connecterによってフルフィルメントされました。残りの商品は（MFNとして）通常の出荷プロセスで別途フルフィルメントする必要があります。",
+      "notice": "この注文にはMCFフルフィルメント商品とMFN商品の両方が含まれています。",
+      "mfnItemsTitle": "残りのMFN商品（手動フルフィルメントが必要）",
+      "mfnItemsDescription": "これらの商品はAmazon MCF出荷に含まれておらず、手動でフルフィルメントする必要があります。",
+      "noMfnItems": "残りのMFN商品はありません。"
+    }
+  },
+  "billing": {
+    "title": "課金と使用量",
+    "subtitle": "今月の使用量と請求額を表示します",
+    "connectionFee": {
+      "title": "接続料金",
+      "description": "有効なMCF接続先に対する月額料金。出荷ごとの課金とは別です。",
+      "enabledConnections": "有効な接続先",
+      "monthlyFee": "月額料金",
+      "perConnection": "接続先ごと",
+      "maxConnections": "（最大5つ）"
+    },
+    "currentCycle": "現在の請求サイクル",
+    "usage": {
+      "totalShipments": "総出荷数",
+      "freeRemaining": "無料残り出荷数",
+      "tier1Remaining": "基本プランに含まれる",
+      "over200Count": "200出荷超過",
+      "totalBilled": "今月の総請求額"
+    },
+    "breakdown": {
+      "title": "請求内訳",
+      "baseCharge": "基本料金（6回目出荷時）",
+      "over200Charges": "200出荷超過分",
+      "total": "合計"
+    },
+    "history": {
+      "title": "使用履歴",
+      "month": "月",
+      "shipments": "出荷数",
+      "charged": "請求額"
+    },
+    "disclaimer": {
+      "title": "課金免責事項",
+      "noReductions": "注：キャンセル、返品、退款は、当月のサイクルで既に適用された出荷数や課金金額を減額しません。"
+    },
+    "connectionDisclaimer": {
+      "title": "接続料金に関するお知らせ",
+      "description": "接続料金は有効なMCF接続先の数に基づいて毎月請求されます。変更は次の請求サイクルから適用されます。"
+    }
+  },
+  "errors": {
+    "generic": "エラーが発生しました。もう一度お試しください。",
+    "network": "ネットワークエラー。接続を確認してください。",
+    "shopifyConnection": "Shopifyへの接続に失敗しました。認証情報を確認してください。",
+    "amazonConnection": "Amazon MCFへの接続に失敗しました。API認証情報を確認してください。",
+    "fetchProducts": "Shopifyから商品の読み込みに失敗しました。",
+    "saveProduct": "商品マッピングの保存に失敗しました。",
+    "fetchShipments": "出荷情報の読み込みに失敗しました。",
+    "retryShipment": "Amazonへの出荷再試行に失敗しました。",
+    "fetchBilling": "課金情報の読み込みに失敗しました。",
+    "routingConfig": "ルーティング設定の読み込みに失敗しました。",
+    "routingSave": "ルーティング設定の保存に失敗しました。",
+    "testRouting": "ルーティングテストに失敗しました。"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Amazon Connecterへようこそ！",
+      "subtitle": "選択した商品をAmazon FBA経由でルーティングして、フルフィルメントプロセスを効率化します",
+      "nextStep": "次のステップ：アカウントを接続"
+    },
+    "steps": {
+      "title": "3ステップで始めましょう",
+      "step1": {
+        "title": "Shopifyを接続",
+        "description": "注文とフルフィルメントデータにアクセスする権限をアプリに付与します。"
+      },
+      "step2": {
+        "title": "Amazon MCFを接続",
+        "description": "フルフィルメントリクエストを処理するためのAmazon MCFアカウントにリンクします。"
+      },
+      "step3": {
+        "title": "商品をマッピング",
+        "description": "商品を選択してAmazon SKUを指定し、FBAフルフィルメントを有効にします。"
+      }
+    },
+    "documentation": {
+      "title": "ドキュメント",
+      "setup": "セットアップガイド",
+      "api": "APIリファレンス",
+      "support": "サポート"
+    }
+  }
+}
