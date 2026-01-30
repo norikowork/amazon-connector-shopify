@@ -1,6 +1,6 @@
 # API Contract - Amazon Connector
 
-OpenAPI 3.0 specification for Amazon Connecter backend API.
+OpenAPI 3.0 specification for Amazon Connector backend API.
 
 ```yaml
 openapi: 3.0.0
