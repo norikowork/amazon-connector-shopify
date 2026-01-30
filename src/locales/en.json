@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Amazon Connecter",
+    "appName": "Amazon Connector",
     "loading": "Loading...",
     "save": "Save",
     "cancel": "Cancel",
@@ -35,7 +35,7 @@
   },
   "settings": {
     "title": "Settings",
-    "subtitle": "Configure your Amazon Connecter integration",
+    "subtitle": "Configure your Amazon Connector integration",
     "routing": {
       "title": "MCF Routing Configuration",
       "description": "Configure which Amazon MCF connections to use for fulfillment based on destination country.",
@@ -236,7 +236,7 @@
     },
     "mixedOrder": {
       "title": "Mixed Order - Partial Fulfillment",
-      "description": "MCF items were fulfilled by Amazon Connecter. Remaining items must be fulfilled separately (MFN) using your normal shipping process.",
+      "description": "MCF items were fulfilled by Amazon Connector. Remaining items must be fulfilled separately (MFN) using your normal shipping process.",
       "notice": "This order contains both MCF-fulfilled and MFN items.",
       "mfnItemsTitle": "Remaining MFN Items (Manual Fulfillment Required)",
       "mfnItemsDescription": "These items were not included in the Amazon MCF shipment and must be fulfilled manually.",
@@ -299,7 +299,7 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "Welcome to Amazon Connecter!",
+      "title": "Welcome to Amazon Connector!",
       "subtitle": "Streamline your fulfillment process by routing selected products through Amazon FBA",
       "nextStep": "Next Step: Connect Your Accounts"
     },
