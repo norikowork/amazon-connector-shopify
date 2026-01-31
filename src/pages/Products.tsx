@@ -101,6 +101,20 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
       return;
     }
     
+    // Check if trying to enable (not disable)
+    if (!product.enabled) {
+      // Check free tier limit
+      const limitCheck = await mockApi.checkFreeTierLimit();
+      if (limitCheck.limitReached || !limitCheck.canCreateShipment) {
+        toast({
+          title: t("billing.freeTier.limitReached"),
+          description: t("billing.freeTier.cannotCreateShipment"),
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+    
     // Warn if trying to enable a product without Amazon SKU
     if (!product.enabled && (!product.amazonSku || product.amazonSku.trim() === "")) {
       toast({

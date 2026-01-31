@@ -129,6 +129,9 @@ export interface BillingUsage {
   baseChargeAmount: number;
   over200Charges: number;
   totalBilled: number;
+  plan: "free" | "pro"; // Current plan
+  isFreeTierLimitReached: boolean; // True if free tier limit (5 shipments) is reached
+  canCreateShipment: boolean; // True if user can create new shipments
 }
 
 // Routing configuration per shop
@@ -174,6 +177,8 @@ export interface AppSettings {
   billing: {
     acknowledged: boolean;
     acknowledgedAt?: string;
+    plan: "free" | "pro"; // Free tier or Pro plan
+    proActivatedAt?: string; // When Pro plan was activated
   };
   routing: RoutingConfig;
   locale?: "en" | "ja";
@@ -185,6 +190,7 @@ const TIER1_SHIPMENTS_LIMIT = 200;
 const BASE_CHARGE_AMOUNT = 20; // $20
 const OVER200_CHARGE = 0.5; // $0.50 per shipment
 const CONNECTION_FEE_PER_CONNECTION = 14.99; // $14.99 per enabled connection
+const PRO_PLAN_MONTHLY_FEE = 14; // $14 per month for Pro plan
 
 // MCF ROUTING ALGORITHM (Deterministic)
 export function calculateRouting(
@@ -473,7 +479,7 @@ export function generateMockShipments(count: number = 25): Shipment[] {
   return shipments.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }
 
-export function calculateBilling(totalShipments: number): BillingUsage {
+export function calculateBilling(totalShipments: number, plan: "free" | "pro" = "free"): BillingUsage {
   const now = new Date();
   const cycleMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
   
@@ -486,6 +492,10 @@ export function calculateBilling(totalShipments: number): BillingUsage {
   const over200Charges = over200Count * OVER200_CHARGE;
   const totalBilled = baseChargeAmount + over200Charges;
   
+  // Free tier limit check
+  const isFreeTierLimitReached = plan === "free" && totalShipments >= FREE_SHIPMENTS_LIMIT;
+  const canCreateShipment = plan === "pro" || totalShipments < FREE_SHIPMENTS_LIMIT;
+  
   return {
     cycleMonth,
     totalShipments,
@@ -496,6 +506,9 @@ export function calculateBilling(totalShipments: number): BillingUsage {
     baseChargeAmount,
     over200Charges,
     totalBilled,
+    plan,
+    isFreeTierLimitReached,
+    canCreateShipment,
   };
 }
 
@@ -524,6 +537,7 @@ export const mockAppSettings: AppSettings = {
   },
   billing: {
     acknowledged: false,
+    plan: "free",
   },
   routing: DEFAULT_ROUTING_CONFIG,
   locale: undefined,
@@ -665,7 +679,31 @@ export const mockApi = {
     const eligibleCount = mockShipments.filter(s => 
       s.status === "accepted" || s.status === "shipped"
     ).length;
-    return calculateBilling(eligibleCount);
+    return calculateBilling(eligibleCount, mockSettings.billing.plan);
+  },
+  
+  upgradeToPro: async (): Promise<AppSettings> => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    mockSettings.billing = {
+      ...mockSettings.billing,
+      plan: "pro",
+      proActivatedAt: new Date().toISOString(),
+    };
+    return { ...mockSettings };
+  },
+  
+  checkFreeTierLimit: async (): Promise<{ limitReached: boolean; canCreateShipment: boolean; currentShipments: number }> => {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    const eligibleCount = mockShipments.filter(s => 
+      s.status === "accepted" || s.status === "shipped"
+    ).length;
+    const isFreeTier = mockSettings.billing.plan === "free";
+    const limitReached = isFreeTier && eligibleCount >= FREE_SHIPMENTS_LIMIT;
+    return {
+      limitReached,
+      canCreateShipment: !isFreeTier || eligibleCount < FREE_SHIPMENTS_LIMIT,
+      currentShipments: eligibleCount,
+    };
   },
   
   getConnectionFee: async (): Promise<ConnectionFee> => {
@@ -692,6 +730,27 @@ export const mockApi = {
   
   simulateWebhook: async (orderPayload: Record<string, unknown>): Promise<Shipment> => {
     await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // Check free tier limit before processing
+    const eligibleCount = mockShipments.filter(s => 
+      s.status === "accepted" || s.status === "shipped"
+    ).length;
+    const isFreeTier = mockSettings.billing.plan === "free";
+    
+    // Check if this shipment will exceed the free tier limit
+    const willExceedLimit = isFreeTier && eligibleCount >= FREE_SHIPMENTS_LIMIT;
+    
+    if (willExceedLimit && eligibleCount === FREE_SHIPMENTS_LIMIT) {
+      // This is the 5th shipment that reaches the limit - send email notification
+      console.log("[Free Tier] Limit reached! Sending email notification...");
+      // In production, this would call the edge function to send email
+      // For now, we'll just log it
+      console.log("[Free Tier] Email would be sent to:", mockSettings.shopify.shopDomain);
+    }
+    
+    if (isFreeTier && eligibleCount >= FREE_SHIPMENTS_LIMIT) {
+      throw new Error("Free tier limit reached. Upgrade to Pro to continue fulfilling orders.");
+    }
     
     const allLineItems = orderPayload.line_items as Array<Record<string, unknown>> || [];
     

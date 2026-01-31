@@ -238,6 +238,18 @@ const enTranslations = {
     title: "Billing & Usage",
     subtitle: "View your usage and charges for this month",
     currentCycle: "Current Billing Cycle",
+    plan: {
+      free: "Free Plan",
+      pro: "Pro Plan"
+    },
+    freeTier: {
+      limitReached: "Free Tier Limit Reached",
+      limitReachedDescription: "You have used all 5 free shipments for this month. Upgrade to Pro to continue fulfilling orders.",
+      cannotCreateShipment: "Cannot create new shipments on free tier. Please upgrade to Pro.",
+      shipmentsUsed: "You've used {count}/5 free shipments this month.",
+      upgradeToPro: "Upgrade to Pro",
+      upgradeToProDescription: "Get unlimited shipments for just $14/month"
+    },
     usage: {
       totalShipments: "Total Shipments",
       freeRemaining: "Free Shipments Remaining",
@@ -271,6 +283,20 @@ const enTranslations = {
     connectionDisclaimer: {
       title: "Connection Fee Disclosure",
       description: "Connection fees are charged monthly for each enabled MCF connection, regardless of usage. These fees are separate from per-shipment charges and are non-refundable within the billing cycle. When you add a connection, you are charged immediately for the current month. When you remove a connection, the reduced fee applies starting from the next billing cycle."
+    },
+    proPlan: {
+      title: "Upgrade to Pro Plan",
+      description: "Get unlimited monthly shipments for just $14/month. No more limits!",
+      features: [
+        "Unlimited shipments per month",
+        "No free tier restrictions",
+        "Priority support",
+        "Advanced analytics"
+      ],
+      buttonText: "Upgrade to Pro - $14/month",
+      currentPlan: "Current Plan",
+      upgradeSuccess: "Successfully upgraded to Pro Plan!",
+      upgradeError: "Failed to upgrade. Please try again."
     }
   },
   billingAlert: {
@@ -636,6 +662,18 @@ const jaTranslations = {
     title: "課金と使用量",
     subtitle: "今月の使用量と請求額を表示します",
     currentCycle: "現在の請求サイクル",
+    plan: {
+      free: "無料プラン",
+      pro: "Proプラン"
+    },
+    freeTier: {
+      limitReached: "無料枠に達しました",
+      limitReachedDescription: "今月の5回の無料出荷をすべて使用しました。注文のフルフィルメントを続けるにはProにアップグレードしてください。",
+      cannotCreateShipment: "無料プランでは新しい出荷を作成できません。Proにアップグレードしてください。",
+      shipmentsUsed: "今月{count}回/5回の無料出荷を使用しました。",
+      upgradeToPro: "Proにアップグレード",
+      upgradeToProDescription: "月額$14で無制限の出荷"
+    },
     usage: {
       totalShipments: "総出荷数",
       freeRemaining: "無料残り出荷数",
@@ -669,6 +707,20 @@ const jaTranslations = {
     connectionDisclaimer: {
       title: "接続料金に関する開示",
       description: "接続料金は、有効なMCF接続先ごとに每月課金され、使用量に関係なく適用されます。これらの料金は出荷ごとの課金とは別であり、請求サイクル内では返金不可です。接続を追加すると、当月の料金が即座に請求されます。接続を削除すると、削減された料金は翌請求サイクルから適用されます。"
+    },
+    proPlan: {
+      title: "Proプランにアップグレード",
+      description: "月額$14で無制限の月間出荷。もう制限はありません！",
+      features: [
+        "毎月無制限の出荷",
+        "無料枠の制限なし",
+        "優先サポート",
+        "高度な分析"
+      ],
+      buttonText: "Proにアップグレード - 月額$14",
+      currentPlan: "現在のプラン",
+      upgradeSuccess: "Proプランへのアップグレードが成功しました！",
+      upgradeError: "アップグレードに失敗しました。もう一度お試しください。"
     }
   },
   billingAlert: {
