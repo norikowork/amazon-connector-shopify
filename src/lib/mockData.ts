@@ -18,6 +18,13 @@ export interface AmazonMcfCredentials {
   displayableComments?: string; // Custom message for Shopify orders
 }
 
+// Sync settings for Amazon-Shopify integration
+export interface SyncSettings {
+  syncPrice: boolean; // Sync prices from Amazon to Shopify
+  syncInventory: boolean; // Sync inventory from Amazon FBA to Shopify
+  autoSync: boolean; // Enable automatic sync at regular intervals
+}
+
 // Failure codes for routing and configuration issues
 export type FailureCode =
   | "OVERRIDE_CONNECTION_DISABLED"
@@ -163,6 +170,7 @@ export interface AppSettings {
     region: McfConnection;
     credentials?: AmazonMcfCredentials;
   };
+  sync?: SyncSettings; // Optional sync settings for price/inventory
   billing: {
     acknowledged: boolean;
     acknowledgedAt?: string;

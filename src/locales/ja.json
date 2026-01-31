@@ -111,6 +111,22 @@
         "placeholder": "カスタムメッセージを入力（オプション）",
         "help": "このメッセージはShopify注文詳細とフルフィルメントノートに表示されます。",
         "example": "例：'Amazon FBAによりフルフィルメントされました'"
+      },
+      "sync": {
+        "title": "同期設定",
+        "description": "AmazonとShopifyのデータが自動的に同期される方法を設定します。",
+        "syncPrice": {
+          "label": "価格を同期",
+          "description": "Amazonの価格でShopify商品価格を自動更新します。"
+        },
+        "syncInventory": {
+          "label": "在庫を同期",
+          "description": "Amazon FBAの在庫レベルでShopify在庫を自動更新します。"
+        },
+        "autoSync": {
+          "label": "自動同期",
+          "description": "定期的に自動同期を有効にします。"
+        }
       }
     },
     "billing": {

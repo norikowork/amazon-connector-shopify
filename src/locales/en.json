@@ -111,6 +111,22 @@
         "placeholder": "Enter your custom message (optional)",
         "help": "This message will appear in the Shopify order details and fulfillment notes.",
         "example": "Example: 'Fulfilled by Amazon FBA'"
+      },
+      "sync": {
+        "title": "Sync Settings",
+        "description": "Configure how Amazon and Shopify data stays synchronized.",
+        "syncPrice": {
+          "label": "Sync Price",
+          "description": "Automatically update Shopify product prices from Amazon."
+        },
+        "syncInventory": {
+          "label": "Sync Inventory",
+          "description": "Automatically update Shopify inventory levels from Amazon FBA."
+        },
+        "autoSync": {
+          "label": "Auto Sync",
+          "description": "Enable automatic synchronization at regular intervals."
+        }
       }
     },
     "billing": {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/lib/i18n";
-import { mockApi, AppSettings, RoutingConfig, McfConnection, calculateConnectionFee, RoutingDecision, AmazonMcfCredentials } from "@/lib/mockData";
+import { mockApi, AppSettings, RoutingConfig, McfConnection, calculateConnectionFee, RoutingDecision, AmazonMcfCredentials, SyncSettings } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +34,11 @@ function AmazonConnectionSettings() {
     connected: false,
     testStatus: "none",
   });
+  const [syncSettings, setSyncSettings] = useState<SyncSettings>({
+    syncPrice: false,
+    syncInventory: false,
+    autoSync: false,
+  });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
@@ -50,6 +55,11 @@ function AmazonConnectionSettings() {
         region: "US",
         connected: false,
         testStatus: "none",
+      });
+      setSyncSettings(settings.sync || {
+        syncPrice: false,
+        syncInventory: false,
+        autoSync: false,
       });
     } catch (error) {
       toast({
@@ -70,6 +80,7 @@ function AmazonConnectionSettings() {
           region: credentials.region,
           credentials: credentials,
         },
+        sync: syncSettings,
       });
       toast({
         title: t("common.success"),
@@ -256,6 +267,70 @@ function AmazonConnectionSettings() {
           </p>
         </div>
 
+        {/* Sync Settings */}
+        <div className="space-y-4 pt-4 border-t">
+          <div>
+            <h4 className="font-semibold flex items-center gap-2">
+              <Server className="w-4 h-4" />
+              {t("settings.amazon.sync.title")}
+            </h4>
+            <p className="text-sm text-muted-foreground mt-1">
+              {t("settings.amazon.sync.description")}
+            </p>
+          </div>
+
+          {/* Sync Price */}
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="sync-price" className="cursor-pointer">
+                {t("settings.amazon.sync.syncPrice.label")}
+              </Label>
+              <p className="text-xs text-muted-foreground">
+                {t("settings.amazon.sync.syncPrice.description")}
+              </p>
+            </div>
+            <Switch
+              id="sync-price"
+              checked={syncSettings.syncPrice}
+              onCheckedChange={(checked) => setSyncSettings({ ...syncSettings, syncPrice: checked })}
+            />
+          </div>
+
+          {/* Sync Inventory */}
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="sync-inventory" className="cursor-pointer">
+                {t("settings.amazon.sync.syncInventory.label")}
+              </Label>
+              <p className="text-xs text-muted-foreground">
+                {t("settings.amazon.sync.syncInventory.description")}
+              </p>
+            </div>
+            <Switch
+              id="sync-inventory"
+              checked={syncSettings.syncInventory}
+              onCheckedChange={(checked) => setSyncSettings({ ...syncSettings, syncInventory: checked })}
+            />
+          </div>
+
+          {/* Auto Sync */}
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="auto-sync" className="cursor-pointer">
+                {t("settings.amazon.sync.autoSync.label")}
+              </Label>
+              <p className="text-xs text-muted-foreground">
+                {t("settings.amazon.sync.autoSync.description")}
+              </p>
+            </div>
+            <Switch
+              id="auto-sync"
+              checked={syncSettings.autoSync}
+              onCheckedChange={(checked) => setSyncSettings({ ...syncSettings, autoSync: checked })}
+            />
+          </div>
+        </div>
+
         {/* Test Status */}
         {credentials.testStatus !== "none" && (
           <div className={`p-3 rounded-lg border-2 text-sm flex items-center gap-2 ${
@@ -301,12 +376,21 @@ function AmazonConnectionSettings() {
               </Button>
             </>
           ) : (
-            <Button
-              onClick={handleDisconnect}
-              variant="outline"
-            >
-              {t("settings.amazon.disconnect")}
-            </Button>
+            <>
+              <Button
+                onClick={handleSaveCredentials}
+                disabled={saving}
+                variant="outline"
+              >
+                {saving ? t("common.loading") : t("common.save")}
+              </Button>
+              <Button
+                onClick={handleDisconnect}
+                variant="outline"
+              >
+                {t("settings.amazon.disconnect")}
+              </Button>
+            </>
           )}
         </div>
       </CardContent>
