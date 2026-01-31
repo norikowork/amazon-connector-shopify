@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/lib/i18n";
-import { mockApi, AppSettings, RoutingConfig, McfConnection, calculateConnectionFee, RoutingDecision } from "@/lib/mockData";
+import { mockApi, AppSettings, RoutingConfig, McfConnection, calculateConnectionFee, RoutingDecision, AmazonMcfCredentials } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign } from "lucide-react";
+import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign, Key, Lock, Server } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // MCF Connection Options
@@ -19,7 +19,278 @@ const MCF_CONNECTIONS: { value: McfConnection; label: string }[] = [
   { value: "FR", label: "France (FR)" },
   { value: "IT", label: "Italy (IT)" },
   { value: "ES", label: "Spain (ES)" },
+  { value: "CA", label: "Canada (CA)" },
+  { value: "UK", label: "United Kingdom (UK)" },
+  { value: "AU", label: "Australia (AU)" },
 ];
+
+// Amazon MCF Connection Component
+function AmazonConnectionSettings() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [credentials, setCredentials] = useState<AmazonMcfCredentials>({
+    region: "US",
+    connected: false,
+    testStatus: "none",
+  });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
+
+  useEffect(() => {
+    loadCredentials();
+    /* eslint-disable react-hooks/exhaustive-deps */
+  }, []);
+
+  const loadCredentials = async () => {
+    try {
+      const settings = await mockApi.getSettings();
+      setCredentials(settings.amazon.credentials || {
+        region: "US",
+        connected: false,
+        testStatus: "none",
+      });
+    } catch (error) {
+      toast({
+        title: t("errors.amazonConnection"),
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSaveCredentials = async () => {
+    setSaving(true);
+    try {
+      await mockApi.updateSettings({
+        amazon: {
+          connected: !!(credentials.sellerId && credentials.developerId && credentials.authToken),
+          region: credentials.region,
+          credentials: credentials,
+        },
+      });
+      toast({
+        title: t("common.success"),
+      });
+    } catch (error) {
+      toast({
+        title: t("errors.generic"),
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleTestConnection = async () => {
+    setTesting(true);
+    try {
+      // Simulate connection test
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const success = !!(credentials.sellerId && credentials.developerId && credentials.authToken);
+      
+      setCredentials({
+        ...credentials,
+        testStatus: success ? "success" : "failed",
+        lastTested: new Date().toISOString(),
+      });
+      
+      if (success) {
+        toast({
+          title: t("settings.amazon.connectionSuccess"),
+        });
+      } else {
+        toast({
+          title: t("settings.amazon.connectionFailed"),
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: t("settings.amazon.connectionFailed"),
+        variant: "destructive",
+      });
+    } finally {
+      setTesting(false);
+    }
+  };
+
+  const handleDisconnect = async () => {
+    setCredentials({
+      region: "US",
+      connected: false,
+      testStatus: "none",
+    });
+    toast({
+      title: t("settings.amazon.disconnected"),
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">{t("common.loading")}</p>
+      </div>
+    );
+  }
+
+  const isConnected = credentials.connected;
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Server className="w-5 h-5" />
+            <div>
+              <CardTitle>{t("settings.amazon.title")}</CardTitle>
+              <CardDescription>{t("settings.amazon.description")}</CardDescription>
+            </div>
+          </div>
+          <Badge variant={isConnected ? "default" : "secondary"}>
+            {isConnected ? (
+              <>
+                <CheckCircle2 className="w-3 mr-1" />
+                {t("settings.amazon.connected")}
+              </>
+            ) : (
+              <>
+                <XCircle className="w-3 mr-1" />
+                {t("settings.amazon.disconnected")}
+              </>
+            )}
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {/* Region Selection */}
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <Server className="w-4 h-4" />
+            {t("settings.amazon.region")}
+          </Label>
+          <Select
+            value={credentials.region}
+            onValueChange={(val) => setCredentials({ ...credentials, region: val as McfConnection })}
+            disabled={isConnected}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {MCF_CONNECTIONS.map((conn) => (
+                <SelectItem key={conn.value} value={conn.value}>
+                  {conn.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Seller ID */}
+        <div className="space-y-2">
+          <Label htmlFor="seller-id" className="flex items-center gap-2">
+            <Key className="w-4 h-4" />
+            {t("settings.amazon.sellerId")}
+          </Label>
+          <Input
+            id="seller-id"
+            value={credentials.sellerId || ""}
+            onChange={(e) => setCredentials({ ...credentials, sellerId: e.target.value })}
+            placeholder={t("settings.amazon.sellerIdPlaceholder")}
+            disabled={isConnected}
+          />
+        </div>
+
+        {/* Developer ID */}
+        <div className="space-y-2">
+          <Label htmlFor="developer-id" className="flex items-center gap-2">
+            <Key className="w-4 h-4" />
+            {t("settings.amazon.developerId")}
+          </Label>
+          <Input
+            id="developer-id"
+            value={credentials.developerId || ""}
+            onChange={(e) => setCredentials({ ...credentials, developerId: e.target.value })}
+            placeholder={t("settings.amazon.developerIdPlaceholder")}
+            disabled={isConnected}
+          />
+        </div>
+
+        {/* Auth Token */}
+        <div className="space-y-2">
+          <Label htmlFor="auth-token" className="flex items-center gap-2">
+            <Lock className="w-4 h-4" />
+            {t("settings.amazon.authToken")}
+          </Label>
+          <Input
+            id="auth-token"
+            type="password"
+            value={credentials.authToken || ""}
+            onChange={(e) => setCredentials({ ...credentials, authToken: e.target.value })}
+            placeholder={t("settings.amazon.authTokenPlaceholder")}
+            disabled={isConnected}
+          />
+        </div>
+
+        {/* Test Status */}
+        {credentials.testStatus !== "none" && (
+          <div className={`p-3 rounded-lg border-2 text-sm flex items-center gap-2 ${
+            credentials.testStatus === "success"
+              ? "border-green-500 bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400"
+              : "border-red-500 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400"
+          }`}>
+            {credentials.testStatus === "success" ? (
+              <CheckCircle2 className="w-4 h-4" />
+            ) : (
+              <XCircle className="w-4 h-4" />
+            )}
+            <span>
+              {credentials.testStatus === "success" 
+                ? t("settings.amazon.connectionSuccess") 
+                : t("settings.amazon.connectionFailed")}
+              {credentials.lastTested && ` (${new Date(credentials.lastTested).toLocaleString()})`}
+            </span>
+          </div>
+        )}
+
+        {/* Help Text */}
+        <div className="p-3 bg-muted rounded-lg text-sm text-muted-foreground">
+          {t("settings.amazon.credentialsHelp")}
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-3 pt-4 border-t">
+          {!isConnected ? (
+            <>
+              <Button
+                onClick={handleTestConnection}
+                disabled={testing || !credentials.sellerId || !credentials.developerId || !credentials.authToken}
+                variant="outline"
+              >
+                {testing ? t("settings.amazon.testing") : t("settings.amazon.testConnection")}
+              </Button>
+              <Button
+                onClick={handleSaveCredentials}
+                disabled={saving || !credentials.sellerId || !credentials.developerId || !credentials.authToken}
+              >
+                {saving ? t("common.loading") : t("settings.amazon.connect")}
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={handleDisconnect}
+              variant="outline"
+            >
+              {t("settings.amazon.disconnect")}
+            </Button>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 function RoutingConfiguration() {
   const { t } = useTranslation();
@@ -492,6 +763,9 @@ export function SettingsPage() {
           )}
         </CardContent>
       </Card>
+
+      {/* Amazon MCF Connection */}
+      <AmazonConnectionSettings />
 
       {/* MCF Routing Configuration */}
       <RoutingConfiguration />

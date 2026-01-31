@@ -4,7 +4,18 @@
 export type ShipmentStatus = "pending" | "sent" | "accepted" | "shipped" | "failed" | "pending_retry";
 
 // MCF Connection types (marketplace/account credentials)
-export type McfConnection = "US" | "JP" | "DE" | "FR" | "IT" | "ES";
+export type McfConnection = "US" | "JP" | "DE" | "FR" | "IT" | "ES" | "CA" | "UK" | "AU";
+
+// Amazon MCF connection credentials per region
+export interface AmazonMcfCredentials {
+  region: McfConnection;
+  sellerId?: string;
+  developerId?: string;
+  authToken?: string;
+  connected: boolean;
+  lastTested?: string;
+  testStatus?: "success" | "failed" | "none";
+}
 
 // Failure codes for routing and configuration issues
 export type FailureCode =
@@ -148,9 +159,8 @@ export interface AppSettings {
   };
   amazon: {
     connected: boolean;
-    region: "US" | "JP" | "DE" | "FR" | "IT" | "ES";
-    apiKey?: string;
-    apiSecret?: string;
+    region: McfConnection;
+    credentials?: AmazonMcfCredentials;
   };
   billing: {
     acknowledged: boolean;
@@ -611,6 +621,14 @@ export const mockApi = {
       ...mockSettings,
       ...updates,
     };
+    // Also update nested amazon.credentials if provided
+    if (updates.amazon?.credentials) {
+      mockSettings.amazon = {
+        ...mockSettings.amazon,
+        ...updates.amazon,
+        credentials: updates.amazon.credentials,
+      };
+    }
     return { ...mockSettings };
   },
   
