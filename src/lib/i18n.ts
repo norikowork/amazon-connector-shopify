@@ -82,8 +82,11 @@ const enTranslations = {
       connected: "Connected to Shopify",
       disconnected: "Not connected to Shopify",
       shopDomain: "Shop Domain",
+      shopDomainPlaceholder: "your-store.myshopify.com",
+      shopDomainHelp: "Enter your Shopify store domain (e.g., your-store.myshopify.com)",
       connect: "Connect",
-      disconnect: "Disconnect"
+      disconnect: "Disconnect",
+      connecting: "Connecting..."
     },
     amazon: {
       title: "Amazon MCF Connection",
@@ -473,8 +476,11 @@ const jaTranslations = {
       connected: "Shopifyに接続済み",
       disconnected: "Shopifyに未接続",
       shopDomain: "ショップドメイン",
+      shopDomainPlaceholder: "your-store.myshopify.com",
+      shopDomainHelp: "Shopifyストアドメインを入力してください（例：your-store.myshopify.com）",
       connect: "接続",
-      disconnect: "切断"
+      disconnect: "切断",
+      connecting: "接続中..."
     },
     amazon: {
       title: "Amazon MCF連携",
