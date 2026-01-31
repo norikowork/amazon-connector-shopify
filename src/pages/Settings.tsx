@@ -129,14 +129,36 @@ function AmazonConnectionSettings() {
   };
 
   const handleDisconnect = async () => {
-    setCredentials({
-      region: "US",
-      connected: false,
-      testStatus: "none",
-    });
-    toast({
-      title: t("settings.amazon.disconnected"),
-    });
+    setSaving(true);
+    try {
+      // Clear credentials and disconnect
+      const clearedCredentials: AmazonMcfCredentials = {
+        region: "US",
+        connected: false,
+        testStatus: "none",
+      };
+      
+      await mockApi.updateSettings({
+        amazon: {
+          connected: false,
+          region: "US",
+          credentials: clearedCredentials,
+        },
+        sync: syncSettings,
+      });
+      
+      setCredentials(clearedCredentials);
+      toast({
+        title: t("settings.amazon.disconnected"),
+      });
+    } catch (error) {
+      toast({
+        title: t("errors.generic"),
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
   };
 
   if (loading) {
@@ -811,10 +833,41 @@ export function SettingsPage() {
   };
 
   const handleConnectShopify = async () => {
-    toast({
-      title: t("settings.shopify.disconnected"),
-      description: "This would redirect to Shopify OAuth in production",
-    });
+    setSaving(true);
+    try {
+      if (settings?.shopify.connected) {
+        // Disconnect
+        await mockApi.updateSettings({
+          shopify: {
+            connected: false,
+            shopDomain: undefined,
+          },
+        });
+        setSettings({
+          ...settings!,
+          shopify: {
+            connected: false,
+            shopDomain: undefined,
+          },
+        });
+        toast({
+          title: t("settings.shopify.disconnected"),
+        });
+      } else {
+        // Connect (would redirect to Shopify OAuth in production)
+        toast({
+          title: t("settings.shopify.disconnected"),
+          description: "This would redirect to Shopify OAuth in production",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: t("errors.generic"),
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
   };
 
   if (loading || !settings) {
@@ -858,13 +911,13 @@ export function SettingsPage() {
                 <span className="text-sm text-muted-foreground">{t("settings.shopify.shopDomain")}</span>
                 <span className="font-medium">{settings.shopify.shopDomain || "Not set"}</span>
               </div>
-              <Button variant="outline" onClick={handleConnectShopify}>
-                {t("settings.shopify.disconnect")}
+              <Button variant="outline" onClick={handleConnectShopify} disabled={saving}>
+                {saving ? t("common.loading") : t("settings.shopify.disconnect")}
               </Button>
             </div>
           ) : (
-            <Button onClick={handleConnectShopify}>
-              {t("settings.shopify.connect")}
+            <Button onClick={handleConnectShopify} disabled={saving}>
+              {saving ? t("common.loading") : t("settings.shopify.connect")}
             </Button>
           )}
         </CardContent>
