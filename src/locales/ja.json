@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Amazon Connector",
+    "appName": "Amazon Connecter",
     "loading": "読み込み中...",
     "save": "保存",
     "cancel": "キャンセル",
@@ -35,7 +35,7 @@
   },
   "settings": {
     "title": "設定",
-    "subtitle": "Amazon Connectorの連携を設定します",
+    "subtitle": "Amazon Connecterの連携を設定します",
     "routing": {
       "title": "MCFルーティング設定",
       "description": "配送先国に基づいてフルフィルメントに使用するAmazon MCF接続先を設定します。",
@@ -236,7 +236,7 @@
     },
     "mixedOrder": {
       "title": "混合注文 - 部分フルフィルメント",
-      "description": "MCF商品はAmazon Connectorによってフルフィルメントされました。残りの商品は（MFNとして）通常の出荷プロセスで別途フルフィルメントする必要があります。",
+      "description": "MCF商品はAmazon Connecterによってフルフィルメントされました。残りの商品は（MFNとして）通常の出荷プロセスで別途フルフィルメントする必要があります。",
       "notice": "この注文にはMCFフルフィルメント商品とMFN商品の両方が含まれています。",
       "mfnItemsTitle": "残りのMFN商品（手動フルフィルメントが必要）",
       "mfnItemsDescription": "これらの商品はAmazon MCF出荷に含まれておらず、手動でフルフィルメントする必要があります。",
@@ -299,7 +299,7 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "Amazon Connectorへようこそ！",
+      "title": "Amazon Connecterへようこそ！",
       "subtitle": "選択した商品をAmazon FBA経由でルーティングして、フルフィルメントプロセスを効率化します",
       "nextStep": "次のステップ：アカウントを接続"
     },

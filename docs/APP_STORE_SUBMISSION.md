@@ -2,7 +2,7 @@
 
 ## App Identity
 
-**App Name:** Amazon Connector  
+**App Name:** Amazon Connecter  
 **Category:** Inventory & Order Management  
 **Supported Languages:** English, 日本語  
 **Target:** Shopify Admin embedded app
@@ -19,7 +19,7 @@ Streamline your fulfillment process by automatically routing selected products t
 
 ### Long Description
 
-**Amazon Connector** seamlessly integrates your Shopify store with Amazon FBA (Multi-Channel Fulfillment), allowing you to fulfill selected orders automatically through Amazon's vast fulfillment network.
+**Amazon Connecter** seamlessly integrates your Shopify store with Amazon FBA (Multi-Channel Fulfillment), allowing you to fulfill selected orders automatically through Amazon's vast fulfillment network.
 
 **Key Features:**
 
@@ -120,7 +120,7 @@ We request the minimum scopes necessary to provide our service:
 
 1. **Install the App**
    - Navigate to your Shopify test store's Apps section
-   - Search for "Amazon Connector"
+   - Search for "Amazon Connecter"
    - Click "Install" and authorize required scopes
 
 2. **Configure Amazon Connection** (Staging/Development)
@@ -249,7 +249,7 @@ We comply with GDPR and CCPA requirements. Merchants may request data deletion a
 ```
 BILLING STRUCTURE:
 
-Amazon Connector charges based on shipments processed through Amazon MCF:
+Amazon Connecter charges based on shipments processed through Amazon MCF:
 
 ● First 5 shipments each month: FREE
 ● Shipments 6-200: $20 flat fee per month (charged at shipment #6)
@@ -279,7 +279,7 @@ Example billing breakdown:
 
 ### Long Description
 
-**Amazon Connector**は、ShopifyストアとAmazon FBA（マルチチャネルフルフィルメント）をシームレスに統合し、選択した注文をAmazonの広範なフルフィルメントネットワーク経由で自動的に履行できます。
+**Amazon Connecter**は、ShopifyストアとAmazon FBA（マルチチャネルフルフィルメント）をシームレスに統合し、選択した注文をAmazonの広範なフルフィルメントネットワーク経由で自動的に履行できます。
 
 **主な機能：**
 
@@ -509,7 +509,7 @@ GDPRおよびCCPA要件に準拠しています。マーチャントはサポー
 ```
 課金構造：
 
-Amazon ConnectorはAmazon MCFを通じて処理された出荷に基づいて課金されます：
+Amazon ConnecterはAmazon MCFを通じて処理された出荷に基づいて課金されます：
 
 ● 毎月最初の5出荷：無料
 ● 出荷6〜200：月額$20固定料金（6回目出荷時に請求）

@@ -1,13 +1,13 @@
-# API Contract - Amazon Connector
+# API Contract - Amazon Connecter
 
-OpenAPI 3.0 specification for Amazon Connector backend API.
+OpenAPI 3.0 specification for Amazon Connecter backend API.
 
 ```yaml
 openapi: 3.0.0
 info:
-  title: Amazon Connector API
+  title: Amazon Connecter API
   description: |
-    Backend API for Amazon Connector - Shopify app that fulfills orders via Amazon MCF.
+    Backend API for Amazon Connecter - Shopify app that fulfills orders via Amazon MCF.
     
     Base URL: `/api`
     Authentication: Bearer token from Shopify session

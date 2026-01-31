@@ -4,6 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/kliv/' : '/',
   server: {
     host: "::",
     port: 8080,
@@ -11,8 +12,6 @@ export default defineConfig(({ mode }) => ({
       usePolling: true
     }
   },
-  // Option A: Fixed base path /kliv/
-  base: '/kliv/',
   plugins: [
     react(),
   ],
