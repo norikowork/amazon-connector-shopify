@@ -721,7 +721,7 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
       <Card className="border-orange-200 dark:border-orange-900">
         <CardHeader>
           <div className="flex items-start gap-2">
-            <AlertTriangle className="h-5 w-5 text-orange-500 mt-0.5" />
+            <DollarSign className="h-5 w-5 text-orange-500 mt-0.5" />
             <div>
               <CardTitle>{t("settings.billing.title")}</CardTitle>
               <CardDescription>{t("settings.billing.subtitle")}</CardDescription>
@@ -729,37 +729,77 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="bg-orange-50 dark:bg-orange-950 rounded-lg p-4 space-y-3 text-sm">
-            <div className="font-medium">{t("settings.billingDisclosure.title")}</div>
-            <ul className="space-y-2 ml-4 list-disc">
-              <li>{t("settings.billingDisclosure.description.intro")}</li>
-              <li className="font-semibold">{t("settings.billingDisclosure.description.free")}</li>
-              <li className="font-semibold">{t("settings.billingDisclosure.description.tier1")}</li>
-              <li className="font-semibold">{t("settings.billingDisclosure.description.tier2")}</li>
-            </ul>
-            
-            <div className="pt-2 border-t border-orange-200 dark:border-orange-800">
-              <div className="font-semibold mb-1">{t("settings.billingDisclosure.description.important.title")}</div>
-              <ul className="space-y-1 ml-4 list-disc text-muted-foreground">
-                <li>{t("settings.billingDisclosure.description.important.noReduction")}</li>
-                <li>{t("settings.billingDisclosure.description.important.chargesApply")}</li>
-                <li>{t("settings.billingDisclosure.description.important.nonRefundable")}</li>
-              </ul>
+          {/* Pricing Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {/* Free Tier */}
+            <div className="rounded-lg border-2 border-green-200 bg-green-50 dark:bg-green-950 dark:border-green-900 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm">1</div>
+                <div className="font-semibold text-green-700 dark:text-green-400">Free</div>
+              </div>
+              <div className="text-2xl font-bold text-green-700 dark:text-green-400 mb-1">5 shipments</div>
+              <div className="text-sm text-muted-foreground">per month</div>
+              <div className="mt-2 text-xs text-green-600 dark:text-green-500 font-semibold">$0</div>
             </div>
-            
-            <p className="text-muted-foreground pt-2">
-              {t("settings.billingDisclosure.description.outro")}
-            </p>
+
+            {/* Base Tier */}
+            <div className="rounded-lg border-2 border-blue-200 bg-blue-50 dark:bg-blue-950 dark:border-blue-900 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm">2</div>
+                <div className="font-semibold text-blue-700 dark:text-blue-400">Base</div>
+              </div>
+              <div className="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-1">6-200</div>
+              <div className="text-sm text-muted-foreground">shipments</div>
+              <div className="mt-2 text-xs text-blue-600 dark:text-blue-500 font-semibold">$14.99 one-time</div>
+            </div>
+
+            {/* Over 200 Tier */}
+            <div className="rounded-lg border-2 border-purple-200 bg-purple-50 dark:bg-purple-950 dark:border-purple-900 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm">3</div>
+                <div className="font-semibold text-purple-700 dark:text-purple-400">200+</div>
+              </div>
+              <div className="text-2xl font-bold text-purple-700 dark:text-purple-400 mb-1">+$0.50</div>
+              <div className="text-sm text-muted-foreground">per shipment</div>
+              <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">each additional</div>
+            </div>
           </div>
-          
-          <div className="flex items-start space-x-3">
+
+          {/* Important Notice */}
+          <div className="rounded-lg border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 p-4">
+            <div className="flex items-start gap-2 mb-2">
+              <AlertTriangle className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+              <div className="font-semibold text-orange-700 dark:text-orange-400">Important Notice</div>
+            </div>
+            <ul className="space-y-2 text-sm text-orange-800 dark:text-orange-300 ml-7">
+              <li className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-orange-500 flex-shrink-0 mt-0.5" />
+                <span>{t("settings.billingDisclosure.description.important.noReduction")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-orange-500 flex-shrink-0 mt-0.5" />
+                <span>{t("settings.billingDisclosure.description.important.chargesApply")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-orange-500 flex-shrink-0 mt-0.5" />
+                <span>{t("settings.billingDisclosure.description.important.nonRefundable")}</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Agreement Checkbox */}
+          <div className="flex items-start space-x-3 rounded-lg border border-border bg-muted/30 p-3">
             <Switch
               id="billing-ack"
               checked={billingAcknowledged}
               onCheckedChange={setBillingAcknowledged}
+              className="mt-1"
             />
-            <Label htmlFor="billing-ack" className="pt-1">
-              {t("settings.billingDisclosure.checkbox")}
+            <Label htmlFor="billing-ack" className="cursor-pointer">
+              <span className="font-semibold">I understand and agree to the billing terms above</span>
+              <span className="block text-sm text-muted-foreground mt-1">
+                {t("settings.billingDisclosure.description.outro")}
+              </span>
             </Label>
           </div>
         </CardContent>
