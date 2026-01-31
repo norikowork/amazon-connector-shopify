@@ -98,8 +98,46 @@ const enTranslations = {
       region_fr: "France",
       region_it: "Italy",
       region_es: "Spain",
+      region_ca: "Canada",
+      region_uk: "United Kingdom",
+      region_au: "Australia",
+      sellerId: "Seller ID",
+      sellerIdPlaceholder: "Enter your Amazon Seller ID",
+      developerId: "Developer ID",
+      developerIdPlaceholder: "Enter your Developer ID",
+      authToken: "Auth Token",
+      authTokenPlaceholder: "Enter your MWS Auth Token",
       connect: "Connect",
-      disconnect: "Disconnect"
+      disconnect: "Disconnect",
+      testConnection: "Test Connection",
+      testing: "Testing...",
+      connectionSuccess: "Connection successful!",
+      connectionFailed: "Connection failed. Please check your credentials.",
+      description: "Configure your Amazon MCF credentials to enable fulfillment.",
+      credentialsHelp: "You can find these values in your Amazon Seller Central under MWS/Marketplace Web Service settings.",
+      displayableComments: {
+        title: "Displayable Order Comments",
+        description: "Add a custom message to Shopify orders when fulfilled by Amazon MCF.",
+        placeholder: "Enter your custom message (optional)",
+        help: "This message will appear in the Shopify order details and fulfillment notes.",
+        example: "Example: 'Fulfilled by Amazon FBA'"
+      },
+      sync: {
+        title: "Sync Settings",
+        description: "Configure how Amazon and Shopify data stays synchronized.",
+        syncPrice: {
+          label: "Sync Price",
+          description: "Automatically update Shopify product prices from Amazon."
+        },
+        syncInventory: {
+          label: "Sync Inventory",
+          description: "Automatically update Shopify inventory levels from Amazon FBA."
+        },
+        autoSync: {
+          label: "Auto Sync",
+          description: "Enable automatic synchronization at regular intervals."
+        }
+      }
     },
     billing: {
       title: "Billing Acknowledgment",
@@ -451,8 +489,46 @@ const jaTranslations = {
       region_fr: "フランス",
       region_it: "イタリア",
       region_es: "スペイン",
+      region_ca: "カナダ",
+      region_uk: "イギリス",
+      region_au: "オーストラリア",
+      sellerId: "セラーID",
+      sellerIdPlaceholder: "AmazonセラーIDを入力",
+      developerId: "デベロッパーID",
+      developerIdPlaceholder: "デベロッパーIDを入力",
+      authToken: "認証トークン",
+      authTokenPlaceholder: "MWS認証トークンを入力",
       connect: "接続",
-      disconnect: "切断"
+      disconnect: "切断",
+      testConnection: "接続テスト",
+      testing: "テスト中...",
+      connectionSuccess: "接続に成功しました！",
+      connectionFailed: "接続に失敗しました。認証情報を確認してください。",
+      description: "フルフィルメントを有効にするにはAmazon MCF認証情報を設定します。",
+      credentialsHelp: "これらの値はAmazonセントラルのMWS/Marketplace Web Service設定で確認できます。",
+      displayableComments: {
+        title: "注文に表示するコメント",
+        description: "Amazon MCFでフルフィルメントされたShopify注文にカスタムメッセージを追加します。",
+        placeholder: "カスタムメッセージを入力（オプション）",
+        help: "このメッセージはShopify注文詳細とフルフィルメントノートに表示されます。",
+        example: "例：'Amazon FBAによりフルフィルメントされました'"
+      },
+      sync: {
+        title: "同期設定",
+        description: "AmazonとShopifyのデータが自動的に同期される方法を設定します。",
+        syncPrice: {
+          label: "価格を同期",
+          description: "Amazonの価格でShopify商品価格を自動更新します。"
+        },
+        syncInventory: {
+          label: "在庫を同期",
+          description: "Amazon FBAの在庫レベルでShopify在庫を自動更新します。"
+        },
+        autoSync: {
+          label: "自動同期",
+          description: "定期的に自動同期を有効にします。"
+        }
+      }
     },
     billing: {
       title: "課金の確認",
