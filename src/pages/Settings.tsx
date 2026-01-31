@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign, Key, Lock, Server, BookOpen } from "lucide-react";
+import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign, Key, Lock, Server, BookOpen, Package, RefreshCw, Zap, Info, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // MCF Connection Options
@@ -439,7 +439,10 @@ function AmazonMcfSettings() {
 
         {/* Displayable Order Comments */}
         <div className="space-y-2 pt-4 border-b">
-          <Label htmlFor="displayable-comments">{t("settings.amazon.displayableComments.title")}</Label>
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-muted-foreground" />
+            <Label htmlFor="displayable-comments">{t("settings.amazon.displayableComments.title")}</Label>
+          </div>
           <Textarea
             id="displayable-comments"
             value={credentials.displayableComments || ""}
@@ -447,23 +450,34 @@ function AmazonMcfSettings() {
             placeholder={t("settings.amazon.displayableComments.placeholder")}
             rows={3}
           />
-          <p className="text-xs text-muted-foreground">
-            {t("settings.amazon.displayableComments.help")}
-          </p>
+          <div className="flex items-start gap-2">
+            <Info className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-muted-foreground">
+              {t("settings.amazon.displayableComments.help")}
+            </p>
+          </div>
         </div>
 
         {/* Sync Settings */}
         <div className="space-y-4">
-          <h3 className="font-semibold">{t("settings.amazon.sync.title")}</h3>
+          <h3 className="font-semibold flex items-center gap-2">
+            <RefreshCw className="w-4 h-4" />
+            {t("settings.amazon.sync.title")}
+          </h3>
           
           <div className="flex items-center justify-between py-2">
-            <div className="space-y-0.5">
-              <Label htmlFor="sync-price" className="cursor-pointer">
-                {t("settings.amazon.sync.syncPrice.label")}
-              </Label>
-              <p className="text-xs text-muted-foreground">
-                {t("settings.amazon.sync.syncPrice.description")}
-              </p>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                <DollarSign className="w-4 h-4 text-green-600 dark:text-green-400" />
+              </div>
+              <div className="space-y-0.5">
+                <Label htmlFor="sync-price" className="cursor-pointer">
+                  {t("settings.amazon.sync.syncPrice.label")}
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  {t("settings.amazon.sync.syncPrice.description")}
+                </p>
+              </div>
             </div>
             <Switch
               id="sync-price"
@@ -473,13 +487,18 @@ function AmazonMcfSettings() {
           </div>
 
           <div className="flex items-center justify-between py-2">
-            <div className="space-y-0.5">
-              <Label htmlFor="sync-inventory" className="cursor-pointer">
-                {t("settings.amazon.sync.syncInventory.label")}
-              </Label>
-              <p className="text-xs text-muted-foreground">
-                {t("settings.amazon.sync.syncInventory.description")}
-              </p>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                <Package className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div className="space-y-0.5">
+                <Label htmlFor="sync-inventory" className="cursor-pointer">
+                  {t("settings.amazon.sync.syncInventory.label")}
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  {t("settings.amazon.sync.syncInventory.description")}
+                </p>
+              </div>
             </div>
             <Switch
               id="sync-inventory"
@@ -489,13 +508,18 @@ function AmazonMcfSettings() {
           </div>
 
           <div className="flex items-center justify-between py-2">
-            <div className="space-y-0.5">
-              <Label htmlFor="auto-sync" className="cursor-pointer">
-                {t("settings.amazon.sync.autoSync.label")}
-              </Label>
-              <p className="text-xs text-muted-foreground">
-                {t("settings.amazon.sync.autoSync.description")}
-              </p>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                <Zap className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+              </div>
+              <div className="space-y-0.5">
+                <Label htmlFor="auto-sync" className="cursor-pointer">
+                  {t("settings.amazon.sync.autoSync.label")}
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  {t("settings.amazon.sync.autoSync.description")}
+                </p>
+              </div>
             </div>
             <Switch
               id="auto-sync"
@@ -506,8 +530,11 @@ function AmazonMcfSettings() {
         </div>
 
         {/* Help Text */}
-        <div className="p-3 bg-muted rounded-lg text-sm text-muted-foreground">
-          {t("settings.amazon.credentialsHelp")}
+        <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+          <Info className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-muted-foreground">
+            {t("settings.amazon.credentialsHelp")}
+          </p>
         </div>
 
         {/* Save Button (when already connected) */}
@@ -666,9 +693,12 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <div>
-              <CardTitle>{t("settings.shopify.title")}</CardTitle>
-              <CardDescription></CardDescription>
+            <div className="flex items-center gap-2">
+              <Server className="w-5 h-5 text-blue-500" />
+              <div>
+                <CardTitle>{t("settings.shopify.title")}</CardTitle>
+                <CardDescription></CardDescription>
+              </div>
             </div>
             <Badge variant={settings.shopify.connected ? "default" : "secondary"}>
               {settings.shopify.connected ? (
@@ -740,6 +770,10 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
               <div className="text-2xl font-bold text-green-700 dark:text-green-400 mb-1">5 shipments</div>
               <div className="text-sm text-muted-foreground">per month</div>
               <div className="mt-2 text-xs text-green-600 dark:text-green-500 font-semibold">$0</div>
+              <div className="mt-3 flex items-center gap-2 text-green-600 dark:text-green-400">
+                <Package className="w-4 h-4" />
+                <span className="text-xs">Starter tier</span>
+              </div>
             </div>
 
             {/* Base Tier */}
@@ -751,6 +785,10 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
               <div className="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-1">6-200</div>
               <div className="text-sm text-muted-foreground">shipments</div>
               <div className="mt-2 text-xs text-blue-600 dark:text-blue-500 font-semibold">$14.99 one-time</div>
+              <div className="mt-3 flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                <Zap className="w-4 h-4" />
+                <span className="text-xs">Growth tier</span>
+              </div>
             </div>
 
             {/* Over 200 Tier */}
@@ -762,6 +800,10 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
               <div className="text-2xl font-bold text-purple-700 dark:text-purple-400 mb-1">+$0.50</div>
               <div className="text-sm text-muted-foreground">per shipment</div>
               <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">each additional</div>
+              <div className="mt-3 flex items-center gap-2 text-purple-600 dark:text-purple-400">
+                <TrendingUp className="w-4 h-4" />
+                <span className="text-xs">Scale tier</span>
+              </div>
             </div>
           </div>
 
