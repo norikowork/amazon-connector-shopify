@@ -74,8 +74,11 @@
       "connected": "Connected to Shopify",
       "disconnected": "Not connected to Shopify",
       "shopDomain": "Shop Domain",
+      "shopDomainPlaceholder": "your-store.myshopify.com",
+      "shopDomainHelp": "Enter your Shopify store domain (e.g., your-store.myshopify.com)",
       "connect": "Connect",
-      "disconnect": "Disconnect"
+      "disconnect": "Disconnect",
+      "connecting": "Connecting..."
     },
     "amazon": {
       "title": "Amazon MCF Connection",

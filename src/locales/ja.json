@@ -74,8 +74,11 @@
       "connected": "Shopifyに接続済み",
       "disconnected": "Shopifyに未接続",
       "shopDomain": "ショップドメイン",
+      "shopDomainPlaceholder": "your-store.myshopify.com",
+      "shopDomainHelp": "Shopifyストアドメインを入力してください（例：your-store.myshopify.com）",
       "connect": "接続",
-      "disconnect": "切断"
+      "disconnect": "切断",
+      "connecting": "接続中..."
     },
     "amazon": {
       "title": "Amazon MCF連携",

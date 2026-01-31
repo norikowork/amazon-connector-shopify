@@ -788,6 +788,7 @@ export function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [billingAcknowledged, setBillingAcknowledged] = useState(false);
+  const [shopDomainInput, setShopDomainInput] = useState("");
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -800,6 +801,7 @@ export function SettingsPage() {
       const data = await mockApi.getSettings();
       setSettings(data);
       setBillingAcknowledged(data.billing.acknowledged);
+      setShopDomainInput(data.shopify.shopDomain || "");
     } catch (error) {
       toast({
         title: t("errors.generic"),
@@ -850,14 +852,40 @@ export function SettingsPage() {
             shopDomain: undefined,
           },
         });
+        setShopDomainInput("");
         toast({
           title: t("settings.shopify.disconnected"),
         });
       } else {
-        // Connect (would redirect to Shopify OAuth in production)
+        // Connect - validate and save shop domain
+        const domain = shopDomainInput.trim();
+        if (!domain) {
+          toast({
+            title: t("errors.generic"),
+            description: "Please enter your shop domain",
+            variant: "destructive",
+          });
+          setSaving(false);
+          return;
+        }
+        
+        // In production, this would redirect to Shopify OAuth
+        // For now, we'll simulate a successful connection
+        await mockApi.updateSettings({
+          shopify: {
+            connected: true,
+            shopDomain: domain,
+          },
+        });
+        setSettings({
+          ...settings!,
+          shopify: {
+            connected: true,
+            shopDomain: domain,
+          },
+        });
         toast({
-          title: t("settings.shopify.disconnected"),
-          description: "This would redirect to Shopify OAuth in production",
+          title: t("settings.shopify.connected"),
         });
       }
     } catch (error) {
@@ -916,9 +944,24 @@ export function SettingsPage() {
               </Button>
             </div>
           ) : (
-            <Button onClick={handleConnectShopify} disabled={saving}>
-              {saving ? t("common.loading") : t("settings.shopify.connect")}
-            </Button>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="shop-domain">{t("settings.shopify.shopDomain")}</Label>
+                <Input
+                  id="shop-domain"
+                  value={shopDomainInput}
+                  onChange={(e) => setShopDomainInput(e.target.value)}
+                  placeholder={t("settings.shopify.shopDomainPlaceholder")}
+                  disabled={saving}
+                />
+                <p className="text-xs text-muted-foreground">
+                  {t("settings.shopify.shopDomainHelp")}
+                </p>
+              </div>
+              <Button onClick={handleConnectShopify} disabled={saving || !shopDomainInput.trim()}>
+                {saving ? t("settings.shopify.connecting") : t("settings.shopify.connect")}
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>
