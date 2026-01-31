@@ -5,8 +5,8 @@ export type TranslationKey = keyof typeof enTranslations;
 
 const enTranslations = {
   common: {
-    appName: "Amazon Connecter",
-    appNameDisplay: "Amazon Connecter",
+    appName: "Amazon Connector",
+    appNameDisplay: "Amazon Connector",
     loading: "Loading...",
     save: "Save",
     cancel: "Cancel",
@@ -38,7 +38,7 @@ const enTranslations = {
   },
   settings: {
     title: "Settings",
-    subtitle: "Configure your Amazon Connecter integration",
+    subtitle: "Configure your Amazon Connector integration",
     routing: {
       title: "MCF Routing Configuration",
       description: "Configure which Amazon MCF connections to use for fulfillment based on destination country.",
@@ -127,51 +127,6 @@ const enTranslations = {
       title: "Language Preference",
       autoDetect: "Auto-detect from Shopify Admin",
       manual: "Manual selection"
-    },
-    amazonCredentials: {
-      title: "Amazon Credentials",
-      description: "Enter your Amazon MCF credentials for each enabled connection.",
-      sellerId: "Seller ID",
-      authToken: "Auth Token",
-      testConnection: "Test Connection",
-      testing: "Testing...",
-      testSuccess: "Connection successful",
-      testFailure: "Connection failed",
-      lastTested: "Last tested: {date}",
-      credentialsWarning: "Credentials are stored encrypted. Only required scopes are used.",
-      credentialsMissing: "Amazon credentials are missing for the selected MCF connection. Please add Seller ID and Auth Token in Settings."
-    },
-    fbaTriggers: {
-      title: "Ship via FBA when",
-      description: "Choose when orders should be automatically fulfilled through Amazon FBA.",
-      orderPaid: "Order is paid (recommended)",
-      orderCreated: "Order is created",
-      orderFulfilled: "Order is fulfilled",
-      manualOnly: "Manual only (do not auto-run)",
-      atLeastOneWarning: "Select at least one trigger option"
-    },
-    shippingSpeed: {
-      title: "Default Shipping Speed",
-      description: "Select the default shipping speed for Amazon MCF requests.",
-      standard: "Standard",
-      expedited: "Expedited",
-      priority: "Priority"
-    },
-    emailNotifications: {
-      title: "Email Notifications",
-      description: "Receive email notifications for FBA shipment events.",
-      emailAddress: "Notification Email Address",
-      emailAddressPlaceholder: "Enter email address",
-      notifyOnSuccess: "Notify on FBA (MCF) Success",
-      notifyOnFailure: "Notify on FBA (MCF) Fail",
-      invalidEmail: "Please enter a valid email address"
-    },
-    orderComments: {
-      title: "Display Order Comments",
-      description: "Add a comment when creating Shopify fulfillments for MCF items.",
-      enabled: "Enable order comments",
-      defaultComment: "Default Comment",
-      defaultCommentPlaceholder: "Enter default comment text"
     }
   },
   products: {
@@ -262,7 +217,6 @@ const enTranslations = {
       description: "Monthly fee for each enabled MCF connection. Charged separately from shipment fees.",
       enabledConnections: "Enabled Connections",
       monthlyFee: "Monthly Fee",
-      perConnection: "per connection",
       maxConnections: "max 5"
     },
     disclaimer: {
@@ -290,14 +244,11 @@ const enTranslations = {
     retryShipment: "Failed to retry shipment to Amazon.",
     fetchBilling: "Failed to load billing information.",
     routingConfig: "Failed to load routing configuration.",
-    testRouting: "Failed to test routing.",
-    amazonCredentialsMissing: "Amazon credentials are missing for the selected MCF connection. Please add Seller ID and Auth Token in Settings.",
-    invalidEmail: "Please enter a valid email address.",
-    atLeastOneTrigger: "Select at least one FBA trigger option."
+    testRouting: "Failed to test routing."
   },
   onboarding: {
     welcome: {
-      title: "Welcome to Amazon Connecter!",
+      title: "Welcome to Amazon Connector!",
       subtitle: "Streamline your fulfillment process by routing selected products through Amazon FBA",
       nextStep: "Next Step: Connect Your Accounts"
     },
@@ -325,7 +276,7 @@ const enTranslations = {
   },
   support: {
     title: "Support",
-    subtitle: "Contact us for help with Amazon Connecter",
+    subtitle: "Contact us for help with Amazon Connector",
     shopifyConnection: {
       title: "Shopify Connection",
       connected: "Connected",
@@ -349,7 +300,7 @@ const enTranslations = {
   },
   faq: {
     title: "Frequently Asked Questions",
-    subtitle: "Learn how to use Amazon Connecter effectively",
+    subtitle: "Learn how to use Amazon Connector effectively",
     categories: {
       gettingStarted: "Getting Started",
       productMapping: "Product Mapping",
@@ -358,8 +309,8 @@ const enTranslations = {
     },
     questions: {
       q1: {
-        question: "How do I connect my Shopify store to Amazon Connecter?",
-        answer: "Go to the Settings page and click 'Connect' next to 'Shopify Connection'. You'll be redirected to Shopify to authorize the app. Once authorized, your store will be connected and Amazon Connecter can access your orders and products."
+        question: "How do I connect my Shopify store to Amazon Connector?",
+        answer: "Go to the Settings page and click 'Connect' next to 'Shopify Connection'. You'll be redirected to Shopify to authorize the app. Once authorized, your store will be connected and Amazon Connector can access your orders and products."
       },
       q2: {
         question: "How do I connect my Amazon MCF account?",
@@ -371,11 +322,11 @@ const enTranslations = {
       },
       q4: {
         question: "What happens when a customer places an order?",
-        answer: "When an order is placed in your Shopify store, Amazon Connecter checks which items are enabled for FBA fulfillment. If the order contains enabled items, the app automatically creates a fulfillment request with Amazon MCF. The tracking information is then written back to your Shopify order."
+        answer: "When an order is placed in your Shopify store, Amazon Connector checks which items are enabled for FBA fulfillment. If the order contains enabled items, the app automatically creates a fulfillment request with Amazon MCF. The tracking information is then written back to your Shopify order."
       },
       q5: {
         question: "Can I fulfill only some items from an order through Amazon?",
-        answer: "Yes! Amazon Connecter is designed to handle mixed orders. Only the products you've explicitly enabled and mapped in the Product Mapping page will be sent to Amazon MCF. Other items in the same order will remain untouched and can be fulfilled through your regular process."
+        answer: "Yes! Amazon Connector is designed to handle mixed orders. Only the products you've explicitly enabled and mapped in the Product Mapping page will be sent to Amazon MCF. Other items in the same order will remain untouched and can be fulfilled through your regular process."
       },
       q6: {
         question: "How does country-based routing work?",
@@ -386,7 +337,7 @@ const enTranslations = {
         answer: "If Amazon cannot fulfill the order due to stock issues or other reasons, the shipment will be marked as 'Failed' in the Shipments page. You can view the error details and retry the shipment later. Your Shopify order is never cancelled automatically – you maintain full control."
       },
       q8: {
-        question: "How am I charged for using Amazon Connecter?",
+        question: "How am I charged for using Amazon Connector?",
         answer: "The billing cycle resets monthly. The first 5 shipments each month are free. A $14.99 charge applies when you reach the 6th shipment (covers shipments 6-200). From the 201st shipment onward, each additional shipment costs $0.50. There's also a $14.99 monthly fee per enabled MCF connection, separate from shipment charges."
       },
       q9: {
@@ -407,8 +358,8 @@ const enTranslations = {
 
 const jaTranslations = {
   common: {
-    appName: "Amazon Connecter",
-    appNameDisplay: "Amazon Connecter",
+    appName: "Amazon Connector",
+    appNameDisplay: "Amazon Connector",
     loading: "読み込み中...",
     save: "保存",
     cancel: "キャンセル",
@@ -440,7 +391,7 @@ const jaTranslations = {
   },
   settings: {
     title: "設定",
-    subtitle: "Amazon Connecterの連携を設定します",
+    subtitle: "Amazon Connectorの連携を設定します",
     routing: {
       title: "MCFルーティング設定",
       description: "配送先国に基づいてフルフィルメントに使用するAmazon MCF接続先を設定します。",
@@ -529,51 +480,6 @@ const jaTranslations = {
       title: "言語設定",
       autoDetect: "Shopify管理画面から自動検出",
       manual: "手動選択"
-    },
-    amazonCredentials: {
-      title: "Amazon認証情報",
-      description: "各接続先のAmazon MCF認証情報を入力してください。",
-      sellerId: "セラーID",
-      authToken: "認証トークン",
-      testConnection: "接続テスト",
-      testing: "テスト中...",
-      testSuccess: "接続に成功しました",
-      testFailure: "接続に失敗しました",
-      lastTested: "最終テスト: {date}",
-      credentialsWarning: "認証情報は暗号化されて保存されます。必要なスコープのみ使用されます。",
-      credentialsMissing: "選択されたMCF接続先のAmazon認証情報がありません。設定でセラーIDと認証トークンを追加してください。"
-    },
-    fbaTriggers: {
-      title: "FBAフルフィルメントのタイミング",
-      description: "Amazon FBA経由で注文を自動的にフルフィルメントするタイミングを選択してください。",
-      orderPaid: "注文が支払済み（推奨）",
-      orderCreated: "注文が作成されました",
-      orderFulfilled: "注文がフルフィルメントされました",
-      manualOnly: "手動のみ（自動実行しない）",
-      atLeastOneWarning: "少なくとも1つのトリガーを選択してください"
-    },
-    shippingSpeed: {
-      title: "デフォルト配送速度",
-      description: "Amazon MCFリクエストのデフォルト配送速度を選択してください。",
-      standard: "標準",
-      expedited: "速達",
-      priority: "優先"
-    },
-    emailNotifications: {
-      title: "メール通知",
-      description: "FBA出荷イベントのメール通知を受け取ります。",
-      emailAddress: "通知メールアドレス",
-      emailAddressPlaceholder: "メールアドレスを入力",
-      notifyOnSuccess: "FBA（MCF）成功時に通知",
-      notifyOnFailure: "FBA（MCF）失敗時に通知",
-      invalidEmail: "有効なメールアドレスを入力してください"
-    },
-    orderComments: {
-      title: "注文コメントの表示",
-      description: "MCF商品のShopifyフルフィルメントを作成するときにコメントを追加します。",
-      enabled: "注文コメントを有効にする",
-      defaultComment: "デフォルトコメント",
-      defaultCommentPlaceholder: "デフォルトコメントテキストを入力"
     }
   },
   products: {
@@ -664,7 +570,6 @@ const jaTranslations = {
       description: "有効なMCF接続先ごとの月額料金。出荷手数料とは別に課金されます。",
       enabledConnections: "有効な接続先",
       monthlyFee: "月額料金",
-      perConnection: "接続先あたり",
       maxConnections: "最大5つ"
     },
     disclaimer: {
@@ -692,14 +597,11 @@ const jaTranslations = {
     retryShipment: "Amazonへの出荷再試行に失敗しました。",
     fetchBilling: "課金情報の読み込みに失敗しました。",
     routingConfig: "ルーティング設定の読み込みに失敗しました。",
-    testRouting: "ルーティングテストに失敗しました。",
-    amazonCredentialsMissing: "選択されたMCF接続先のAmazon認証情報がありません。設定でセラーIDと認証トークンを追加してください。",
-    invalidEmail: "有効なメールアドレスを入力してください。",
-    atLeastOneTrigger: "少なくとも1つのFBAトリガーを選択してください。"
+    testRouting: "ルーティングテストに失敗しました。"
   },
   onboarding: {
     welcome: {
-      title: "Amazon Connecterへようこそ！",
+      title: "Amazon Connectorへようこそ！",
       subtitle: "選択した商品をAmazon FBA経由でルーティングして、フルフィルメントプロセスを効率化します",
       nextStep: "次のステップ：アカウントを接続"
     },
@@ -727,7 +629,7 @@ const jaTranslations = {
   },
   support: {
     title: "サポート",
-    subtitle: "Amazon Connecterについてのお問い合わせ",
+    subtitle: "Amazon Connectorについてのお問い合わせ",
     shopifyConnection: {
       title: "Shopify接続",
       connected: "接続済み",
@@ -751,7 +653,7 @@ const jaTranslations = {
   },
   faq: {
     title: "よくある質問",
-    subtitle: "Amazon Connecterを効果的に活用する方法を学びましょう",
+    subtitle: "Amazon Connectorを効果的に活用する方法を学びましょう",
     categories: {
       gettingStarted: "はじめに",
       productMapping: "商品マッピング",
@@ -760,8 +662,8 @@ const jaTranslations = {
     },
     questions: {
       q1: {
-        question: "ShopifyストアをAmazon Connecterに接続するには？",
-        answer: "設定ページに移動し、「Shopify連携」の横にある「接続」をクリックします。アプリを承認するためにShopifyにリダイレクトされます。承認されると、ストアが接続され、Amazon Connecterが注文と商品にアクセスできるようになります。"
+        question: "ShopifyストアをAmazon Connectorに接続するには？",
+        answer: "設定ページに移動し、「Shopify連携」の横にある「接続」をクリックします。アプリを承認するためにShopifyにリダイレクトされます。承認されると、ストアが接続され、Amazon Connectorが注文と商品にアクセスできるようになります。"
       },
       q2: {
         question: "Amazon MCFアカウントに接続するには？",
@@ -773,11 +675,11 @@ const jaTranslations = {
       },
       q4: {
         question: "顧客が注文するとどうなりますか？",
-        answer: "Shopifyストアで注文が行われると、Amazon Connecterはどの商品がFBAフルフィルメントで有効になっているかを確認します。注文に有効な商品が含まれている場合、アプリは自動的にAmazon MCFにフルフィルメントリクエストを作成します。その後、追跡情報がShopify注文に書き戻されます。"
+        answer: "Shopifyストアで注文が行われると、Amazon Connectorはどの商品がFBAフルフィルメントで有効になっているかを確認します。注文に有効な商品が含まれている場合、アプリは自動的にAmazon MCFにフルフィルメントリクエストを作成します。その後、追跡情報がShopify注文に書き戻されます。"
       },
       q5: {
         question: "注文の一部の商品のみをAmazonからフルフィルメントできますか？",
-        answer: "はい！Amazon Connecterは混合注文を処理するように設計されています。商品マッピングページで明示的に有効にしてマッピングした商品のみがAmazon MCFに送信されます。同じ注文の他の商品は変更されず、通常のプロセスでフルフィルメントできます。"
+        answer: "はい！Amazon Connectorは混合注文を処理するように設計されています。商品マッピングページで明示的に有効にしてマッピングした商品のみがAmazon MCFに送信されます。同じ注文の他の商品は変更されず、通常のプロセスでフルフィルメントできます。"
       },
       q6: {
         question: "国別ルーティングはどのように機能しますか？",
@@ -788,7 +690,7 @@ const jaTranslations = {
         answer: "在庫不足やその他の理由でAmazonが注文をフルフィルメントできない場合、出荷ページで「失敗」としてマークされます。エラーの詳細を確認し、後で出荷を再試行できます。Shopify注文が自動的にキャンセルされることはありません – あなたが完全に制御できます。"
       },
       q8: {
-        question: "Amazon Connecterの使用料金はどのように請求されますか？",
+        question: "Amazon Connectorの使用料金はどのように請求されますか？",
         answer: "請求サイクルは毎月リセットされます。毎月の最初の5出荷は無料です。6回目の出荷時に14.99ドルの料金が適用されます（6〜200回目の出荷をカバー）。201回目の出荷から、追加の出荷ごとに0.50ドルかかります。また、有効なMCF接続ごとに月額14.99ドルの料金がかかり、出荷料金とは別に請求されます。"
       },
       q9: {

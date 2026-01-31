@@ -17,7 +17,6 @@ export type FailureCode =
   | "MAPPING_MISSING"
   | "AMAZON_API_ERROR"
   | "CONNECTION_UNAVAILABLE"
-  | "AMAZON_CREDENTIALS_MISSING"
   | "UNKNOWN_ERROR";
 
 // EU countries (for routing logic)
@@ -113,21 +112,6 @@ export interface BillingUsage {
   totalBilled: number;
 }
 
-// Amazon credentials per connection
-export interface AmazonCredentials {
-  sellerId?: string;
-  authToken?: string;
-  lastTestedAt?: string;
-  testStatus?: "success" | "failure" | "not_tested" | "testing";
-  testMessage?: string;
-}
-
-// FBA trigger options
-export type FbaTrigger = "order_paid" | "order_created" | "order_fulfilled" | "manual_only";
-
-// Shipping speed options
-export type ShippingSpeed = "Standard" | "Expedited" | "Priority";
-
 // Routing configuration per shop
 export interface RoutingConfig {
   enabledConnections: McfConnection[]; // Max 5
@@ -135,19 +119,6 @@ export interface RoutingConfig {
   usDefaultConnection?: McfConnection; // US (optional, defaults to US if enabled)
   jpDefaultConnection?: McfConnection; // JP (optional, defaults to JP if enabled)
   overrides: Record<string, McfConnection>; // destination_country -> connection
-  // Amazon credentials per connection
-  amazonCredentials: Record<McfConnection, AmazonCredentials>;
-  // FBA trigger options
-  fbaTriggers: FbaTrigger[];
-  // Default shipping speed
-  defaultShippingSpeed: ShippingSpeed;
-  // Email notifications
-  notificationEmail?: string;
-  notifyOnSuccess: boolean;
-  notifyOnFailure: boolean;
-  // Order comments
-  displayOrderComments: boolean;
-  defaultOrderComment: string;
 }
 
 // Connection fee (separate from shipment billing)
@@ -520,17 +491,7 @@ const DEFAULT_ROUTING_CONFIG: RoutingConfig = {
     "BE": "FR",
     "SE": "DE",
     "PL": "DE"
-  },
-  amazonCredentials: {
-    US: {}, JP: {}, DE: {}, FR: {}, IT: {}, ES: {}
-  },
-  fbaTriggers: ["order_paid"],
-  defaultShippingSpeed: "Standard",
-  notificationEmail: "",
-  notifyOnSuccess: false,
-  notifyOnFailure: false,
-  displayOrderComments: true,
-  defaultOrderComment: "Shipped via Amazon"
+  }
 };
 
 export const mockAppSettings: AppSettings = {

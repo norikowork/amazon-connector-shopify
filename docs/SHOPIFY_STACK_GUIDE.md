@@ -1,6 +1,6 @@
 # Shopify Stack Implementation Guide
 
-This document provides a complete guide to implementing the backend Shopify app using Remix + Node.js + TypeScript for Amazon Connecter.
+This document provides a complete guide to implementing the backend Shopify app using Remix + Node.js + TypeScript for Amazon Connector.
 
 ## Architecture Overview
 

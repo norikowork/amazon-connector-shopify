@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "@/lib/i18n";
-import { mockApi, AppSettings, RoutingConfig, McfConnection, calculateConnectionFee, RoutingDecision, AmazonCredentials, FbaTrigger, ShippingSpeed } from "@/lib/mockData";
+import { mockApi, AppSettings, RoutingConfig, McfConnection, calculateConnectionFee, RoutingDecision } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,8 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign, Shield, Mail, MessageSquare } from "lucide-react";
+import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // MCF Connection Options
@@ -22,214 +21,6 @@ const MCF_CONNECTIONS: { value: McfConnection; label: string }[] = [
   { value: "ES", label: "Spain (ES)" },
 ];
 
-// Amazon Credentials Per Connection Component
-function AmazonCredentialsSection() {
-  const { t } = useTranslation();
-  const { toast } = useToast();
-  const [config, setConfig] = useState<RoutingConfig | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [testingConnection, setTestingConnection] = useState<McfConnection | null>(null);
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    loadConfig();
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  const loadConfig = async () => {
-    try {
-      const data = await mockApi.getRoutingConfig();
-      setConfig(data);
-    } catch (error) {
-      toast({
-        title: t("errors.routingConfig"),
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUpdateCredentials = (connection: McfConnection, field: keyof AmazonCredentials, value: string) => {
-    if (!config) return;
-    setConfig({
-      ...config,
-      amazonCredentials: {
-        ...config.amazonCredentials,
-        [connection]: {
-          ...config.amazonCredentials[connection],
-          [field]: value,
-          testStatus: undefined,
-          lastTestedAt: undefined,
-        },
-      },
-    });
-  };
-
-  const handleTestConnection = async (connection: McfConnection) => {
-    setTestingConnection(connection);
-    const creds = config?.amazonCredentials[connection];
-    
-    // Update status to testing
-    setConfig(prev => prev ? {
-      ...prev,
-      amazonCredentials: {
-        ...prev.amazonCredentials,
-        [connection]: {
-          ...prev.amazonCredentials[connection],
-          testStatus: "testing",
-        },
-      },
-    } : null);
-
-    // Simulate test
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    const hasCreds = creds?.sellerId && creds?.authToken;
-    const success = hasCreds && Math.random() > 0.3; // 70% success if credentials present
-
-    setConfig(prev => prev ? {
-      ...prev,
-      amazonCredentials: {
-        ...prev.amazonCredentials,
-        [connection]: {
-          ...prev.amazonCredentials[connection],
-          testStatus: success ? "success" : "failure",
-          testMessage: success 
-            ? t("settings.amazonCredentials.testSuccess")
-            : hasCreds 
-              ? t("settings.amazonCredentials.testFailure")
-              : t("errors.amazonCredentialsMissing"),
-          lastTestedAt: new Date().toISOString(),
-        },
-      },
-    } : null);
-
-    setTestingConnection(null);
-
-    if (!success) {
-      toast({
-        title: t("settings.amazonCredentials.testFailure"),
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: t("settings.amazonCredentials.testSuccess"),
-      });
-    }
-  };
-
-  if (loading || !config) {
-    return (
-      <div className="flex items-center justify-center h-32">
-        <p className="text-muted-foreground">{t("common.loading")}</p>
-      </div>
-    );
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Shield className="w-5 h-5" />
-          {t("settings.amazonCredentials.title")}
-        </CardTitle>
-        <CardDescription>{t("settings.amazonCredentials.description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Warning */}
-        <div className="flex items-start gap-3 p-3 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg text-sm">
-          <Shield className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-          <p className="text-amber-800 dark:text-amber-200">{t("settings.amazonCredentials.credentialsWarning")}</p>
-        </div>
-
-        {/* Credentials per enabled connection */}
-        {config.enabledConnections.map((conn) => {
-          const creds = config.amazonCredentials[conn] || {};
-          const connLabel = MCF_CONNECTIONS.find(c => c.value === conn)?.label || conn;
-          const isConfigured = creds.sellerId && creds.authToken;
-          const testStatus = creds.testStatus;
-          
-          return (
-            <div key={conn} className="space-y-3 p-4 border rounded-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <h4 className="font-semibold">{connLabel}</h4>
-                  {isConfigured && (
-                    <Badge variant="outline" className="text-xs">
-                      <CheckCircle2 className="w-3 h-3 mr-1" />
-                      Configured
-                    </Badge>
-                  )}
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleTestConnection(conn)}
-                  disabled={testingConnection === conn || !isConfigured}
-                >
-                  {testingConnection === conn ? t("settings.amazonCredentials.testing") : t("settings.amazonCredentials.testConnection")}
-                </Button>
-              </div>
-
-              {/* Test Status */}
-              {testStatus && testStatus !== "not_tested" && (
-                <div className={`flex items-center gap-2 text-sm p-2 rounded ${
-                  testStatus === "success"
-                    ? "bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-300"
-                    : testStatus === "testing"
-                      ? "bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300"
-                      : "bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300"
-                }`}>
-                  {testStatus === "success" ? <CheckCircle2 className="w-4 h-4" /> :
-                    testStatus === "testing" ? <AlertTriangle className="w-4 h-4 animate-pulse" /> :
-                      <XCircle className="w-4 h-4" />}
-                  <span>{creds.testMessage || (testStatus === "success" ? t("settings.amazonCredentials.testSuccess") : t("settings.amazonCredentials.testFailure"))}</span>
-                  {creds.lastTestedAt && (
-                    <span className="text-xs opacity-70 ml-auto">
-                      {t("settings.amazonCredentials.lastTested", { date: new Date(creds.lastTestedAt).toLocaleString() })}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor={`${conn}-seller-id`}>{t("settings.amazonCredentials.sellerId")}</Label>
-                  <Input
-                    id={`${conn}-seller-id`}
-                    value={creds.sellerId || ""}
-                    onChange={(e) => handleUpdateCredentials(conn, "sellerId", e.target.value)}
-                    placeholder="Enter Seller ID"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor={`${conn}-auth-token`}>{t("settings.amazonCredentials.authToken")}</Label>
-                  <Input
-                    id={`${conn}-auth-token`}
-                    type="password"
-                    value={creds.authToken || ""}
-                    onChange={(e) => handleUpdateCredentials(conn, "authToken", e.target.value)}
-                    placeholder="Enter Auth Token"
-                  />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-
-        {config.enabledConnections.length === 0 && (
-          <div className="text-center p-8 text-muted-foreground">
-            <Shield className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p>Enable at least one MCF connection to configure credentials.</p>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
-}
-
-// Routing Configuration Component (simplified - without credentials)
 function RoutingConfiguration() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -268,6 +59,7 @@ function RoutingConfiguration() {
     try {
       await mockApi.updateRoutingConfig(config);
       
+      // Check for connection changes and show billing notification
       const currentCount = config.enabledConnections.length;
       const previousCount = previousConnections.length;
       const addedCount = currentCount - previousCount;
@@ -289,6 +81,7 @@ function RoutingConfiguration() {
         });
       }
       
+      // Update previous connections after save
       setPreviousConnections(config.enabledConnections);
     } catch (error) {
       toast({
@@ -306,6 +99,7 @@ function RoutingConfiguration() {
       ? config.enabledConnections.filter(c => c !== conn)
       : [...config.enabledConnections, conn];
 
+    // Validate max 5 connections
     if (newEnabled.length > 5) {
       toast({
         title: t("settings.routing.maxConnectionsError"),
@@ -314,11 +108,13 @@ function RoutingConfiguration() {
       return;
     }
 
+    // If removing a connection that is set as EU default, clear it
     let newEuDefault = config.euDefaultConnection;
     if (newEuDefault && !newEnabled.includes(newEuDefault)) {
       newEuDefault = undefined;
     }
 
+    // Also clear any overrides that use disabled connections
     const newOverrides: Record<string, McfConnection> = {};
     Object.entries(config.overrides).forEach(([country, conn]) => {
       if (newEnabled.includes(conn)) {
@@ -404,6 +200,7 @@ function RoutingConfiguration() {
           </div>
           <p className="text-sm text-muted-foreground">{t("settings.routing.enabledConnectionsDescription")}</p>
           
+          {/* Pending billing changes notification */}
           {hasPendingChanges && (
             <div className={`p-3 rounded-lg border-2 text-sm ${
               config.enabledConnections.length > previousConnections.length
@@ -585,404 +382,6 @@ function RoutingConfiguration() {
   );
 }
 
-// FBA Triggers Component
-function FbaTriggersSection() {
-  const { t } = useTranslation();
-  const { toast } = useToast();
-  const [config, setConfig] = useState<RoutingConfig | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    loadConfig();
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  const loadConfig = async () => {
-    try {
-      const data = await mockApi.getRoutingConfig();
-      setConfig(data);
-    } catch (error) {
-      toast({
-        title: t("errors.routingConfig"),
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleToggleTrigger = (trigger: FbaTrigger) => {
-    if (!config) return;
-    
-    // If selecting manual_only, clear other triggers
-    if (trigger === "manual_only") {
-      setConfig({
-        ...config,
-        fbaTriggers: config.fbaTriggers.includes("manual_only") ? [] : ["manual_only"],
-      });
-      return;
-    }
-
-    // If manual_only is selected and we're adding another trigger, clear manual_only
-    const newTriggers = config.fbaTriggers.includes(trigger)
-      ? config.fbaTriggers.filter(t => t !== trigger)
-      : config.fbaTriggers.filter(t => t !== "manual_only").concat(trigger);
-
-    // Validate at least one trigger
-    if (newTriggers.length === 0) {
-      toast({
-        title: t("errors.atLeastOneTrigger"),
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setConfig({
-      ...config,
-      fbaTriggers: newTriggers,
-    });
-  };
-
-  const handleSave = async () => {
-    if (!config) return;
-    try {
-      await mockApi.updateRoutingConfig(config);
-      toast({
-        title: t("common.success"),
-      });
-    } catch (error) {
-      toast({
-        title: t("errors.generic"),
-        variant: "destructive",
-      });
-    }
-  };
-
-  if (loading || !config) {
-    return (
-      <div className="flex items-center justify-center h-32">
-        <p className="text-muted-foreground">{t("common.loading")}</p>
-      </div>
-    );
-  }
-
-  const triggers: { value: FbaTrigger; label: string }[] = [
-    { value: "order_paid", label: t("settings.fbaTriggers.orderPaid") },
-    { value: "order_created", label: t("settings.fbaTriggers.orderCreated") },
-    { value: "order_fulfilled", label: t("settings.fbaTriggers.orderFulfilled") },
-    { value: "manual_only", label: t("settings.fbaTriggers.manualOnly") },
-  ];
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("settings.fbaTriggers.title")}</CardTitle>
-        <CardDescription>{t("settings.fbaTriggers.description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {triggers.map((trigger) => (
-          <div key={trigger.value} className="flex items-center space-x-3">
-            <Checkbox
-              id={`trigger-${trigger.value}`}
-              checked={config.fbaTriggers.includes(trigger.value)}
-              onCheckedChange={() => handleToggleTrigger(trigger.value)}
-            />
-            <Label htmlFor={`trigger-${trigger.value}`} className="cursor-pointer">
-              {trigger.label}
-            </Label>
-          </div>
-        ))}
-        <div className="flex justify-end pt-4 border-t">
-          <Button onClick={handleSave}>{t("common.save")}</Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-// Shipping Speed Component
-function ShippingSpeedSection() {
-  const { t } = useTranslation();
-  const { toast } = useToast();
-  const [config, setConfig] = useState<RoutingConfig | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    loadConfig();
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  const loadConfig = async () => {
-    try {
-      const data = await mockApi.getRoutingConfig();
-      setConfig(data);
-    } catch (error) {
-      toast({
-        title: t("errors.routingConfig"),
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSave = async () => {
-    if (!config) return;
-    try {
-      await mockApi.updateRoutingConfig(config);
-      toast({
-        title: t("common.success"),
-      });
-    } catch (error) {
-      toast({
-        title: t("errors.generic"),
-        variant: "destructive",
-      });
-    }
-  };
-
-  if (loading || !config) {
-    return (
-      <div className="flex items-center justify-center h-32">
-        <p className="text-muted-foreground">{t("common.loading")}</p>
-      </div>
-    );
-  }
-
-  const speeds: ShippingSpeed[] = ["Standard", "Expedited", "Priority"];
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("settings.shippingSpeed.title")}</CardTitle>
-        <CardDescription>{t("settings.shippingSpeed.description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {speeds.map((speed) => (
-          <div key={speed} className="flex items-center space-x-3">
-            <input
-              type="radio"
-              id={`speed-${speed}`}
-              name="shipping-speed"
-              checked={config.defaultShippingSpeed === speed}
-              onChange={() => setConfig({ ...config, defaultShippingSpeed: speed })}
-              className="w-4 h-4"
-            />
-            <Label htmlFor={`speed-${speed}`} className="cursor-pointer">
-              {t(`settings.shippingSpeed.${speed.toLowerCase()}`)}
-            </Label>
-          </div>
-        ))}
-        <div className="flex justify-end pt-4 border-t">
-          <Button onClick={handleSave}>{t("common.save")}</Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-// Email Notifications Component
-function EmailNotificationsSection() {
-  const { t } = useTranslation();
-  const { toast } = useToast();
-  const [config, setConfig] = useState<RoutingConfig | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    loadConfig();
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  const loadConfig = async () => {
-    try {
-      const data = await mockApi.getRoutingConfig();
-      setConfig(data);
-    } catch (error) {
-      toast({
-        title: t("errors.routingConfig"),
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSave = async () => {
-    if (!config) return;
-    
-    // Validate email if provided
-    if (config.notificationEmail && !config.notificationEmail.includes("@")) {
-      toast({
-        title: t("errors.invalidEmail"),
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      await mockApi.updateRoutingConfig(config);
-      toast({
-        title: t("common.success"),
-      });
-    } catch (error) {
-      toast({
-        title: t("errors.generic"),
-        variant: "destructive",
-      });
-    }
-  };
-
-  if (loading || !config) {
-    return (
-      <div className="flex items-center justify-center h-32">
-        <p className="text-muted-foreground">{t("common.loading")}</p>
-      </div>
-    );
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Mail className="w-5 h-5" />
-          {t("settings.emailNotifications.title")}
-        </CardTitle>
-        <CardDescription>{t("settings.emailNotifications.description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="notification-email">{t("settings.emailNotifications.emailAddress")}</Label>
-          <Input
-            id="notification-email"
-            type="email"
-            value={config.notificationEmail || ""}
-            onChange={(e) => setConfig({ ...config, notificationEmail: e.target.value })}
-            placeholder={t("settings.emailNotifications.emailAddressPlaceholder")}
-          />
-        </div>
-        <div className="space-y-3">
-          <div className="flex items-center space-x-3">
-            <Switch
-              id="notify-success"
-              checked={config.notifyOnSuccess}
-              onCheckedChange={(checked) => setConfig({ ...config, notifyOnSuccess: checked })}
-            />
-            <Label htmlFor="notify-success" className="cursor-pointer">
-              {t("settings.emailNotifications.notifyOnSuccess")}
-            </Label>
-          </div>
-          <div className="flex items-center space-x-3">
-            <Switch
-              id="notify-failure"
-              checked={config.notifyOnFailure}
-              onCheckedChange={(checked) => setConfig({ ...config, notifyOnFailure: checked })}
-            />
-            <Label htmlFor="notify-failure" className="cursor-pointer">
-              {t("settings.emailNotifications.notifyOnFailure")}
-            </Label>
-          </div>
-        </div>
-        <div className="flex justify-end pt-4 border-t">
-          <Button onClick={handleSave}>{t("common.save")}</Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-// Order Comments Component
-function OrderCommentsSection() {
-  const { t } = useTranslation();
-  const { toast } = useToast();
-  const [config, setConfig] = useState<RoutingConfig | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    loadConfig();
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  const loadConfig = async () => {
-    try {
-      const data = await mockApi.getRoutingConfig();
-      setConfig(data);
-    } catch (error) {
-      toast({
-        title: t("errors.routingConfig"),
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSave = async () => {
-    if (!config) return;
-    try {
-      await mockApi.updateRoutingConfig(config);
-      toast({
-        title: t("common.success"),
-      });
-    } catch (error) {
-      toast({
-        title: t("errors.generic"),
-        variant: "destructive",
-      });
-    }
-  };
-
-  if (loading || !config) {
-    return (
-      <div className="flex items-center justify-center h-32">
-        <p className="text-muted-foreground">{t("common.loading")}</p>
-      </div>
-    );
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <MessageSquare className="w-5 h-5" />
-          {t("settings.orderComments.title")}
-        </CardTitle>
-        <CardDescription>{t("settings.orderComments.description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center space-x-3">
-          <Switch
-            id="order-comments-enabled"
-            checked={config.displayOrderComments}
-            onCheckedChange={(checked) => setConfig({ ...config, displayOrderComments: checked })}
-          />
-          <Label htmlFor="order-comments-enabled" className="cursor-pointer">
-            {t("settings.orderComments.enabled")}
-          </Label>
-        </div>
-        {config.displayOrderComments && (
-          <div className="space-y-2">
-            <Label htmlFor="default-comment">{t("settings.orderComments.defaultComment")}</Label>
-            <Input
-              id="default-comment"
-              value={config.defaultOrderComment || ""}
-              onChange={(e) => setConfig({ ...config, defaultOrderComment: e.target.value })}
-              placeholder={t("settings.orderComments.defaultCommentPlaceholder")}
-            />
-          </div>
-        )}
-        <div className="flex justify-end pt-4 border-t">
-          <Button onClick={handleSave}>{t("common.save")}</Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-// Main Settings Page
 export function SettingsPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -1094,13 +493,8 @@ export function SettingsPage() {
         </CardContent>
       </Card>
 
-      {/* New Settings Sections in Order */}
-      <AmazonCredentialsSection />
+      {/* MCF Routing Configuration */}
       <RoutingConfiguration />
-      <FbaTriggersSection />
-      <ShippingSpeedSection />
-      <EmailNotificationsSection />
-      <OrderCommentsSection />
 
       {/* Billing Disclosure */}
       <Card className="border-orange-200 dark:border-orange-900">
