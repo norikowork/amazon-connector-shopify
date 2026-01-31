@@ -893,4 +893,52 @@ export const mockApi = {
       return { exists: false, message: "SKU not found in Amazon catalog" };
     }
   },
+
+  /**
+   * Resync product data from Shopify
+   * This simulates fetching the latest product information from Shopify
+   * and updating the local database. Use this when SKUs have changed in Shopify.
+   */
+  resyncProductsFromShopify: async (): Promise<{ updated: number; skipped: number }> => {
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    let updatedCount = 0;
+    let skippedCount = 0;
+    
+    // In production, this would:
+    // 1. Call Shopify Admin API to fetch all products/variants
+    // 2. Compare with local database
+    // 3. Update SKUs that have changed
+    // 4. Preserve Amazon SKU mappings and enabled status
+    
+    // For mock, we'll randomly update some SKUs to simulate changes
+    mockProducts = mockProducts.map(product => {
+      // 30% chance of SKU being updated
+      const shouldUpdate = Math.random() < 0.3;
+      
+      if (shouldUpdate) {
+        updatedCount++;
+        // Simulate a new Shopify SKU (e.g., SKU-v2)
+        const newSku = product.sku.includes("-v") 
+          ? product.sku 
+          : `${product.sku}-v2`;
+        
+        return {
+          ...product,
+          sku: newSku,
+          updatedAt: new Date().toISOString(),
+        };
+      } else {
+        skippedCount++;
+        return product;
+      }
+    });
+    
+    console.log(`[SKU Resync] Updated ${updatedCount} products, skipped ${skippedCount}`);
+    
+    return {
+      updated: updatedCount,
+      skipped: skippedCount,
+    };
+  },
 };

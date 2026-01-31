@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { Search, Package, AlertCircle, AlertTriangle, CheckCircle2, BookOpen } from "lucide-react";
+import { Search, Package, AlertCircle, AlertTriangle, CheckCircle2, BookOpen, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Table,
@@ -272,6 +272,33 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
     }
   };
 
+  const handleResyncSkus = async () => {
+    setLoading(true);
+    try {
+      const result = await mockApi.resyncProductsFromShopify();
+      
+      // Reload products to get the latest data
+      const updatedProducts = await mockApi.getProducts();
+      setProducts(updatedProducts);
+      setFilteredProducts(updatedProducts);
+      
+      toast({
+        title: t("products.resyncSku.success"),
+        description: t("products.resyncSku.successDetails", { 
+          updated: result.updated, 
+          skipped: result.skipped 
+        }),
+      });
+    } catch (error) {
+      toast({
+        title: t("products.resyncSku.error"),
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const enabledCount = products.filter(p => p.enabled).length;
   const totalCount = products.length;
   const matchedCount = products.filter(p => p.amazonSku && p.amazonSku.trim() !== "").length;
@@ -360,6 +387,41 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
           </CardContent>
         </Card>
       </div>
+
+      {/* Resync SKU Button */}
+      <Card className="glass-card">
+        <CardContent className="pt-6">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-3 flex-1">
+              <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-sm">{t("products.resyncSku.title")}</h3>
+                <p className="text-xs text-muted-foreground mt-1">{t("products.resyncSku.description")}</p>
+              </div>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleResyncSkus}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                  {t("products.resyncSku.resyncing")}
+                </>
+              ) : (
+                <>
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  {t("products.resyncSku.button")}
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Warning for enabled products without SKU */}
       {hasWarning && (

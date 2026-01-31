@@ -198,6 +198,15 @@ const enTranslations = {
       unmatchedDesc: "Product exists in Shopify but Amazon SKU is not set. Please manually link.",
       warnMissingSku: "Missing Amazon SKU - cannot fulfill orders",
       checkSku: "Check SKU Availability on Amazon"
+    },
+    resyncSku: {
+      title: "Resync SKUs from Shopify",
+      description: "Fetch the latest SKU information from Shopify and update the product database. Use this when SKUs have been changed in Shopify.",
+      button: "Resync SKUs",
+      resyncing: "Resyncing...",
+      success: "SKU resync completed successfully",
+      successDetails: "{updated} products updated, {skipped} products skipped",
+      error: "Failed to resync SKUs from Shopify"
     }
   },
   shipments: {
@@ -624,6 +633,15 @@ const jaTranslations = {
       unmatchedDesc: "Shopifyに商品が存在しますが、Amazon SKUがセットされていません。手動で連携してください。",
       warnMissingSku: "Amazon SKUがありません - 注文をフルフィルメントできません",
       checkSku: "AmazonでSKUの可用性を確認"
+    },
+    resyncSku: {
+      title: "ShopifyからSKUを再同期",
+      description: "Shopifyから最新のSKU情報を取得して商品データベースを更新します。ShopifyでSKUが変更された場合に使用します。",
+      button: "SKUを再同期",
+      resyncing: "再同期中...",
+      success: "SKUの再同期が正常に完了しました",
+      successDetails: "{updated}件の商品を更新、{skipped}件をスキップ",
+      error: "ShopifyからのSKU再同期に失敗しました"
     }
   },
   shipments: {
