@@ -816,4 +816,22 @@ export const mockApi = {
     mockShipments = generateMockShipments(30);
     mockSettings = { ...mockAppSettings };
   },
+  
+  verifyAmazonSku: async (amazonSku: string): Promise<{ exists: boolean; message?: string }> => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    if (!amazonSku || amazonSku.trim() === "") {
+      return { exists: false, message: "SKU is required" };
+    }
+    
+    // Mock verification: SKUs starting with "AMZ-" are considered valid
+    // In production, this would call the actual Amazon MCF API
+    const isValid = amazonSku.toUpperCase().startsWith("AMZ-");
+    
+    if (isValid) {
+      return { exists: true };
+    } else {
+      return { exists: false, message: "SKU not found in Amazon catalog" };
+    }
+  },
 };

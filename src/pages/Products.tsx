@@ -34,6 +34,8 @@ export function ProductsPage({ onGoToSettings }: { onGoToSettings?: () => void }
   const [filteredProducts, setFilteredProducts] = useState<ProductVariant[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<Record<string, boolean>>({});
+  const [verifying, setVerifying] = useState<Record<string, boolean>>({});
+  const [pendingSkuInputs, setPendingSkuInputs] = useState<Record<string, string>>({});
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [skuFilter, setSkuFilter] = useState<"all" | "matched" | "unmatched">("all");
@@ -133,34 +135,56 @@ export function ProductsPage({ onGoToSettings }: { onGoToSettings?: () => void }
     }
   };
 
-  const handleSaveAmazonSku = async (product: ProductVariant, amazonSku: string) => {
-    setSaving(prev => ({ ...prev, [product.id]: true }));
+  const handleSkuInputChange = (productId: string, value: string) => {
+    setPendingSkuInputs(prev => ({ ...prev, [productId]: value }));
+  };
+
+  const handleVerifySku = async (product: ProductVariant) => {
+    const pendingSku = pendingSkuInputs[product.id];
+    
+    if (!pendingSku || pendingSku.trim() === "") {
+      toast({
+        title: t("products.amazonSku"),
+        description: "Please enter an Amazon SKU first",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setVerifying(prev => ({ ...prev, [product.id]: true }));
     
     try {
-      if (amazonSku && !product.enabled) {
-        // Auto-enable when Amazon SKU is set
-        const updated = await mockApi.updateProduct(product.id, {
-          amazonSku,
-          enabled: true,
-        });
-        setProducts(prev => prev.map(p => (p.id === updated.id ? updated : p)));
-      } else {
-        const updated = await mockApi.updateProduct(product.id, {
-          amazonSku,
-        });
-        setProducts(prev => prev.map(p => (p.id === updated.id ? updated : p)));
-      }
+      // Verify SKU with Amazon (mock call)
+      const verification = await mockApi.verifyAmazonSku(pendingSku);
       
-      toast({
-        title: t("common.success"),
-      });
+      if (verification.exists) {
+        // Save the verified SKU
+        const updated = await mockApi.updateProduct(product.id, {
+          amazonSku: pendingSku,
+        });
+        
+        setProducts(prev => prev.map(p => (p.id === updated.id ? updated : p)));
+        setPendingSkuInputs(prev => ({ ...prev, [product.id]: "" }));
+        
+        toast({
+          title: t("products.skuVerified"),
+          description: `"${pendingSku}" is now linked to this product`,
+        });
+      } else {
+        // SKU not found, show error but don't save
+        toast({
+          title: t("products.skuNotFound"),
+          description: verification.message || "The SKU could not be found in your Amazon catalog",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       toast({
-        title: t("errors.saveProduct"),
+        title: t("errors.generic"),
         variant: "destructive",
       });
     } finally {
-      setSaving(prev => ({ ...prev, [product.id]: false }));
+      setVerifying(prev => ({ ...prev, [product.id]: false }));
     }
   };
 
@@ -440,23 +464,36 @@ export function ProductsPage({ onGoToSettings }: { onGoToSettings?: () => void }
                         <Badge variant="outline">{product.sku}</Badge>
                       </TableCell>
                       <TableCell>
-                        <div className="relative">
-                          <Input
-                            placeholder={t("products.amazonSkuPlaceholder")}
-                            value={product.amazonSku || ""}
-                            onChange={(e) => handleSaveAmazonSku(product, e.target.value)}
-                            disabled={saving[product.id]}
-                            className={`h-8 pr-8 ${!product.amazonSku && product.enabled ? "border-orange-400 bg-orange-50 dark:border-orange-800 dark:bg-orange-950/30" : ""}`}
-                          />
+                        <div className="space-y-2">
+                          <div className="flex gap-1">
+                            <Input
+                              placeholder={t("products.amazonSkuPlaceholder")}
+                              value={pendingSkuInputs[product.id] ?? product.amazonSku ?? ""}
+                              onChange={(e) => handleSkuInputChange(product.id, e.target.value)}
+                              disabled={verifying[product.id] || saving[product.id]}
+                              className={`h-8 flex-1 ${!product.amazonSku && product.enabled ? "border-orange-400 bg-orange-50 dark:border-orange-800 dark:bg-orange-950/30" : ""}`}
+                            />
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 px-2"
+                              onClick={() => handleVerifySku(product)}
+                              disabled={verifying[product.id] || saving[product.id] || !(pendingSkuInputs[product.id] || "").trim()}
+                            >
+                              {verifying[product.id] ? (
+                                <span className="text-xs">{t("products.verifying")}</span>
+                              ) : (
+                                <span className="text-xs">{t("products.verifySku")}</span>
+                              )}
+                            </Button>
+                          </div>
                           {!product.amazonSku && product.enabled && (
-                            <AlertTriangle className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500" />
+                            <p className="text-xs text-orange-600 dark:text-orange-400">
+                              <AlertTriangle className="w-3 h-3 inline mr-1" />
+                              {t("products.skuMatch.warnMissingSku")}
+                            </p>
                           )}
                         </div>
-                        {!product.amazonSku && product.enabled && (
-                          <p className="text-xs text-orange-600 dark:text-orange-400 mt-1">
-                            {t("products.skuMatch.warnMissingSku")}
-                          </p>
-                        )}
                       </TableCell>
                       <TableCell>
                         {product.amazonSku ? (
