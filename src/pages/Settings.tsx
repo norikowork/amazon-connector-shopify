@@ -25,10 +25,12 @@ const MCF_CONNECTIONS: { value: McfConnection; label: string }[] = [
   { value: "AU", label: "Australia (AU)" },
 ];
 
-// Amazon MCF Connection Component
-function AmazonConnectionSettings() {
+// Unified Amazon MCF Connection & Routing Component
+function AmazonMcfSettings() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  
+  // Credentials state
   const [credentials, setCredentials] = useState<AmazonMcfCredentials>({
     region: "US",
     connected: false,
@@ -39,28 +41,39 @@ function AmazonConnectionSettings() {
     syncInventory: false,
     autoSync: false,
   });
+  
+  // Routing config state
+  const [config, setConfig] = useState<RoutingConfig | null>(null);
+  const [previousConnections, setPreviousConnections] = useState<McfConnection[]>([]);
+  
+  // UI state
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
 
   useEffect(() => {
-    loadCredentials();
+    loadData();
     /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
 
-  const loadCredentials = async () => {
+  const loadData = async () => {
     try {
-      const settings = await mockApi.getSettings();
-      setCredentials(settings.amazon.credentials || {
+      const [settingsData, routingData] = await Promise.all([
+        mockApi.getSettings(),
+        mockApi.getRoutingConfig(),
+      ]);
+      setCredentials(settingsData.amazon.credentials || {
         region: "US",
         connected: false,
         testStatus: "none",
       });
-      setSyncSettings(settings.sync || {
+      setSyncSettings(settingsData.sync || {
         syncPrice: false,
         syncInventory: false,
         autoSync: false,
       });
+      setConfig(routingData);
+      setPreviousConnections(routingData.enabledConnections);
     } catch (error) {
       toast({
         title: t("errors.amazonConnection"),
@@ -71,9 +84,10 @@ function AmazonConnectionSettings() {
     }
   };
 
-  const handleSaveCredentials = async () => {
+  const handleSaveAll = async () => {
     setSaving(true);
     try {
+      // Save credentials
       await mockApi.updateSettings({
         amazon: {
           connected: !!(credentials.sellerId && credentials.developerId && credentials.authToken),
@@ -82,9 +96,35 @@ function AmazonConnectionSettings() {
         },
         sync: syncSettings,
       });
-      toast({
-        title: t("common.success"),
-      });
+      
+      // Save routing config
+      if (config) {
+        await mockApi.updateRoutingConfig(config);
+        
+        // Check for connection changes and show billing notification
+        const currentCount = config.enabledConnections.length;
+        const previousCount = previousConnections.length;
+        const addedCount = currentCount - previousCount;
+        const removedCount = previousCount - currentCount;
+        
+        if (addedCount > 0) {
+          toast({
+            title: t("settings.routing.connectionAddedTitle"),
+            description: t("settings.routing.connectionAddedDescription", { count: addedCount, amount: (addedCount * 14.99).toFixed(2) }),
+          });
+        } else if (removedCount > 0) {
+          toast({
+            title: t("settings.routing.connectionRemovedTitle"),
+            description: t("settings.routing.connectionRemovedDescription", { count: removedCount }),
+          });
+        } else {
+          toast({
+            title: t("common.success"),
+          });
+        }
+        
+        setPreviousConnections(config.enabledConnections);
+      }
     } catch (error) {
       toast({
         title: t("errors.generic"),
@@ -98,7 +138,6 @@ function AmazonConnectionSettings() {
   const handleTestConnection = async () => {
     setTesting(true);
     try {
-      // Simulate connection test
       await new Promise(resolve => setTimeout(resolve, 1500));
       const success = !!(credentials.sellerId && credentials.developerId && credentials.authToken);
       
@@ -131,7 +170,6 @@ function AmazonConnectionSettings() {
   const handleDisconnect = async () => {
     setSaving(true);
     try {
-      // Clear credentials and disconnect
       const clearedCredentials: AmazonMcfCredentials = {
         region: "US",
         connected: false,
@@ -161,7 +199,41 @@ function AmazonConnectionSettings() {
     }
   };
 
-  if (loading) {
+  const handleToggleConnection = (conn: McfConnection) => {
+    if (!config) return;
+    const newEnabled = config.enabledConnections.includes(conn)
+      ? config.enabledConnections.filter(c => c !== conn)
+      : [...config.enabledConnections, conn];
+
+    if (newEnabled.length > 5) {
+      toast({
+        title: t("settings.routing.maxConnectionsError"),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    let newEuDefault = config.euDefaultConnection;
+    if (newEuDefault && !newEnabled.includes(newEuDefault)) {
+      newEuDefault = undefined;
+    }
+
+    const newOverrides: Record<string, McfConnection> = {};
+    Object.entries(config.overrides).forEach(([country, conn]) => {
+      if (newEnabled.includes(conn)) {
+        newOverrides[country] = conn;
+      }
+    });
+
+    setConfig({
+      ...config,
+      enabledConnections: newEnabled,
+      euDefaultConnection: newEuDefault,
+      overrides: newOverrides,
+    });
+  };
+
+  if (loading || !config) {
     return (
       <div className="flex items-center justify-center h-64">
         <p className="text-muted-foreground">{t("common.loading")}</p>
@@ -170,6 +242,7 @@ function AmazonConnectionSettings() {
   }
 
   const isConnected = credentials.connected;
+  const connectionFee = calculateConnectionFee(config.enabledConnections, previousConnections);
 
   return (
     <Card>
@@ -198,82 +271,175 @@ function AmazonConnectionSettings() {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Region Selection */}
-        <div className="space-y-2">
-          <Label className="flex items-center gap-2">
-            <Server className="w-4 h-4" />
-            {t("settings.amazon.region")}
-          </Label>
-          <Select
-            value={credentials.region}
-            onValueChange={(val) => setCredentials({ ...credentials, region: val as McfConnection })}
-            disabled={isConnected}
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {MCF_CONNECTIONS.map((conn) => (
-                <SelectItem key={conn.value} value={conn.value}>
-                  {conn.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Seller ID */}
-        <div className="space-y-2">
-          <Label htmlFor="seller-id" className="flex items-center gap-2">
+        {/* Amazon API Credentials Section */}
+        <div className="space-y-4 pb-4 border-b">
+          <h3 className="font-semibold flex items-center gap-2">
             <Key className="w-4 h-4" />
-            {t("settings.amazon.sellerId")}
-          </Label>
-          <Input
-            id="seller-id"
-            value={credentials.sellerId || ""}
-            onChange={(e) => setCredentials({ ...credentials, sellerId: e.target.value })}
-            placeholder={t("settings.amazon.sellerIdPlaceholder")}
-            disabled={isConnected}
-          />
+            {t("settings.amazon.apiCredentials")}
+          </h3>
+          
+          {/* Region Selection */}
+          <div className="space-y-2">
+            <Label className="flex items-center gap-2">
+              <Server className="w-4 h-4" />
+              {t("settings.amazon.region")}
+            </Label>
+            <Select
+              value={credentials.region}
+              onValueChange={(val) => setCredentials({ ...credentials, region: val as McfConnection })}
+              disabled={isConnected}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {MCF_CONNECTIONS.map((conn) => (
+                  <SelectItem key={conn.value} value={conn.value}>
+                    {conn.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Seller ID */}
+          <div className="space-y-2">
+            <Label htmlFor="seller-id">{t("settings.amazon.sellerId")}</Label>
+            <Input
+              id="seller-id"
+              value={credentials.sellerId || ""}
+              onChange={(e) => setCredentials({ ...credentials, sellerId: e.target.value })}
+              placeholder={t("settings.amazon.sellerIdPlaceholder")}
+              disabled={isConnected}
+            />
+          </div>
+
+          {/* Developer ID */}
+          <div className="space-y-2">
+            <Label htmlFor="developer-id">{t("settings.amazon.developerId")}</Label>
+            <Input
+              id="developer-id"
+              value={credentials.developerId || ""}
+              onChange={(e) => setCredentials({ ...credentials, developerId: e.target.value })}
+              placeholder={t("settings.amazon.developerIdPlaceholder")}
+              disabled={isConnected}
+            />
+          </div>
+
+          {/* Auth Token */}
+          <div className="space-y-2">
+            <Label htmlFor="auth-token">{t("settings.amazon.authToken")}</Label>
+            <Input
+              id="auth-token"
+              type="password"
+              value={credentials.authToken || ""}
+              onChange={(e) => setCredentials({ ...credentials, authToken: e.target.value })}
+              placeholder={t("settings.amazon.authTokenPlaceholder")}
+              disabled={isConnected}
+            />
+          </div>
+
+          {/* Test Status */}
+          {credentials.testStatus !== "none" && (
+            <div className={`p-3 rounded-lg border-2 text-sm flex items-center gap-2 ${
+              credentials.testStatus === "success"
+                ? "border-green-500 bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400"
+                : "border-red-500 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400"
+            }`}>
+              {credentials.testStatus === "success" ? (
+                <CheckCircle2 className="w-4 h-4" />
+              ) : (
+                <XCircle className="w-4 h-4" />
+              )}
+              <span>
+                {credentials.testStatus === "success" 
+                  ? t("settings.amazon.connectionSuccess") 
+                  : t("settings.amazon.connectionFailed")}
+                {credentials.lastTested && ` (${new Date(credentials.lastTested).toLocaleString()})`}
+              </span>
+            </div>
+          )}
+
+          {/* Connection Actions */}
+          <div className="flex gap-3 pt-2">
+            {!isConnected ? (
+              <>
+                <Button
+                  onClick={handleTestConnection}
+                  disabled={testing || !credentials.sellerId || !credentials.developerId || !credentials.authToken}
+                  variant="outline"
+                >
+                  {testing ? t("settings.amazon.testing") : t("settings.amazon.testConnection")}
+                </Button>
+                <Button
+                  onClick={handleSaveAll}
+                  disabled={saving || !credentials.sellerId || !credentials.developerId || !credentials.authToken}
+                >
+                  {saving ? t("common.loading") : t("settings.amazon.connect")}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  onClick={handleSaveAll}
+                  disabled={saving}
+                  variant="outline"
+                >
+                  {saving ? t("common.loading") : t("common.save")}
+                </Button>
+                <Button
+                  onClick={handleDisconnect}
+                  variant="outline"
+                >
+                  {t("settings.amazon.disconnect")}
+                </Button>
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Developer ID */}
-        <div className="space-y-2">
-          <Label htmlFor="developer-id" className="flex items-center gap-2">
-            <Key className="w-4 h-4" />
-            {t("settings.amazon.developerId")}
-          </Label>
-          <Input
-            id="developer-id"
-            value={credentials.developerId || ""}
-            onChange={(e) => setCredentials({ ...credentials, developerId: e.target.value })}
-            placeholder={t("settings.amazon.developerIdPlaceholder")}
-            disabled={isConnected}
-          />
-        </div>
+        {/* MCF Routing Configuration Section */}
+        <div className="space-y-4 pt-4 border-b">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold flex items-center gap-2">
+              <DollarSign className="w-4 h-4" />
+              {t("settings.routing.title")}
+            </h3>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <DollarSign className="w-4 h-4" />
+              <span>{t("settings.routing.connectionFee")}: ${connectionFee.monthlyFee}/month</span>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">{t("settings.routing.enabledConnectionsDescription")}</p>
 
-        {/* Auth Token */}
-        <div className="space-y-2">
-          <Label htmlFor="auth-token" className="flex items-center gap-2">
-            <Lock className="w-4 h-4" />
-            {t("settings.amazon.authToken")}
-          </Label>
-          <Input
-            id="auth-token"
-            type="password"
-            value={credentials.authToken || ""}
-            onChange={(e) => setCredentials({ ...credentials, authToken: e.target.value })}
-            placeholder={t("settings.amazon.authTokenPlaceholder")}
-            disabled={isConnected}
-          />
+          {/* Enabled Connections Toggle */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {MCF_CONNECTIONS.map((conn) => (
+              <div
+                key={conn.value}
+                className={`flex items-center justify-between p-3 rounded-lg border-2 cursor-pointer transition-colors ${
+                  config.enabledConnections.includes(conn.value)
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-muted-foreground/50"
+                }`}
+                onClick={() => handleToggleConnection(conn.value)}
+              >
+                <span className="text-sm font-medium">{conn.label}</span>
+                <Switch
+                  checked={config.enabledConnections.includes(conn.value)}
+                  onCheckedChange={() => handleToggleConnection(conn.value)}
+                />
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            {t("settings.routing.maxConnections", { max: 5 })}
+          </p>
         </div>
 
         {/* Displayable Order Comments */}
-        <div className="space-y-2">
-          <Label htmlFor="displayable-comments" className="flex items-center gap-2">
-            <Key className="w-4 h-4" />
-            {t("settings.amazon.displayableComments.title")}
-          </Label>
+        <div className="space-y-2 pt-4 border-b">
+          <Label htmlFor="displayable-comments">{t("settings.amazon.displayableComments.title")}</Label>
           <Textarea
             id="displayable-comments"
             value={credentials.displayableComments || ""}
@@ -284,24 +450,12 @@ function AmazonConnectionSettings() {
           <p className="text-xs text-muted-foreground">
             {t("settings.amazon.displayableComments.help")}
           </p>
-          <p className="text-xs text-muted-foreground italic">
-            {t("settings.amazon.displayableComments.example")}
-          </p>
         </div>
 
         {/* Sync Settings */}
-        <div className="space-y-4 pt-4 border-t">
-          <div>
-            <h4 className="font-semibold flex items-center gap-2">
-              <Server className="w-4 h-4" />
-              {t("settings.amazon.sync.title")}
-            </h4>
-            <p className="text-sm text-muted-foreground mt-1">
-              {t("settings.amazon.sync.description")}
-            </p>
-          </div>
-
-          {/* Sync Price */}
+        <div className="space-y-4">
+          <h3 className="font-semibold">{t("settings.amazon.sync.title")}</h3>
+          
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
               <Label htmlFor="sync-price" className="cursor-pointer">
@@ -318,7 +472,6 @@ function AmazonConnectionSettings() {
             />
           </div>
 
-          {/* Sync Inventory */}
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
               <Label htmlFor="sync-inventory" className="cursor-pointer">
@@ -335,7 +488,6 @@ function AmazonConnectionSettings() {
             />
           </div>
 
-          {/* Auto Sync */}
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
               <Label htmlFor="auto-sync" className="cursor-pointer">
@@ -353,429 +505,19 @@ function AmazonConnectionSettings() {
           </div>
         </div>
 
-        {/* Test Status */}
-        {credentials.testStatus !== "none" && (
-          <div className={`p-3 rounded-lg border-2 text-sm flex items-center gap-2 ${
-            credentials.testStatus === "success"
-              ? "border-green-500 bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400"
-              : "border-red-500 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400"
-          }`}>
-            {credentials.testStatus === "success" ? (
-              <CheckCircle2 className="w-4 h-4" />
-            ) : (
-              <XCircle className="w-4 h-4" />
-            )}
-            <span>
-              {credentials.testStatus === "success" 
-                ? t("settings.amazon.connectionSuccess") 
-                : t("settings.amazon.connectionFailed")}
-              {credentials.lastTested && ` (${new Date(credentials.lastTested).toLocaleString()})`}
-            </span>
-          </div>
-        )}
-
         {/* Help Text */}
         <div className="p-3 bg-muted rounded-lg text-sm text-muted-foreground">
           {t("settings.amazon.credentialsHelp")}
         </div>
 
-        {/* Actions */}
-        <div className="flex gap-3 pt-4 border-t">
-          {!isConnected ? (
-            <>
-              <Button
-                onClick={handleTestConnection}
-                disabled={testing || !credentials.sellerId || !credentials.developerId || !credentials.authToken}
-                variant="outline"
-              >
-                {testing ? t("settings.amazon.testing") : t("settings.amazon.testConnection")}
-              </Button>
-              <Button
-                onClick={handleSaveCredentials}
-                disabled={saving || !credentials.sellerId || !credentials.developerId || !credentials.authToken}
-              >
-                {saving ? t("common.loading") : t("settings.amazon.connect")}
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                onClick={handleSaveCredentials}
-                disabled={saving}
-                variant="outline"
-              >
-                {saving ? t("common.loading") : t("common.save")}
-              </Button>
-              <Button
-                onClick={handleDisconnect}
-                variant="outline"
-              >
-                {t("settings.amazon.disconnect")}
-              </Button>
-            </>
-          )}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function RoutingConfiguration() {
-  const { t } = useTranslation();
-  const { toast } = useToast();
-  const [config, setConfig] = useState<RoutingConfig | null>(null);
-  const [previousConnections, setPreviousConnections] = useState<McfConnection[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [testCountry, setTestCountry] = useState("");
-  const [testResult, setTestResult] = useState<RoutingDecision | null>(null);
-  const [testing, setTesting] = useState(false);
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    loadConfig();
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  const loadConfig = async () => {
-    try {
-      const data = await mockApi.getRoutingConfig();
-      setConfig(data);
-      setPreviousConnections(data.enabledConnections);
-    } catch (error) {
-      toast({
-        title: t("errors.routingConfig"),
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSaveConfig = async () => {
-    if (!config) return;
-    setSaving(true);
-    try {
-      await mockApi.updateRoutingConfig(config);
-      
-      // Check for connection changes and show billing notification
-      const currentCount = config.enabledConnections.length;
-      const previousCount = previousConnections.length;
-      const addedCount = currentCount - previousCount;
-      const removedCount = previousCount - currentCount;
-      
-      if (addedCount > 0) {
-        toast({
-          title: t("settings.routing.connectionAddedTitle"),
-          description: t("settings.routing.connectionAddedDescription", { count: addedCount, amount: (addedCount * 14.99).toFixed(2) }),
-        });
-      } else if (removedCount > 0) {
-        toast({
-          title: t("settings.routing.connectionRemovedTitle"),
-          description: t("settings.routing.connectionRemovedDescription", { count: removedCount }),
-        });
-      } else {
-        toast({
-          title: t("settings.routing.saveSuccess"),
-        });
-      }
-      
-      // Update previous connections after save
-      setPreviousConnections(config.enabledConnections);
-    } catch (error) {
-      toast({
-        title: t("settings.routing.saveError"),
-        variant: "destructive",
-      });
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleToggleConnection = (conn: McfConnection) => {
-    if (!config) return;
-    const newEnabled = config.enabledConnections.includes(conn)
-      ? config.enabledConnections.filter(c => c !== conn)
-      : [...config.enabledConnections, conn];
-
-    // Validate max 5 connections
-    if (newEnabled.length > 5) {
-      toast({
-        title: t("settings.routing.maxConnectionsError"),
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // If removing a connection that is set as EU default, clear it
-    let newEuDefault = config.euDefaultConnection;
-    if (newEuDefault && !newEnabled.includes(newEuDefault)) {
-      newEuDefault = undefined;
-    }
-
-    // Also clear any overrides that use disabled connections
-    const newOverrides: Record<string, McfConnection> = {};
-    Object.entries(config.overrides).forEach(([country, conn]) => {
-      if (newEnabled.includes(conn)) {
-        newOverrides[country] = conn;
-      }
-    });
-
-    setConfig({
-      ...config,
-      enabledConnections: newEnabled,
-      euDefaultConnection: newEuDefault,
-      overrides: newOverrides,
-    });
-  };
-
-  const handleTestRouting = async () => {
-    if (!testCountry.trim()) return;
-    setTesting(true);
-    setTestResult(null);
-    try {
-      const result = await mockApi.testRouting(testCountry.trim().toUpperCase());
-      setTestResult(result);
-    } catch (error) {
-      toast({
-        title: t("errors.testRouting"),
-        variant: "destructive",
-      });
-    } finally {
-      setTesting(false);
-    }
-  };
-
-  const handleAddOverride = () => {
-    if (!config) return;
-    setConfig({
-      ...config,
-      overrides: { ...config.overrides, "": "US" },
-    });
-  };
-
-  const handleRemoveOverride = (country: string) => {
-    if (!config) return;
-    const newOverrides = { ...config.overrides };
-    delete newOverrides[country];
-    setConfig({ ...config, overrides: newOverrides });
-  };
-
-  const handleUpdateOverride = (oldCountry: string, newCountry: string, connection: McfConnection) => {
-    if (!config) return;
-    const newOverrides = { ...config.overrides };
-    delete newOverrides[oldCountry];
-    newOverrides[newCountry.toUpperCase()] = connection;
-    setConfig({ ...config, overrides: newOverrides });
-  };
-
-  if (loading || !config) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-muted-foreground">{t("common.loading")}</p>
-      </div>
-    );
-  }
-
-  const connectionFee = calculateConnectionFee(config.enabledConnections, previousConnections);
-  const availableEuConnections = config.enabledConnections.filter(c => ["DE", "FR", "IT", "ES"].includes(c));
-  const hasPendingChanges = config.enabledConnections.length !== previousConnections.length;
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("settings.routing.title")}</CardTitle>
-        <CardDescription>{t("settings.routing.description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Enabled Connections */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <Label className="font-semibold">{t("settings.routing.enabledConnectionsTitle")}</Label>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <DollarSign className="w-4 h-4" />
-              <span>{t("settings.routing.connectionFee")}: ${connectionFee.monthlyFee}/month</span>
-            </div>
-          </div>
-          <p className="text-sm text-muted-foreground">{t("settings.routing.enabledConnectionsDescription")}</p>
-          
-          {/* Pending billing changes notification */}
-          {hasPendingChanges && (
-            <div className={`p-3 rounded-lg border-2 text-sm ${
-              config.enabledConnections.length > previousConnections.length
-                ? "border-green-500 bg-green-50 dark:bg-green-950"
-                : "border-blue-500 bg-blue-50 dark:bg-blue-950"
-            }`}>
-              {config.enabledConnections.length > previousConnections.length ? (
-                <div className="flex items-start gap-2">
-                  <DollarSign className="w-4 h-4 text-green-600 mt-0.5" />
-                  <div>
-                    <div className="font-semibold text-green-700 dark:text-green-400">
-                      {config.enabledConnections.length - previousConnections.length} connection(s) will be added
-                    </div>
-                    <div className="text-muted-foreground text-xs mt-1">
-                      You will be charged ${((config.enabledConnections.length - previousConnections.length) * 14.99).toFixed(2)} immediately upon saving
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-blue-600 mt-0.5" />
-                  <div>
-                    <div className="font-semibold text-blue-700 dark:text-blue-400">
-                      {previousConnections.length - config.enabledConnections.length} connection(s) will be removed
-                    </div>
-                    <div className="text-muted-foreground text-xs mt-1">
-                      Reduced fee will apply starting from next billing cycle. You will still be charged for this month.
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {MCF_CONNECTIONS.map((conn) => (
-              <div
-                key={conn.value}
-                className={`flex items-center justify-between p-3 rounded-lg border-2 transition-colors ${
-                  config.enabledConnections.includes(conn.value)
-                    ? "border-primary bg-primary/5"
-                    : "border-muted"
-                }`}
-              >
-                <span className="font-medium">{conn.label}</span>
-                <Switch
-                  checked={config.enabledConnections.includes(conn.value)}
-                  onCheckedChange={() => handleToggleConnection(conn.value)}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center justify-between text-sm p-3 bg-muted/50 rounded-lg">
-            <span>{t("settings.routing.connectionFeeDescription")}</span>
-            <Badge variant="outline">{config.enabledConnections.length}/5 {t("settings.routing.maxConnections")}</Badge>
-          </div>
-        </div>
-
-        {/* EU Default Connection */}
-        <div className="space-y-3">
-          <Label className="font-semibold">{t("settings.routing.euDefaultTitle")}</Label>
-          <p className="text-sm text-muted-foreground">{t("settings.routing.euDefaultDescription")}</p>
-          {availableEuConnections.length === 0 ? (
-            <div className="p-3 bg-muted rounded-lg text-sm text-muted-foreground">
-              Enable at least one of DE/FR/IT/ES to set an EU default connection.
-            </div>
-          ) : (
-            <Select
-              value={config.euDefaultConnection || ""}
-              onValueChange={(val) => setConfig({ ...config, euDefaultConnection: val as McfConnection })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={t("settings.routing.connectionPlaceholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                {availableEuConnections.map((conn) => (
-                  <SelectItem key={conn} value={conn}>
-                    {MCF_CONNECTIONS.find((c) => c.value === conn)?.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        </div>
-
-        {/* Country Overrides */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <Label className="font-semibold">{t("settings.routing.overridesTitle")}</Label>
-            <Button variant="outline" size="sm" onClick={handleAddOverride}>
-              <Plus className="w-4 h-4 mr-1" />
-              {t("settings.routing.addOverrideRow")}
+        {/* Save Button (when already connected) */}
+        {isConnected && (
+          <div className="flex justify-end pt-4 border-t">
+            <Button onClick={handleSaveAll} disabled={saving} size="lg">
+              {saving ? t("common.loading") : t("common.save")}
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground">{t("settings.routing.overridesDescription")}</p>
-          <div className="space-y-2">
-            {Object.entries(config.overrides).map(([country, connection]) => (
-              <div key={country} className="flex items-center gap-2">
-                <Input
-                  value={country}
-                  onChange={(e) => handleUpdateOverride(country, e.target.value, connection)}
-                  placeholder={t("settings.routing.destinationCountryPlaceholder")}
-                  className="w-32"
-                />
-                <span className="text-muted-foreground">→</span>
-                <Select
-                  value={connection}
-                  onValueChange={(val) => handleUpdateOverride(country, country, val as McfConnection)}
-                >
-                  <SelectTrigger className="w-48">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {config.enabledConnections.map((conn) => (
-                      <SelectItem key={conn} value={conn}>
-                        {MCF_CONNECTIONS.find((c) => c.value === conn)?.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Button variant="ghost" size="icon" onClick={() => handleRemoveOverride(country)}>
-                  <Trash2 className="w-4 h-4" />
-                </Button>
-              </div>
-            ))}
-            {Object.keys(config.overrides).length === 0 && (
-              <div className="p-4 border border-dashed rounded-lg text-center text-sm text-muted-foreground">
-                No overrides configured. Click "+ Add Override" to create one.
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Test Routing */}
-        <div className="space-y-3 pt-4 border-t">
-          <Label className="font-semibold">{t("settings.routing.testRoutingTitle")}</Label>
-          <p className="text-sm text-muted-foreground">{t("settings.routing.testRoutingDescription")}</p>
-          <div className="flex gap-2">
-            <Input
-              value={testCountry}
-              onChange={(e) => setTestCountry(e.target.value)}
-              placeholder={t("settings.routing.testRoutingPlaceholder")}
-              className="w-48"
-            />
-            <Button onClick={handleTestRouting} disabled={testing || !testCountry.trim()}>
-              {testing ? t("common.loading") : t("settings.routing.testRoutingButton")}
-            </Button>
-          </div>
-          {testResult && (
-            <div className={`p-4 rounded-lg border-2 ${
-              testResult.status === "SUCCESS"
-                ? "border-green-500 bg-green-50 dark:bg-green-950"
-                : "border-red-500 bg-red-50 dark:bg-red-950"
-            }`}>
-              <div className="flex items-center gap-2 mb-2">
-                {testResult.status === "SUCCESS" ? (
-                  <CheckCircle2 className="w-5 h-5 text-green-600" />
-                ) : (
-                  <XCircle className="w-5 h-5 text-red-600" />
-                )}
-                <span className="font-semibold">{t("settings.routing.testRoutingResult")}</span>
-              </div>
-              <div className="space-y-1 text-sm">
-                <div><strong>{t("settings.routing.connection")}:</strong> {testResult.connection || t("common.error")}</div>
-                <div><strong>{t("settings.routing.reason")}:</strong> {testResult.reason}</div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Save Button */}
-        <div className="flex justify-end pt-4 border-t">
-          <Button onClick={handleSaveConfig} disabled={saving}>
-            {saving ? t("common.loading") : t("settings.routing.save")}
-          </Button>
-        </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -972,11 +714,8 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
         </CardContent>
       </Card>
 
-      {/* Amazon MCF Connection */}
-      <AmazonConnectionSettings />
-
-      {/* MCF Routing Configuration */}
-      <RoutingConfiguration />
+      {/* Amazon MCF Connection & Routing (Unified) */}
+      <AmazonMcfSettings />
 
       {/* Billing Disclosure */}
       <Card className="border-orange-200 dark:border-orange-900">
