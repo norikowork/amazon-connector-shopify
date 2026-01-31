@@ -150,7 +150,7 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
           </div>
           <div className="flex items-center justify-between py-2">
             <span className="text-sm text-muted-foreground">{t("billing.connectionFee.monthlyFee")}</span>
-            <span className="font-medium">${20} {t("billing.connectionFee.perConnection")}</span>
+            <span className="font-medium">{formatCurrency(connectionFee.monthlyFee / connectionFee.enabledCount)} {t("billing.connectionFee.perConnection")}</span>
           </div>
           <div className="mt-4 p-3 bg-white/50 dark:bg-black/20 rounded-lg text-sm">
             <div className="flex items-start gap-2">

@@ -274,6 +274,7 @@ const enTranslations = {
       description: "Monthly fee for each enabled MCF connection. Charged separately from shipment fees.",
       enabledConnections: "Enabled Connections",
       monthlyFee: "Monthly Fee",
+      perConnection: "per connection",
       maxConnections: "max 5"
     },
     disclaimer: {
@@ -698,6 +699,7 @@ const jaTranslations = {
       description: "有効なMCF接続先ごとの月額料金。出荷手数料とは別に課金されます。",
       enabledConnections: "有効な接続先",
       monthlyFee: "月額料金",
+      perConnection: "接続先あたり",
       maxConnections: "最大5つ"
     },
     disclaimer: {
