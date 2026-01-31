@@ -104,7 +104,14 @@
       "connectionSuccess": "接続に成功しました！",
       "connectionFailed": "接続に失敗しました。認証情報を確認してください。",
       "description": "フルフィルメントを有効にするにはAmazon MCF認証情報を設定します。",
-      "credentialsHelp": "これらの値はAmazonセントラルのMWS/Marketplace Web Service設定で確認できます。"
+      "credentialsHelp": "これらの値はAmazonセントラルのMWS/Marketplace Web Service設定で確認できます。",
+      "displayableComments": {
+        "title": "注文に表示するコメント",
+        "description": "Amazon MCFでフルフィルメントされたShopify注文にカスタムメッセージを追加します。",
+        "placeholder": "カスタムメッセージを入力（オプション）",
+        "help": "このメッセージはShopify注文詳細とフルフィルメントノートに表示されます。",
+        "example": "例：'Amazon FBAによりフルフィルメントされました'"
+      }
     },
     "billing": {
       "title": "課金の確認",

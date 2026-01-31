@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign, Key, Lock, Server } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -232,6 +233,27 @@ function AmazonConnectionSettings() {
             placeholder={t("settings.amazon.authTokenPlaceholder")}
             disabled={isConnected}
           />
+        </div>
+
+        {/* Displayable Order Comments */}
+        <div className="space-y-2">
+          <Label htmlFor="displayable-comments" className="flex items-center gap-2">
+            <Key className="w-4 h-4" />
+            {t("settings.amazon.displayableComments.title")}
+          </Label>
+          <Textarea
+            id="displayable-comments"
+            value={credentials.displayableComments || ""}
+            onChange={(e) => setCredentials({ ...credentials, displayableComments: e.target.value })}
+            placeholder={t("settings.amazon.displayableComments.placeholder")}
+            rows={3}
+          />
+          <p className="text-xs text-muted-foreground">
+            {t("settings.amazon.displayableComments.help")}
+          </p>
+          <p className="text-xs text-muted-foreground italic">
+            {t("settings.amazon.displayableComments.example")}
+          </p>
         </div>
 
         {/* Test Status */}

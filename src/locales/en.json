@@ -104,7 +104,14 @@
       "connectionSuccess": "Connection successful!",
       "connectionFailed": "Connection failed. Please check your credentials.",
       "description": "Configure your Amazon MCF credentials to enable fulfillment.",
-      "credentialsHelp": "You can find these values in your Amazon Seller Central under MWS/Marketplace Web Service settings."
+      "credentialsHelp": "You can find these values in your Amazon Seller Central under MWS/Marketplace Web Service settings.",
+      "displayableComments": {
+        "title": "Displayable Order Comments",
+        "description": "Add a custom message to Shopify orders when fulfilled by Amazon MCF.",
+        "placeholder": "Enter your custom message (optional)",
+        "help": "This message will appear in the Shopify order details and fulfillment notes.",
+        "example": "Example: 'Fulfilled by Amazon FBA'"
+      }
     },
     "billing": {
       "title": "Billing Acknowledgment",

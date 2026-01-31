@@ -15,6 +15,7 @@ export interface AmazonMcfCredentials {
   connected: boolean;
   lastTested?: string;
   testStatus?: "success" | "failed" | "none";
+  displayableComments?: string; // Custom message for Shopify orders
 }
 
 // Failure codes for routing and configuration issues
