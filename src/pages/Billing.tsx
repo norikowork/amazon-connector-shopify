@@ -4,7 +4,7 @@ import { mockApi, BillingUsage, ConnectionFee } from "@/lib/mockData";
 import { BillingAlert } from "@/components/BillingAlert";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+
 import { DollarSign, TrendingUp, Package, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -95,12 +95,9 @@ export function BillingPage({ onGoToSettings }: { onGoToSettings?: () => void })
       <BillingAlert onGoToSettings={() => onGoToSettings?.()} />
       
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">{t("billing.title")}</h1>
-          <p className="text-muted-foreground">{t("billing.subtitle")}</p>
-        </div>
-        <LanguageSwitcher />
+      <div>
+        <h1 className="text-3xl font-bold">{t("billing.title")}</h1>
+        <p className="text-muted-foreground">{t("billing.subtitle")}</p>
       </div>
 
       {/* Connection Fee Card */}
