@@ -6,16 +6,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, XCircle, Mail, Send } from "lucide-react";
+import { CheckCircle2, XCircle, Mail, Send, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type ShopifyConnectionStatus = "connected" | "disconnected";
 
 interface SupportPageProps {
   onGoToSettings?: () => void;
+  onGoToDocumentation?: () => void;
 }
 
-export function SupportPage({ onGoToSettings }: SupportPageProps) {
+export function SupportPage({ onGoToSettings, onGoToDocumentation }: SupportPageProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
   
@@ -89,9 +90,15 @@ export function SupportPage({ onGoToSettings }: SupportPageProps) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-gradient-primary">{t("support.title")}</h1>
-        <p className="text-muted-foreground">{t("support.subtitle")}</p>
+      <div className="flex items-start justify-between">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-gradient-primary">{t("support.title")}</h1>
+          <p className="text-muted-foreground">{t("support.subtitle")}</p>
+        </div>
+        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
+          <BookOpen className="w-4 h-4 mr-1" />
+          Documentation
+        </Button>
       </div>
 
       {/* Shopify Connection Status Card */}

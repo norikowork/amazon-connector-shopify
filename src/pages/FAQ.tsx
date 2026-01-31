@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "@/lib/i18n";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
@@ -12,9 +13,10 @@ import { HelpCircle, BookOpen, Truck, DollarSign, Settings } from "lucide-react"
 
 interface FAQPageProps {
   onGoToSettings?: () => void;
+  onGoToDocumentation?: () => void;
 }
 
-export function FAQPage({ onGoToSettings }: FAQPageProps) {
+export function FAQPage({ onGoToSettings, onGoToDocumentation }: FAQPageProps) {
   const { t } = useTranslation();
 
   const categoryIcons: Record<string, React.ReactNode> = {
@@ -47,12 +49,18 @@ export function FAQPage({ onGoToSettings }: FAQPageProps) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <HelpCircle className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl font-bold text-gradient-primary">{t("faq.title")}</h1>
+      <div className="flex items-start justify-between">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <HelpCircle className="h-8 w-8 text-primary" />
+            <h1 className="text-3xl font-bold text-gradient-primary">{t("faq.title")}</h1>
+          </div>
+          <p className="text-muted-foreground">{t("faq.subtitle")}</p>
         </div>
-        <p className="text-muted-foreground">{t("faq.subtitle")}</p>
+        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
+          <BookOpen className="w-4 h-4 mr-1" />
+          Documentation
+        </Button>
       </div>
 
       {/* FAQ Content */}

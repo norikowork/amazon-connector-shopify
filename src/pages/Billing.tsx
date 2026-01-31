@@ -4,8 +4,8 @@ import { mockApi, BillingUsage, ConnectionFee } from "@/lib/mockData";
 import { BillingAlert } from "@/components/BillingAlert";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-import { DollarSign, TrendingUp, Package, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { DollarSign, TrendingUp, Package, AlertCircle, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Table,
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 
-export function BillingPage({ onGoToSettings }: { onGoToSettings?: () => void }) {
+export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSettings?: () => void; onGoToDocumentation?: () => void }) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [usage, setUsage] = useState<BillingUsage | null>(null);
@@ -95,9 +95,15 @@ export function BillingPage({ onGoToSettings }: { onGoToSettings?: () => void })
       <BillingAlert onGoToSettings={() => onGoToSettings?.()} />
       
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold">{t("billing.title")}</h1>
-        <p className="text-muted-foreground">{t("billing.subtitle")}</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">{t("billing.title")}</h1>
+          <p className="text-muted-foreground">{t("billing.subtitle")}</p>
+        </div>
+        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
+          <BookOpen className="w-4 h-4 mr-1" />
+          Documentation
+        </Button>
       </div>
 
       {/* Connection Fee Card */}

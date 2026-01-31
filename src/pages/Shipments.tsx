@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { RefreshCw, ExternalLink, AlertCircle, Package, Truck, Clock, XCircle, Info } from "lucide-react";
+import { RefreshCw, ExternalLink, AlertCircle, Package, Truck, Clock, XCircle, Info, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Table,
@@ -52,7 +52,7 @@ const statusColors = {
   pending_retry: "secondary",
 } as const;
 
-export function ShipmentsPage({ onGoToSettings }: { onGoToSettings?: () => void }) {
+export function ShipmentsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSettings?: () => void; onGoToDocumentation?: () => void }) {
   const { t, locale } = useTranslation();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -171,7 +171,13 @@ export function ShipmentsPage({ onGoToSettings }: { onGoToSettings?: () => void 
           <h1 className="text-3xl font-bold">{t("shipments.title")}</h1>
           <p className="text-muted-foreground">{t("shipments.subtitle")}</p>
         </div>
-        <LanguageSwitcher />
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
+            <BookOpen className="w-4 h-4 mr-1" />
+            Documentation
+          </Button>
+          <LanguageSwitcher />
+        </div>
       </div>
 
       {/* Stats */}

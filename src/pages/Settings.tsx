@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign, Key, Lock, Server } from "lucide-react";
+import { CheckCircle2, XCircle, AlertTriangle, Plus, Trash2, DollarSign, Key, Lock, Server, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // MCF Connection Options
@@ -781,7 +781,7 @@ function RoutingConfiguration() {
   );
 }
 
-export function SettingsPage() {
+export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: () => void } = {}) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [settings, setSettings] = useState<AppSettings | null>(null);
@@ -909,9 +909,15 @@ export function SettingsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold">{t("settings.title")}</h1>
-        <p className="text-muted-foreground">{t("settings.subtitle")}</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">{t("settings.title")}</h1>
+          <p className="text-muted-foreground">{t("settings.subtitle")}</p>
+        </div>
+        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
+          <BookOpen className="w-4 h-4 mr-1" />
+          Documentation
+        </Button>
       </div>
 
       {/* Shopify Connection */}

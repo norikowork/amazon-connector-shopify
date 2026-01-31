@@ -6,6 +6,7 @@ import { ShipmentsPage } from "./Shipments";
 import { BillingPage } from "./Billing";
 import { FAQPage } from "./FAQ";
 import { SupportPage } from "./Support";
+import { DocumentationPage } from "./Documentation";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { 
@@ -17,11 +18,12 @@ import {
   X,
   ShoppingBag,
   HelpCircle,
-  CircleHelp
+  CircleHelp,
+  BookOpen
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-type Page = "onboarding" | "settings" | "products" | "shipments" | "faq" | "billing" | "support";
+type Page = "onboarding" | "settings" | "products" | "shipments" | "faq" | "billing" | "support" | "documentation";
 
 export default function Index() {
   const [currentPage, setCurrentPage] = useState<Page>("settings");
@@ -43,10 +45,13 @@ export default function Index() {
   ];
 
   const renderPage = () => {
-    const pageProps = { onGoToSettings: () => setCurrentPage("settings") };
+    const pageProps = { 
+      onGoToSettings: () => setCurrentPage("settings"),
+      onGoToDocumentation: () => setCurrentPage("documentation")
+    };
     switch (currentPage) {
       case "settings":
-        return <SettingsPage />;
+        return <SettingsPage {...pageProps} />;
       case "products":
         return <ProductsPage {...pageProps} />;
       case "shipments":
@@ -57,6 +62,8 @@ export default function Index() {
         return <BillingPage {...pageProps} />;
       case "support":
         return <SupportPage {...pageProps} />;
+      case "documentation":
+        return <DocumentationPage />;
       default:
         return <SettingsPage />;
     }

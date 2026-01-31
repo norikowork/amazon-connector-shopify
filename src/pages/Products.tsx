@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { Search, Package, AlertCircle, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { Search, Package, AlertCircle, AlertTriangle, CheckCircle2, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Table,
@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function ProductsPage({ onGoToSettings }: { onGoToSettings?: () => void }) {
+export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSettings?: () => void; onGoToDocumentation?: () => void }) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [products, setProducts] = useState<ProductVariant[]>([]);
@@ -285,6 +285,10 @@ export function ProductsPage({ onGoToSettings }: { onGoToSettings?: () => void }
           <h1 className="text-3xl font-bold text-gradient-primary">{t("products.title")}</h1>
           <p className="text-muted-foreground">{t("products.subtitle")}</p>
         </div>
+        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
+          <BookOpen className="w-4 h-4 mr-1" />
+          Documentation
+        </Button>
       </div>
 
       {/* Stats */}
