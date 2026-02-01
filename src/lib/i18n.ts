@@ -347,6 +347,22 @@ const enTranslations = {
       tagRemoved: "Tag Removed",
       tagAdded: "Tag Added",
       tagKept: "Tag Kept"
+    },
+    resync: {
+      title: "Resync Order",
+      description: "Fetch the latest order data from Shopify and re-evaluate tags",
+      button: "Resync from Shopify",
+      buttonLoading: "Resyncing...",
+      success: "Order resynced successfully",
+      error: "Failed to resync order",
+      confirmation: "Are you sure you want to resync this order from Shopify?",
+      confirmationDescription: "This will fetch the latest order data and re-evaluate MCF tags. Use this after splitting or editing the order in Shopify.",
+      orderData: {
+        title: "Order Data",
+        lineItemsCount: "Total Line Items",
+        mcfEligibleCount: "MCF Eligible Items",
+        mfnItemsCount: "MFN Items (Not MCF)"
+      }
     }
   },
   billing: {
@@ -887,6 +903,22 @@ const jaTranslations = {
       tagRemoved: "タグ削除",
       tagAdded: "タグ追加",
       tagKept: "タグ保持"
+    },
+    resync: {
+      title: "注文の再同期",
+      description: "Shopifyから最新の注文データを取得してタグを再評価します",
+      button: "Shopifyから再同期",
+      buttonLoading: "再同期中...",
+      success: "注文の再同期が正常に完了しました",
+      error: "注文の再同期に失敗しました",
+      confirmation: "この注文をShopifyから再同期してもよろしいですか？",
+      confirmationDescription: "最新の注文データを取得してMCFタグを再評価します。Shopifyで注文を分割または編集した後に使用してください。",
+      orderData: {
+        title: "注文データ",
+        lineItemsCount: "総明細行数",
+        mcfEligibleCount: "MCF対象商品",
+        mfnItemsCount: "MFN商品（MCF対象外）"
+      }
     }
   },
   billing: {

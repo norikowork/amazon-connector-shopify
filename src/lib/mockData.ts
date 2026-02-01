@@ -1143,4 +1143,103 @@ export const mockApi = {
       message: "MCF_MIXED_ERROR tag removed. Order will be re-evaluated on next update."
     };
   },
+
+  /**
+   * Resync order from Shopify
+   * Fetches the latest order data from Shopify and re-evaluates tags
+   * Use this after:
+   * - Order was split in Shopify
+   * - Order was edited in Shopify (items removed/changed)
+   * - Product mappings were updated and you want to re-check eligibility
+   */
+  resyncOrderFromShopify: async (orderId: string, orderNumber: string): Promise<{
+    success: boolean;
+    message: string;
+    previousTags: OrderTag[];
+    newTags: OrderTag[];
+    actions: string[];
+    shouldSendToMcf: boolean;
+    orderData?: {
+      lineItemsCount: number;
+      mcfEligibleCount: number;
+      mfnItemsCount: number;
+    };
+  }> => {
+    console.log("[Order Resync] Resyncing order from Shopify:", orderNumber);
+    
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // In production, this would:
+    // 1. Call Shopify Admin API to fetch the latest order data
+    // 2. Get current line items, tags, shipping address
+    // 3. Call evaluateOrderTags() with the fresh data
+    // 4. Update order tags in Shopify if they changed
+    
+    // For mock, we'll simulate fetching updated order data
+    // Find the shipment for this order (if exists)
+    const existingShipment = mockShipments.find(s => s.orderId === orderId || s.orderNumber === orderNumber);
+    
+    // Get previous tags from shipment or default to empty
+    const previousTags: OrderTag[] = [];
+    if (existingShipment) {
+      if (existingShipment.status === "failed") {
+        previousTags.push("MCF_MIXED_ERROR");
+      } else {
+        previousTags.push("SEND_TO_MCF");
+      }
+    }
+    
+    // Simulate fetching order data from Shopify
+    // In production, this would be: const order = await shopifyClient.order.get(orderId);
+    const mockOrderData = {
+      id: orderId,
+      order_number: orderNumber,
+      line_items: existingShipment?.items.map(item => ({
+        variant_id: item.variantId,
+        title: item.variantTitle,
+        sku: item.amazonSku, // In production, this would be Shopify SKU
+        quantity: item.quantity,
+      })) || [],
+      shipping_address: {
+        country_code: existingShipment?.destinationCountry || "US",
+      },
+      tags: previousTags,
+    };
+    
+    // Simulate order changes (for demo purposes)
+    // In production, the fetched data would reflect actual Shopify changes
+    const actions: string[] = [];
+    actions.push("Fetched latest order data from Shopify");
+    
+    // Re-evaluate tags with the fresh data
+    const reevaluation = await mockApi.reevaluateOrderAfterEdit(mockOrderData);
+    
+    actions.push(...reevaluation.actions);
+    
+    console.log("[Order Resync] Previous tags:", previousTags);
+    console.log("[Order Resync] New tags:", reevaluation.tags);
+    console.log("[Order Resync] Actions:", actions);
+    
+    // Calculate line item counts
+    const mcfEligibleCount = mockOrderData.line_items.filter(item => {
+      const product = mockProducts.find(p => p.sku === item.sku);
+      return product && product.enabled && product.amazonSku;
+    }).length;
+    
+    const mfnItemsCount = mockOrderData.line_items.length - mcfEligibleCount;
+    
+    return {
+      success: true,
+      message: `Order ${orderNumber} resynced successfully from Shopify. Tags have been re-evaluated.`,
+      previousTags,
+      newTags: reevaluation.tags,
+      actions,
+      shouldSendToMcf: reevaluation.shouldSendToMcf,
+      orderData: {
+        lineItemsCount: mockOrderData.line_items.length,
+        mcfEligibleCount,
+        mfnItemsCount,
+      },
+    };
+  },
 };
