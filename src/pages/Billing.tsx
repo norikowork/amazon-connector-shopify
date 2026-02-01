@@ -64,7 +64,7 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
 
   const formatMonth = (monthStr: string) => {
     const [year, month] = monthStr.split("-");
-    return new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString(undefined, {
+    return new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
     });
