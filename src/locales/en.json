@@ -471,6 +471,52 @@
       "productMapping": "Product Mapping",
       "shipping": "Shipping",
       "billing": "Billing"
+    },
+    "questions": {
+      "q1": {
+        "question": "What is Amazon Connector?",
+        "answer": "Amazon Connector is a Shopify app that automatically fulfills your orders using Amazon FBA inventory through Multi-Channel Fulfillment (MCF). When you receive an order, the app checks which items are FBA-enabled and sends them to Amazon for fulfillment, then writes the tracking information back to Shopify."
+      },
+      "q2": {
+        "question": "How do I get started?",
+        "answer": "To get started: 1) Install the app from Shopify App Store, 2) Connect your Shopify store, 3) Connect your Amazon MCF account with your credentials, 4) Configure which MCF connections to use for different destinations, 5) Map your products by entering the Amazon SKU for each variant you want to fulfill, 6) Accept the billing terms. See our Setup Guide for detailed instructions."
+      },
+      "q3": {
+        "question": "How do I map my products to Amazon SKUs?",
+        "answer": "Go to the Product Mapping page, find your products, and enable FBA fulfillment for variants you want to fulfill. Enter the exact Amazon Merchant SKU for each variant. Click Verify to confirm the SKU exists in your FBA inventory. The SKU must match exactly (case-sensitive)."
+      },
+      "q4": {
+        "question": "What happens when an order contains both FBA and non-FBA items?",
+        "answer": "Orders with mixed items are handled as partial fulfillments. FBA-enabled items are sent to Amazon MCF for fulfillment, while non-FBA items remain unfulfilled and must be fulfilled manually using your normal shipping process. Tracking is written back only for FBA items."
+      },
+      "q5": {
+        "question": "Can I use different Amazon marketplace connections?",
+        "answer": "Yes! You can enable up to 5 MCF connections (US, JP, DE, FR, IT, ES, etc.). Configure routing rules to automatically select the appropriate connection based on the destination country. For example, US destinations use the US connection, EU destinations use your designated EU default."
+      },
+      "q6": {
+        "question": "How long does fulfillment take?",
+        "answer": "Amazon MCF typically processes orders within 1-2 business days. Once Amazon accepts the fulfillment order, they ship the items and provide tracking numbers. The app automatically updates your Shopify order with the tracking information as soon as it's available."
+      },
+      "q7": {
+        "question": "What happens if a shipment fails?",
+        "answer": "If a shipment fails, it will be marked with an error code in the Shipments page. Common reasons include: missing Amazon SKU, destination not supported, inventory unavailable, or API errors. You can retry failed shipments from the Shipments page after fixing the issue. The app will also auto-retry up to 3 times for certain errors."
+      },
+      "q8": {
+        "question": "How does billing work?",
+        "answer": "Billing is based on shipments processed each month. First 5 shipments are free. From shipment #6 to #200, a $20 monthly fee applies. Each shipment beyond 200 costs $0.50. Connection fees are $20 per enabled connection per month. Charges apply for the monthly cycle and are not reduced by cancellations or returns."
+      },
+      "q9": {
+        "question": "Do cancellations or returns affect my billing?",
+        "answer": "No. Cancellations, returns, and refunds do NOT reduce your shipment count or any charges already applied for the monthly cycle. Once a shipment is processed, the charge applies for that month regardless of order status changes."
+      },
+      "q10": {
+        "question": "What are connection fees?",
+        "answer": "Connection fees are $20 per enabled MCF connection per month, separate from shipment charges. If you enable US, JP, and DE connections, you pay $60/month in connection fees. These fees are billed monthly and changes take effect in the next billing cycle."
+      },
+      "q11": {
+        "question": "Can I test the app before going live?",
+        "answer": "Yes! We recommend placing a test order with an FBA-enabled product before processing real orders. Monitor the Shipments page to see the status updates and verify that tracking is written back to Shopify correctly. Contact support if you encounter any issues during testing."
+      }
     }
   },
   "errors": {
