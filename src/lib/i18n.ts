@@ -240,7 +240,74 @@ const enTranslations = {
       accepted: "Accepted"
     },
     pendingRetry: {
-      retryCount: "Retry Count"
+      title: "Auto-Retry in Progress",
+      message: "This shipment will be retried automatically. If all retries fail, it will be marked as FAILED.",
+      retryCount: "Retry attempt {{count}} of 3"
+    },
+    mixedOrder: {
+      title: "Mixed Order - Partial Fulfillment",
+      description: "MCF items were fulfilled by Amazon Connector. Remaining items must be fulfilled separately (MFN) using your normal shipping process.",
+      notice: "This order contains both MCF-fulfilled and MFN items.",
+      mfnItemsTitle: "Remaining MFN Items (Manual Fulfillment Required)",
+      mfnItemsDescription: "These items were not included in the Amazon MCF shipment and must be fulfilled manually.",
+      noMfnItems: "No remaining MFN items."
+    },
+    failure: {
+      title: "Shipment Failed",
+      retry: "Retry Shipment",
+      changeRoute: "Select Different Connection",
+      openSettings: "Open Settings",
+      howToFix: "How to Fix",
+      OVERRIDE_CONNECTION_DISABLED: {
+        title: "Override Connection Disabled",
+        message: "Routing override points to a disabled connection.",
+        fix: "Enable the connection in Settings or change the override to use an enabled connection."
+      },
+      DESTINATION_CONNECTION_NOT_ENABLED: {
+        title: "Destination Connection Not Enabled",
+        message: "Destination is a marketplace country, but that connection is not enabled.",
+        fix: "Enable the connection for this marketplace in Settings, or set an override to use a different enabled connection."
+      },
+      NO_EU_ROUTE: {
+        title: "No EU Route Configured",
+        message: "No EU route is configured for this destination country.",
+        fix: "Enable one of DE/FR/IT/ES connections and set it as the EU default in Settings, or add a specific override for this country."
+      },
+      NO_US_ROUTE: {
+        title: "US Connection Required",
+        message: "US destination requires the US connection to be enabled.",
+        fix: "Enable the US connection in Settings. The US connection is required for US domestic shipments."
+      },
+      NO_JP_ROUTE: {
+        title: "Japan Connection Required",
+        message: "Japan destination requires the JP connection to be enabled.",
+        fix: "Enable the JP (Japan) connection in Settings. The JP connection is required for Japan domestic shipments."
+      },
+      DESTINATION_NOT_SUPPORTED: {
+        title: "Destination Not Supported",
+        message: "Destination country is not supported by your enabled MCF connections.",
+        fix: "Enable a connection that covers this destination (US, JP, or DE/FR/IT/ES for EU) or set a specific country override in Settings."
+      },
+      MAPPING_MISSING: {
+        title: "Amazon SKU Missing",
+        message: "Amazon SKU is missing for one or more items.",
+        fix: "Go to Product Mapping and set the Amazon SKU for all FBA-enabled variants."
+      },
+      AMAZON_API_ERROR: {
+        title: "Amazon API Error",
+        message: "Failed to communicate with Amazon MCF API.",
+        fix: "Check your Amazon MCF connection credentials. If the issue persists, contact Amazon MCF support."
+      },
+      CONNECTION_UNAVAILABLE: {
+        title: "MCF Connection Unavailable",
+        message: "The selected MCF connection is currently unavailable.",
+        fix: "Check your Amazon MCF account status. You may need to re-connect the marketplace account."
+      },
+      UNKNOWN_ERROR: {
+        title: "Unknown Error",
+        message: "An unexpected error occurred during fulfillment.",
+        fix: "Please try retrying the shipment. If the issue persists, contact support."
+      }
     },
     empty: "No shipments found for the selected filter"
   },
@@ -675,7 +742,74 @@ const jaTranslations = {
       accepted: "受諾済み"
     },
     pendingRetry: {
-      retryCount: "再試行回数"
+      title: "自動再試行中",
+      message: "この出荷は自動的に再試行されます。すべての再試行が失敗すると、失敗としてマークされます。",
+      retryCount: "{{count}}回目の再試行（最大3回）"
+    },
+    mixedOrder: {
+      title: "混合注文 - 一部フルフィルメント",
+      description: "MCF商品はAmazon Connectorによってフルフィルメントされました。残りの商品は通常の配送プロセスを使用して別途フルフィルメントする必要があります（MFN）。",
+      notice: "この注文にはMCFフルフィルメント商品とMFN商品の両方が含まれています。",
+      mfnItemsTitle: "残りのMFN商品（手動フルフィルメントが必要）",
+      mfnItemsDescription: "これらの商品はAmazon MCF出荷に含まれておらず、手動でフルフィルメントする必要があります。",
+      noMfnItems: "残りのMFN商品はありません。"
+    },
+    failure: {
+      title: "出荷が失敗しました",
+      retry: "出荷を再試行",
+      changeRoute: "別の接続先を選択",
+      openSettings: "設定を開く",
+      howToFix: "修正方法",
+      OVERRIDE_CONNECTION_DISABLED: {
+        title: "オーバーライド接続が無効",
+        message: "ルーティングオーバーライドが無効な接続先を指しています。",
+        fix: "設定で接続を有効にするか、オーバーライドを変更して有効な接続を使用してください。"
+      },
+      DESTINATION_CONNECTION_NOT_ENABLED: {
+        title: "宛先接続が有効になっていません",
+        message: "宛先はマーケットプレイス国ですが、その接続が有効になっていません。",
+        fix: "設定でそのマーケットプレイスの接続を有効にするか、有効な別の接続を使用するようにオーバーライドを設定してください。"
+      },
+      NO_EU_ROUTE: {
+        title: "EUルートが設定されていません",
+        message: "この宛先国にEUルートが設定されていません。",
+        fix: "DE/FR/IT/ESのいずれかの接続を有効にして設定でEUデフォルトに設定するか、この国の特定のオーバーライドを追加してください。"
+      },
+      NO_US_ROUTE: {
+        title: "US接続が必要",
+        message: "US宛先にはUS接続を有効にする必要があります。",
+        fix: "設定でUS接続を有効にしてください。US接続は米国内の出荷に必要です。"
+      },
+      NO_JP_ROUTE: {
+        title: "日本接続が必要",
+        message: "日本宛先にはJP接続を有効にする必要があります。",
+        fix: "設定でJP（日本）接続を有効にしてください。JP接続は日本国内の出荷に必要です。"
+      },
+      DESTINATION_NOT_SUPPORTED: {
+        title: "宛先がサポートされていません",
+        message: "宛先国は有効なMCF接続でサポートされていません。",
+        fix: "この宛先をカバーする接続（US、JP、またはEUのDE/FR/IT/ES）を有効にするか、設定で特定の国オーバーライドを設定してください。"
+      },
+      MAPPING_MISSING: {
+        title: "Amazon SKUがありません",
+        message: "1つ以上の商品のAmazon SKUがありません。",
+        fix: "商品マッピングに移動し、FBAが有効なすべてのバリアントのAmazon SKUを設定してください。"
+      },
+      AMAZON_API_ERROR: {
+        title: "Amazon APIエラー",
+        message: "Amazon MCF APIとの通信に失敗しました。",
+        fix: "Amazon MCF接続の認証情報を確認してください。問題が続く場合は、Amazon MCFサポートにお問い合わせください。"
+      },
+      CONNECTION_UNAVAILABLE: {
+        title: "MCF接続が利用できません",
+        message: "選択されたMCF接続は現在利用できません。",
+        fix: "Amazon MCFアカウントのステータスを確認してください。マーケットプレイスアカウントを再接続する必要がある場合があります。"
+      },
+      UNKNOWN_ERROR: {
+        title: "不明なエラー",
+        message: "フルフィルメント中に予期しないエラーが発生しました。",
+        fix: "出荷の再試行を行ってください。問題が続く場合は、サポートにお問い合わせください。"
+      }
     },
     empty: "選択したフィルターで出荷が見つかりません"
   },
