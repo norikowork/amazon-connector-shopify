@@ -506,62 +506,65 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
               <p className="text-muted-foreground">{t("products.noProductsFound")}</p>
             </div>
           ) : (
-            <div className="rounded-md border">
+            <div className="rounded-md border overflow-x-auto">
               <Table>
-                <TableHeader>
+                <TableHeader className="sticky top-0 bg-background z-10">
                   <TableRow>
-                    <TableHead className="w-12">
+                    <TableHead className="w-12 min-w-12 sticky left-0 bg-background">
                       <Checkbox
                         checked={selectedIds.size === filteredProducts.length && filteredProducts.length > 0}
                         onCheckedChange={(checked: boolean) => handleSelectAll(checked)}
                       />
                     </TableHead>
-                    <TableHead>{t("products.variant")}</TableHead>
-                    <TableHead>{t("products.sku")}</TableHead>
-                    <TableHead>{t("products.amazonSku")}</TableHead>
-                    <TableHead className="w-32">Matching Status</TableHead>
-                    <TableHead>{t("products.inventory")}</TableHead>
-                    <TableHead>{t("common.enabled")}</TableHead>
-                    <TableHead className="w-24">{t("common.actions")}</TableHead>
+                    <TableHead className="min-w-[280px] w-[280px]">{t("products.variant")}</TableHead>
+                    <TableHead className="min-w-[140px] w-[140px]">{t("products.sku")}</TableHead>
+                    <TableHead className="min-w-[380px] w-[380px]">{t("products.amazonSku")}</TableHead>
+                    <TableHead className="min-w-[160px] w-[160px]">Matching Status</TableHead>
+                    <TableHead className="min-w-[100px] w-[100px]">{t("products.inventory")}</TableHead>
+                    <TableHead className="min-w-[90px] w-[90px]">{t("common.enabled")}</TableHead>
+                    <TableHead className="min-w-[90px] w-[90px]">{t("common.actions")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredProducts.map((product) => (
                     <TableRow key={product.id}>
-                      <TableCell>
+                      <TableCell className="w-12 min-w-12 sticky left-0 bg-background/90 backdrop-blur-sm">
                         <Checkbox
                           checked={selectedIds.has(product.id)}
                           onCheckedChange={(checked: boolean) => handleSelectOne(product.id, checked)}
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="min-w-[280px] w-[280px]">
                         <div>
                           <div className="font-medium">{product.title}</div>
                           <div className="text-sm text-muted-foreground">{product.variantTitle}</div>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="min-w-[140px] w-[140px]">
                         <Badge variant="outline">{product.sku}</Badge>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="min-w-[380px] w-[380px]">
                         <div className="space-y-2">
-                          <div className="flex gap-1">
+                          <div className="flex gap-2">
                             <Input
                               placeholder={t("products.amazonSkuPlaceholder")}
                               value={pendingSkuInputs[product.id] ?? product.amazonSku ?? ""}
                               onChange={(e) => handleSkuInputChange(product.id, e.target.value)}
                               disabled={verifying[product.id] || saving[product.id]}
-                              className={`h-8 flex-1 ${!product.amazonSku && product.enabled ? "border-orange-400 bg-orange-50 dark:border-orange-800 dark:bg-orange-950/30" : ""}`}
+                              className={`h-9 flex-1 ${!product.amazonSku && product.enabled ? "border-orange-400 bg-orange-50 dark:border-orange-800 dark:bg-orange-950/30" : ""}`}
                             />
                             <Button
                               variant="outline"
                               size="sm"
-                              className="h-8 px-2"
+                              className="h-9 px-3"
                               onClick={() => handleVerifySku(product)}
                               disabled={verifying[product.id] || saving[product.id] || !(pendingSkuInputs[product.id] || "").trim()}
                             >
                               {verifying[product.id] ? (
-                                <span className="text-xs">{t("products.verifying")}</span>
+                                <>
+                                  <RefreshCw className="w-3 h-3 mr-1 animate-spin" />
+                                  <span className="text-xs">{t("products.verifying")}</span>
+                                </>
                               ) : (
                                 <span className="text-xs">{t("products.verifySku")}</span>
                               )}
@@ -575,7 +578,7 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                           )}
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="min-w-[160px] w-[160px]">
                         {product.amazonSku ? (
                           <Badge variant="default" className="bg-green-600 hover:bg-green-700">
                             <CheckCircle2 className="w-3 h-3 mr-1" />
@@ -588,19 +591,19 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                           </Badge>
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="min-w-[100px] w-[100px]">
                         <Badge variant={product.inventory > 10 ? "default" : product.inventory > 0 ? "secondary" : "destructive"}>
                           {product.inventory}
                         </Badge>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="min-w-[90px] w-[90px]">
                         <Switch
                           checked={product.enabled}
                           onCheckedChange={() => handleToggleEnabled(product)}
                           disabled={saving[product.id]}
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="min-w-[90px] w-[90px]">
                         <Button
                           variant="ghost"
                           size="sm"
