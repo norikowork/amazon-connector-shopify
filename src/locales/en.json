@@ -359,9 +359,319 @@
     },
     "documentation": {
       "title": "Documentation",
+      "subtitle": "User guides and documentation for Amazon Connector",
       "setup": "Setup Guide",
+      "productMapping": "Product Mapping",
+      "troubleshooting": "Troubleshooting",
       "api": "API Reference",
-      "support": "Support"
+      "support": "Support",
+      "backToDocs": "← Back to Documentation"
+    },
+    "docsSetup": {
+      "title": "Setup Guide",
+      "subtitle": "Step-by-step instructions to get started with Amazon Connector",
+      "overview": {
+        "title": "Overview",
+        "description": "Amazon Connector allows you to fulfill Shopify orders using Amazon FBA inventory through Multi-Channel Fulfillment (MCF). This guide will walk you through the setup process."
+      },
+      "step1": {
+        "title": "Step 1: Install the App",
+        "description": "Install Amazon Connector from the Shopify App Store. You'll need to grant the app permissions to access your Shopify store's orders, products, and fulfillment data.",
+        "permissions": {
+          "title": "Required Permissions",
+          "orders": "Read orders - to process fulfillments",
+          "products": "Read products - for SKU mapping",
+          "fulfillments": "Create/update fulfillments - to write tracking back to Shopify"
+        }
+      },
+      "step2": {
+        "title": "Step 2: Connect Your Amazon MCF Account",
+        "description": "Configure your Amazon MCF credentials in the Settings page:",
+        "credentials": {
+          "sellerId": "Seller ID - Found in Amazon Seller Central",
+          "developerId": "Developer ID - From your MWS application",
+          "authToken": "MWS Auth Token - Generated in Seller Central"
+        },
+        "regions": {
+          "title": "Supported Marketplaces",
+          "us": "United States (US)",
+          "jp": "Japan (JP)",
+          "eu": "European Union (DE, FR, IT, ES)"
+        },
+        "findCredentials": "How to find your Amazon MCF credentials: Go to Seller Central → Settings → MWS/Marketplace Web Service"
+      },
+      "step3": {
+        "title": "Step 3: Configure Routing",
+        "description": "Set up which Amazon connections to use for different destinations:",
+        "enabled": "Enable the marketplace connections you want to use (max 5)",
+        "euDefault": "For EU destinations, select a default connection (DE/FR/IT/ES)",
+        "overrides": "Add country-specific overrides when needed",
+        "test": "Use the Test Routing feature to verify configuration"
+      },
+      "step4": {
+        "title": "Step 4: Map Your Products",
+        "description": "Link your Shopify products to Amazon SKUs:",
+        "enable": "Enable FBA fulfillment for products you want to fulfill",
+        "sku": "Enter the corresponding Amazon SKU for each variant",
+        "verify": "Verify SKU matches using the Verify button",
+        "inventory": "Check inventory levels before enabling"
+      },
+      "step5": {
+        "title": "Step 5: Configure Billing",
+        "description": "Review and accept the billing terms:",
+        "free": "First 5 shipments per month are free",
+        "tier1": "$20/month when you exceed 5 shipments (covers up to 200 shipments)",
+        "tier2": "$0.50 per shipment beyond 200",
+        "connectionFee": "$20 per enabled connection per month",
+        "acknowledge": "You must acknowledge that cancellations/returns don't reduce charges"
+      },
+      "step6": {
+        "title": "Step 6: Test Your Setup",
+        "description": "Before going live:",
+        "testOrder": "Place a test order with an FBA-enabled product",
+        "monitor": "Monitor the Shipments page for status updates",
+        "tracking": "Verify tracking is written back to Shopify",
+        "support": "Contact support if you encounter any issues"
+      }
+    },
+    "docsProductMapping": {
+      "title": "Product Mapping Guide",
+      "subtitle": "Learn how to link Shopify products to Amazon SKUs",
+      "overview": {
+        "title": "What is Product Mapping?",
+        "description": "Product mapping links your Shopify products and variants to their corresponding Amazon SKUs. When an order contains a mapped product, Amazon Connector can automatically fulfill it using your FBA inventory."
+      },
+      "howTo": {
+        "title": "How to Map Products",
+        "step1": {
+          "title": "Navigate to Product Mapping",
+          "description": "Go to the Product Mapping page in the app sidebar."
+        },
+        "step2": {
+          "title": "Find Your Product",
+          "description": "Use the search bar to find products by name or SKU."
+        },
+        "step3": {
+          "title": "Enable FBA Fulfillment",
+          "description": "Toggle the FBA switch for variants you want to fulfill through Amazon."
+        },
+        "step4": {
+          "title": "Enter Amazon SKU",
+          "description": "Type the exact Amazon Merchant SKU that matches your FBA inventory."
+        },
+        "step5": {
+          "title": "Verify the SKU",
+          "description": "Click the Verify button to confirm the SKU exists in your FBA inventory."
+        }
+      },
+      "skuTips": {
+        "title": "SKU Matching Tips",
+        "exactMatch": "SKUs must match exactly (case-sensitive)",
+        "checkAmazon": "Verify the SKU in your Amazon Seller Central inventory",
+        "trailingChars": "Watch for trailing spaces or special characters",
+        "variantSkus": "Each variant needs its own unique Amazon SKU"
+      },
+      "inventorySync": {
+        "title": "Inventory Synchronization",
+        "description": "When you enable a product for FBA fulfillment, the app displays FBA inventory levels. You can also configure automatic inventory sync in Settings.",
+        "autoSync": "Enable auto-sync to automatically update Shopify inventory from FBA"
+      },
+      "bulkActions": {
+        "title": "Bulk Operations",
+        "description": "For multiple products, use bulk actions:",
+        "selectAll": "Select All to choose all displayed products",
+        "bulkEnable": "Bulk Enable to activate FBA for selected items",
+        "bulkDisable": "Bulk Disable to deactivate FBA for selected items"
+      },
+      "troubleshooting": {
+        "title": "Common Issues",
+        "notFound": "SKU not found in FBA inventory - Check the SKU is correct and exists in Amazon",
+        "inventoryZero": "Inventory shows 0 - The item may be out of stock at FBA warehouses",
+        "mismatch": "Tracking not updating - Verify the SKU mapping is correct"
+      }
+    },
+    "docsTroubleshooting": {
+      "title": "Troubleshooting Guide",
+      "subtitle": "Common issues and solutions for Amazon Connector",
+      "overview": {
+        "title": "Getting Help",
+        "description": "Most issues can be resolved by following the troubleshooting steps below. For additional help, use the Support page to contact our team."
+      },
+      "connectionIssues": {
+        "title": "Connection Issues",
+        "amazonNotConnected": {
+          "title": "Amazon MCF Connection Failed",
+          "description": "If the app shows 'Not connected to Amazon MCF':",
+          "solutions": [
+            "Verify your Seller ID is correct (no extra spaces)",
+            "Check that Developer ID and Auth Token are valid",
+            "Ensure MWS is enabled in your Amazon Seller Central",
+            "Try clicking 'Test Connection' again"
+          ]
+        },
+        "shopifyNotConnected": {
+          "title": "Shopify Connection Issues",
+          "description": "If the app shows 'Not connected to Shopify':",
+          "solutions": [
+            "Verify your shop domain is correct (e.g., your-store.myshopify.com)",
+            "Check that the app is installed in your Shopify store",
+            "Ensure app permissions are granted in Shopify settings"
+          ]
+        }
+      },
+      "fulfillmentIssues": {
+        "title": "Fulfillment Issues",
+        "shipmentsFailing": {
+          "title": "Shipments Keep Failing",
+          "description": "Check the error code in the Shipments page:",
+          "codes": {
+            "MAPPING_MISSING": "Go to Product Mapping and set the Amazon SKU",
+            "DESTINATION_NOT_SUPPORTED": "Enable a connection that supports this destination",
+            "NO_EU_ROUTE": "Enable an EU connection and set it as default",
+            "AMAZON_API_ERROR": "Check Amazon MCF status or contact support"
+          }
+        },
+        "mixedOrders": {
+          "title": "Mixed Order Behavior",
+          "description": "Orders with both FBA and non-FBA items are marked as 'Mixed Order':",
+          "behavior": [
+            "FBA items are sent to Amazon MCF for fulfillment",
+            "Non-FBA items remain for manual fulfillment",
+            "Both groups must be fulfilled separately",
+            "Tracking is written back for FBA items only"
+          ]
+        },
+        "trackingNotUpdating": {
+          "title": "Tracking Not Appearing in Shopify",
+          "description": "Possible solutions:",
+          "solutions": [
+            "Check the shipment status in the Shipments page",
+            "Wait for Amazon to accept and ship the order",
+            "Verify Shopify API permissions include fulfillment updates",
+            "Check if the order was manually fulfilled in Shopify"
+          ]
+        }
+      },
+      "billingIssues": {
+        "title": "Billing Questions",
+        "chargesSeemHigh": {
+          "title": "Understanding Your Charges",
+          "description": "Remember that:",
+          "points": [
+            "Cancellations and returns do NOT reduce shipment counts",
+            "Once a shipment is created, the charge applies for the month",
+            "Connection fees ($20/connection) are billed separately",
+            "Check the Billing page for a detailed breakdown"
+          ]
+        }
+      },
+      "errorCodes": {
+        "title": "Error Codes Reference",
+        "description": "Common error codes and their meanings:",
+        "OVERRIDE_CONNECTION_DISABLED": "A routing override points to a disabled connection",
+        "DESTINATION_CONNECTION_NOT_ENABLED": "Destination marketplace connection is not enabled",
+        "NO_EU_ROUTE": "No EU default connection configured",
+        "NO_US_ROUTE": "US connection required for US destinations",
+        "NO_JP_ROUTE": "JP connection required for Japan destinations",
+        "DESTINATION_NOT_SUPPORTED": "Destination country not covered by enabled connections",
+        "MAPPING_MISSING": "Amazon SKU not configured for this product",
+        "AMAZON_API_ERROR": "Temporary Amazon API issue or credentials invalid",
+        "CONNECTION_UNAVAILABLE": "MCF connection is temporarily down"
+      }
+    },
+    "docsApi": {
+      "title": "API Reference",
+      "subtitle": "Technical documentation for developers",
+      "overview": {
+        "title": "API Overview",
+        "description": "Amazon Connector provides webhook handlers and API endpoints for custom integrations. This documentation is intended for developers building custom workflows."
+      },
+      "webhooks": {
+        "title": "Webhooks",
+        "description": "The app registers the following webhooks with Shopify:",
+        "ordersPaid": {
+          "title": "orders/paid",
+          "description": "Triggered when an order is paid. The app processes this webhook to create MCF fulfillment requests for enabled items.",
+          "behavior": [
+            "Inspect line items for FBA-enabled products",
+            "Filter out non-FBA items",
+            "Create MCF fulfillment order for FBA items",
+            "Update Shopify fulfillment with tracking information"
+          ]
+        }
+      },
+      "dataModels": {
+        "title": "Data Models",
+        "shop": {
+          "title": "Shop",
+          "description": "Shop configuration and connection status",
+          "fields": {
+            "shop_domain": "Shopify store domain",
+            "access_token": "Shopify API access token",
+            "billing_state": "Billing acceptance status",
+            "locale_pref": "Language preference"
+          }
+        },
+        "mapping": {
+          "title": "Product Mapping",
+          "description": "Link between Shopify variants and Amazon SKUs",
+          "fields": {
+            "shop": "Shop domain",
+            "variant_id": "Shopify variant ID",
+            "enabled": "FBA fulfillment enabled flag",
+            "amazon_sku": "Corresponding Amazon SKU",
+            "updated_at": "Last modification timestamp"
+          }
+        },
+        "shipment": {
+          "title": "Shipment",
+          "description": "Fulfillment request to Amazon MCF",
+          "fields": {
+            "id": "Unique shipment identifier",
+            "shop": "Shop domain",
+            "order_id": "Shopify order ID",
+            "status": "pending, sent, accepted, shipped, failed, pending_retry",
+            "amazon_order_id": "Amazon's order identifier",
+            "tracking_numbers": "Array of tracking numbers",
+            "carrier": "Shipping carrier name",
+            "items": "Array of fulfilled line items",
+            "failure_code": "Error code if failed",
+            "created_at": "Creation timestamp",
+            "updated_at": "Last update timestamp"
+          }
+        },
+        "usageCounter": {
+          "title": "Usage Counter",
+          "description": "Monthly billing cycle tracking",
+          "fields": {
+            "shop": "Shop domain",
+            "cycle_month": "Billing cycle (YYYY-MM)",
+            "shipment_count": "Total shipments this cycle",
+            "charged_20": "Whether $20 base charge applied",
+            "over_200_count": "Shipments beyond 200"
+          }
+        }
+      },
+      "endpoints": {
+        "title": "API Endpoints",
+        "description": "The following endpoints are available (proxied through Shopify):",
+        "list": [
+          "GET /api/shipments - List all shipments",
+          "POST /api/shipments/{id}/retry - Retry a failed shipment",
+          "GET /api/products - List mapped products",
+          "POST /api/products/sync - Sync products from Shopify",
+          "GET /api/billing - Get current billing status",
+          "GET /api/settings - Get app settings",
+          "POST /api/settings - Update app settings"
+        ]
+      },
+      "security": {
+        "title": "Security",
+        "description": "Security measures implemented:",
+        "webhookVerification": "All Shopify webhooks are verified using HMAC signatures",
+        "tokenEncryption": "Amazon credentials are encrypted at rest",
+        "dataDeletion": "All shop data is deleted upon app uninstall"
+      }
     }
   }
 }
