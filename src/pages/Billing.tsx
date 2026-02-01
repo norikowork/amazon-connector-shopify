@@ -182,10 +182,10 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   {[
-                    "Up to 200 shipments included",
-                    "$0.50 per shipment over 200",
-                    "Priority support",
-                    "Advanced analytics"
+                    t("billing.proPlan.features.upTo200"),
+                    t("billing.proPlan.features.over200"),
+                    t("billing.proPlan.features.prioritySupport"),
+                    t("billing.proPlan.features.advancedAnalytics")
                   ].map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-2">
                       <Check className="h-5 w-5 text-green-600 flex-shrink-0" />
@@ -195,9 +195,9 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
                 </div>
                 <div className="flex items-center justify-between bg-white/60 dark:bg-black/20 rounded-lg p-4">
                   <div>
-                    <div className="text-3xl font-bold text-green-700 dark:text-green-400">$14.99<span className="text-lg font-medium">/month</span></div>
-                    <p className="text-sm text-green-600 dark:text-green-500 mt-1">Up to 200 shipments per month</p>
-                    <p className="text-xs text-green-600/70 dark:text-green-500/70 mt-1">Over 200: $0.50 per shipment</p>
+                    <div className="text-3xl font-bold text-green-700 dark:text-green-400">$14.99<span className="text-lg font-medium">/{t("billing.proPlan.pricing.perMonth")}</span></div>
+                    <p className="text-sm text-green-600 dark:text-green-500 mt-1">{t("billing.proPlan.pricing.upTo200Shipments")}</p>
+                    <p className="text-xs text-green-600/70 dark:text-green-500/70 mt-1">{t("billing.proPlan.pricing.over200Pricing")}</p>
                   </div>
                   <Button 
                     size="lg" 
@@ -208,7 +208,7 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
                     {upgrading ? (
                       <>
                         <span className="animate-spin mr-2">⏳</span>
-                        Processing...
+                        {t("billing.proPlan.processing")}
                       </>
                     ) : (
                       <>
@@ -409,23 +409,23 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
       {/* Billing Summary for Reference */}
       <Card className="bg-slate-50 dark:bg-slate-900">
         <CardHeader>
-          <CardTitle className="text-lg">Billing Tier Summary</CardTitle>
+          <CardTitle className="text-lg">{t("billing.tierSummary.title")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
           <div className="flex items-center gap-3">
             <Badge variant="default" className="min-w-[60px] justify-center">1-5</Badge>
             <span className="text-green-600 font-semibold">FREE</span>
-            <span className="text-muted-foreground">- First 5 shipments each month</span>
+            <span className="text-muted-foreground">{t("billing.tierSummary.free")}</span>
           </div>
           <div className="flex items-center gap-3">
             <Badge variant="secondary" className="min-w-[60px] justify-center">6-200</Badge>
             <span className="font-semibold">$14.99/month</span>
-            <span className="text-muted-foreground">- Monthly charge for up to 200 shipments</span>
+            <span className="text-muted-foreground">{t("billing.tierSummary.base")}</span>
           </div>
           <div className="flex items-center gap-3">
             <Badge variant="outline" className="min-w-[60px] justify-center border-purple-500 text-purple-500">201+</Badge>
             <span className="font-semibold">$14.99/mo + $0.50/shipment</span>
-            <span className="text-muted-foreground">- Same plan, $0.50 for each shipment over 200</span>
+            <span className="text-muted-foreground">{t("billing.tierSummary.scale")}</span>
           </div>
         </CardContent>
       </Card>

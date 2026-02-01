@@ -443,7 +443,13 @@ const enTranslations = {
       buttonText: "Upgrade to Pro - $14.99/month",
       currentPlan: "Current Plan",
       upgradeSuccess: "Successfully upgraded to Pro Plan!",
-      upgradeError: "Failed to upgrade. Please try again."
+      upgradeError: "Failed to upgrade. Please try again.",
+      pricing: {
+        perMonth: "per month",
+        upTo200Shipments: "Up to 200 shipments per month",
+        over200Pricing: "Over 200: $0.50 per shipment"
+      },
+      processing: "Processing..."
     }
   },
   billingAlert: {
@@ -1014,7 +1020,13 @@ const jaTranslations = {
       buttonText: "Proにアップグレード - 月額$14.99",
       currentPlan: "現在のプラン",
       upgradeSuccess: "Proプランへのアップグレードが成功しました！",
-      upgradeError: "アップグレードに失敗しました。もう一度お試しください。"
+      upgradeError: "アップグレードに失敗しました。もう一度お試しください。",
+      pricing: {
+        perMonth: "月額",
+        upTo200Shipments: "月間最大200出荷まで",
+        over200Pricing: "200超過：出荷1回につき$0.50"
+      },
+      processing: "処理中..."
     }
   },
   billingAlert: {

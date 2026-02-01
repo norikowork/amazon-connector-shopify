@@ -348,7 +348,25 @@
       "currentPlan": "現在のプラン",
       "buttonText": "Proプランにアップグレード",
       "upgradeSuccess": "Proプランに正常にアップグレードされました！",
-      "upgradeError": "Proプランへのアップグレードに失敗しました。もう一度お試しください。"
+      "upgradeError": "Proプランへのアップグレードに失敗しました。もう一度お試しください。",
+      "features": {
+        "upTo200": "最大200出荷まで含まれる",
+        "over200": "200出荷超過につき$0.50",
+        "prioritySupport": "優先サポート",
+        "advancedAnalytics": "高度な分析"
+      },
+      "pricing": {
+        "perMonth": "月額",
+        "upTo200Shipments": "月間最大200出荷まで",
+        "over200Pricing": "200超過：出荷1回につき$0.50"
+      },
+      "processing": "処理中..."
+    },
+    "tierSummary": {
+      "title": "請求階層サマリー",
+      "free": "毎月の最初の5出荷",
+      "base": "最大200出荷までの月額料金",
+      "scale": "同じプラン、200出荷超過は1回につき$0.50"
     },
     "plan": {
       "free": "無料",

@@ -68,26 +68,6 @@
       "upgradeToProDescription": "Upgrade to Pro plan for unlimited shipments per month, or wait for the next billing cycle when your free allowance resets."
     },
     "proPlan": {
-      "title": "Upgrade to Pro Plan",
-      "description": "Get up to 200 shipments per month and priority support",
-      "currentPlan": "Current Plan",
-      "buttonText": "Upgrade to Pro",
-      "upgradeSuccess": "Successfully upgraded to Pro plan!",
-      "upgradeError": "Failed to upgrade to Pro plan. Please try again.",
-      "features": {
-        "upTo200": "Up to 200 shipments included",
-        "over200": "$0.50 per shipment over 200",
-        "prioritySupport": "Priority support",
-        "advancedAnalytics": "Advanced analytics"
-      },
-      "pricing": {
-        "perMonth": "per month",
-        "upTo200Shipments": "Up to 200 shipments per month",
-        "over200Pricing": "Over 200: $0.50 per shipment"
-      },
-      "processing": "Processing..."
-    },
-    "plan": {
       "free": "Free",
       "pro": "Pro"
     }
