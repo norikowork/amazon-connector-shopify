@@ -440,7 +440,7 @@ function AmazonMcfSettings() {
         {/* Displayable Order Comments */}
         <div className="space-y-2 pt-4 border-b">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-muted-foreground" />
+            <Package className="w-4 h-4 text-muted-foreground" />
             <Label htmlFor="displayable-comments">{t("settings.amazon.displayableComments.title")}</Label>
           </div>
           <Textarea
@@ -683,10 +683,6 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
           <h1 className="text-3xl font-bold">{t("settings.title")}</h1>
           <p className="text-muted-foreground">{t("settings.subtitle")}</p>
         </div>
-        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
-          <BookOpen className="w-4 h-4 mr-1" />
-          Documentation
-        </Button>
       </div>
 
       {/* Shopify Connection */}
