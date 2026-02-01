@@ -297,7 +297,7 @@
       "accepted": "Accepted",
       "shipped": "Shipped",
       "failed": "Failed",
-      "pendingRetry": "Pending Retry"
+      "pending_retry": "Pending Retry"
     },
     "shipment": {
       "orderId": "Order ID",
@@ -317,7 +317,7 @@
       "accepted": "Accepted",
       "shipped": "Shipped",
       "failed": "Failed",
-      "pendingRetry": "Pending Retry"
+      "pending_retry": "Pending Retry"
     },
     "empty": "No shipments found for the selected filter",
     "failure": {
@@ -408,12 +408,20 @@
       "freeRemaining": "Free Shipments Remaining",
       "tier1Remaining": "Included in Base Plan",
       "over200Count": "Over 200 Shipments",
+      "upTo200Shipments": "Up to 200 shipments",
       "totalBilled": "Total Billed This Month"
     },
     "breakdown": {
       "title": "Billing Breakdown",
       "baseCharge": "Base Charge (Shipment #6)",
+      "basePlanMonthlyFee": "Base Plan Monthly Fee",
+      "upTo200Shipments": "Up to 200 shipments",
+      "applied": "Applied",
+      "reachShipment6": "Reach shipment #6 to activate",
       "over200Charges": "Over 200 Shipments",
+      "over200Description": "Over {tier1} shipments @ $0.50 each",
+      "extraShipments": "{count} extra shipments",
+      "noExtraShipments": "No extra shipments yet",
       "total": "Total"
     },
     "history": {
@@ -429,6 +437,40 @@
     "connectionDisclaimer": {
       "title": "Connection Fees Notice",
       "description": "Connection fees are billed monthly based on the number of enabled MCF connections. Changes take effect on the next billing cycle."
+    },
+    "tierSummary": {
+      "title": "Billing Tier Summary",
+      "free": "First 5 shipments each month",
+      "base": "Monthly charge for up to 200 shipments",
+      "scale": "Same plan, $0.50 for each shipment over 200"
+    },
+    "plan": {
+      "free": "Free",
+      "pro": "Pro"
+    },
+    "freeTier": {
+      "limitReached": "Free tier limit reached",
+      "cannotCreateShipment": "Cannot create shipment - free tier limit reached. Please upgrade to Pro plan.",
+      "limitReachedDescription": "You've used all 5 free shipments for this month. Upgrade to Pro plan to continue fulfilling orders with Amazon FBA.",
+      "shipmentsUsed": "Shipments used",
+      "upgradeToProDescription": "Upgrade to Pro plan for continuous fulfillment with up to 200 shipments included per month."
+    },
+    "proPlan": {
+      "title": "Pro Plan",
+      "buttonText": "Upgrade to Pro",
+      "shipmentsIncluded": "Up to 200 shipments included",
+      "perMonth": "per month",
+      "over200": "$0.50 per shipment over 200"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about Amazon Connector",
+    "categories": {
+      "gettingStarted": "Getting Started",
+      "productMapping": "Product Mapping",
+      "shipping": "Shipping",
+      "billing": "Billing"
     }
   },
   "errors": {

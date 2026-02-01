@@ -259,7 +259,7 @@
       "accepted": "受諾済み",
       "shipped": "出荷済み",
       "failed": "失敗",
-      "pendingRetry": "再試行保留中"
+      "pending_retry": "再試行保留中"
     },
     "empty": "選択したフィルターで出荷が見つかりません",
     "failure": {
@@ -351,7 +351,23 @@
       "freeRemaining": "無料残り出荷数",
       "tier1Remaining": "基本プランに含まれる",
       "over200Count": "200出荷超過",
+      "upTo200Shipments": "最大200出荷まで",
       "totalBilled": "今月の総請求額"
+    },
+    "freeTier": {
+      "limitReached": "無料枠に達しました",
+      "cannotCreateShipment": "無料枠に達したため、新しい出荷を作成できません。Proプランにアップグレードしてください。",
+      "limitReachedDescription": "今月の無料出荷枠（5件）を使い切りました。引き続きAmazon FBAフルフィルメントをご利用いただくには、Proプランへのアップグレードが必要です。",
+      "shipmentsUsed": "使用済み出荷数",
+      "upgradeToProDescription": "Proプランにアップグレードして、今月200件までの出荷を含む継続的なフルフィルメントをご利用ください。"
+    },
+    "proPlan": {
+      "title": "Proプラン",
+      "buttonText": "Proプランにアップグレード",
+      "shipmentsIncluded": "最大200出荷まで含まれます",
+      "perMonth": "月額",
+      "over200": "200出荷を超えると1件あたり$0.50"
+    },
     },
     "breakdown": {
       "title": "請求内訳",
@@ -389,6 +405,16 @@
     "plan": {
       "free": "無料",
       "pro": "Pro"
+    }
+  },
+  "faq": {
+    "title": "よくある質問",
+    "subtitle": "Amazon Connectorに関するよくある質問にお答えします",
+    "categories": {
+      "gettingStarted": "はじめに",
+      "productMapping": "商品マッピング",
+      "shipping": "出荷",
+      "billing": "課金"
     }
   },
   "errors": {
