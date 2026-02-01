@@ -5,7 +5,7 @@ import { BillingAlert } from "@/components/BillingAlert";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DollarSign, TrendingUp, Package, AlertCircle, BookOpen, Zap, Check } from "lucide-react";
+import { DollarSign, TrendingUp, Package, AlertCircle, Zap, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Table,
@@ -118,15 +118,9 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
       <BillingAlert onGoToSettings={() => onGoToSettings?.()} />
       
       {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">{t("billing.title")}</h1>
-          <p className="text-muted-foreground">{t("billing.subtitle")}</p>
-        </div>
-        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
-          <BookOpen className="w-4 h-4 mr-1" />
-          Documentation
-        </Button>
+      <div>
+        <h1 className="text-3xl font-bold">{t("billing.title")}</h1>
+        <p className="text-muted-foreground">{t("billing.subtitle")}</p>
       </div>
 
       {/* Connection Fee Card */}
