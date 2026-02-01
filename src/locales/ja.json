@@ -164,7 +164,9 @@
         "eachAdditional": "各追加",
         "starterTier": "スターターティア",
         "growthTier": "成長ティア",
-        "scaleTier": "スケールティア"
+        "scaleTier": "スケールティア",
+        "over200Description": "200出荷超過につき",
+        "samePlanContinues": "同じプラン継続"
       }
     },
     "locale": {

@@ -794,8 +794,8 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
                 <div className="font-semibold text-purple-700 dark:text-purple-400">{t("settings.billingDisclosure.tier.scale")}</div>
               </div>
               <div className="text-2xl font-bold text-purple-700 dark:text-purple-400 mb-1">+$0.50</div>
-              <div className="text-sm text-muted-foreground">per shipment over 200</div>
-              <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">Same plan continues</div>
+              <div className="text-sm text-muted-foreground">{t("settings.billingDisclosure.tier.over200Description")}</div>
+              <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">{t("settings.billingDisclosure.tier.samePlanContinues")}</div>
               <div className="mt-3 flex items-center gap-2 text-purple-600 dark:text-purple-400">
                 <TrendingUp className="w-4 h-4" />
                 <span className="text-xs">{t("settings.billingDisclosure.tier.scaleTier")}</span>

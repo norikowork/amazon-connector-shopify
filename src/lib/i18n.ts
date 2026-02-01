@@ -175,7 +175,9 @@ const enTranslations = {
         eachAdditional: "each additional",
         starterTier: "Starter tier",
         growthTier: "Growth tier",
-        scaleTier: "Scale tier"
+        scaleTier: "Scale tier",
+        over200Description: "per shipment over 200",
+        samePlanContinues: "Same plan continues"
       }
     },
     locale: {
@@ -744,7 +746,9 @@ const jaTranslations = {
         eachAdditional: "各追加",
         starterTier: "スターターティア",
         growthTier: "成長ティア",
-        scaleTier: "スケールティア"
+        scaleTier: "スケールティア",
+        over200Description: "200出荷超過につき",
+        samePlanContinues: "同じプラン継続"
       }
     },
     locale: {
