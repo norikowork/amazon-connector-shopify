@@ -90,7 +90,10 @@
     "settings": "Settings",
     "products": "Product Mapping",
     "shipments": "Shipments",
-    "billing": "Billing & Usage"
+    "billing": "Billing & Usage",
+    "faq": "FAQ",
+    "support": "Support",
+    "documentation": "Documentation"
   },
   "settings": {
     "title": "Settings",

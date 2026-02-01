@@ -32,7 +32,10 @@
     "settings": "設定",
     "products": "商品マッピング",
     "shipments": "出荷",
-    "billing": "課金と使用量"
+    "billing": "課金と使用量",
+    "faq": "よくある質問",
+    "support": "サポート",
+    "documentation": "ドキュメント"
   },
   "settings": {
     "title": "設定",
