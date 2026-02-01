@@ -1,6 +1,7 @@
 {
   "common": {
     "appName": "Amazon Connector",
+    "appNameDisplay": "Amazon Connector",
     "loading": "Loading...",
     "save": "Save",
     "cancel": "Cancel",
