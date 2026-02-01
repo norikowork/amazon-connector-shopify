@@ -152,8 +152,8 @@ const enTranslations = {
       description: {
         intro: "This app charges based on the number of shipments processed through Amazon MCF:",
         free: "First 5 shipments each month: FREE",
-        tier1: "Shipments 6-200: $14.99 one-time charge (billed when you reach the 6th shipment)",
-        tier2: "Pro Plan (recommended for 201+ shipments): $12.99/month for up to 200 shipments, then $0.50 per additional shipment",
+        tier1: "Shipments 6-200: $14.99/month",
+        tier2: "Shipments 201+: Same plan + $0.50 per additional shipment",
         important: {
           title: "Important Notice",
           noReduction: "Cancellations, returns, refunds do NOT reduce your shipment count or charges",
@@ -438,7 +438,7 @@ const enTranslations = {
         "Priority support",
         "Advanced analytics"
       ],
-      buttonText: "Upgrade to Pro - $12.99/month",
+      buttonText: "Upgrade to Pro - $14.99/month",
       currentPlan: "Current Plan",
       upgradeSuccess: "Successfully upgraded to Pro Plan!",
       upgradeError: "Failed to upgrade. Please try again."
@@ -1007,7 +1007,7 @@ const jaTranslations = {
         "優先サポート",
         "高度な分析"
       ],
-      buttonText: "Proにアップグレード - 月額$12.99",
+      buttonText: "Proにアップグレード - 月額$14.99",
       currentPlan: "現在のプラン",
       upgradeSuccess: "Proプランへのアップグレードが成功しました！",
       upgradeError: "アップグレードに失敗しました。もう一度お試しください。"
