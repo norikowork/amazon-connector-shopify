@@ -326,10 +326,6 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
           <h1 className="text-3xl font-bold text-gradient-primary">{t("products.title")}</h1>
           <p className="text-muted-foreground">{t("products.subtitle")}</p>
         </div>
-        <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
-          <BookOpen className="w-4 h-4 mr-1" />
-          Documentation
-        </Button>
       </div>
 
       {/* Stats */}
