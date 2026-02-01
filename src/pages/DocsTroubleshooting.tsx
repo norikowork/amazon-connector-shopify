@@ -90,7 +90,7 @@ export function DocsTroubleshootingPage() {
 
           <Button onClick={() => navigate("/settings")} className="w-full md:w-auto">
             <Server className="mr-2 h-4 w-4" />
-            Go to Settings
+            {t("docsTroubleshooting.goToSettings")}
           </Button>
         </CardContent>
       </Card>
@@ -173,7 +173,7 @@ export function DocsTroubleshootingPage() {
 
           <Button onClick={() => navigate("/shipments")} className="w-full md:w-auto">
             <Wrench className="mr-2 h-4 w-4" />
-            Go to Shipments
+            {t("docsTroubleshooting.goToShipments")}
           </Button>
         </CardContent>
       </Card>
@@ -211,7 +211,7 @@ export function DocsTroubleshootingPage() {
           </div>
           <Button onClick={() => navigate("/billing")} className="w-full md:w-auto">
             <AlertTriangle className="mr-2 h-4 w-4" />
-            Go to Billing
+            {t("docsTroubleshooting.goToBilling")}
           </Button>
         </CardContent>
       </Card>

@@ -93,7 +93,7 @@ export function DocsProductMappingPage() {
 
           <Button onClick={() => navigate("/products")} className="w-full md:w-auto">
             <Package className="mr-2 h-4 w-4" />
-            Go to Product Mapping
+            {t("docsProductMapping.goToProductMapping")}
           </Button>
         </CardContent>
       </Card>

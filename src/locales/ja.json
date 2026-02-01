@@ -660,7 +660,8 @@
         "notFound": "SKUがFBA在庫で見つかりません - SKUが正しくAmazonに存在することを確認してください",
         "inventoryZero": "在庫が0と表示 - FBA倉庫で在庫切れの可能性があります",
         "mismatch": "追跡情報が更新されない - SKUマッピングが正しいことを確認してください"
-      }
+      },
+      "goToProductMapping": "商品マッピングへ移動"
     },
     "docsTroubleshooting": {
       "title": "トラブルシューティングガイド",
@@ -749,7 +750,10 @@
         "MAPPING_MISSING": "この商品のAmazon SKUが設定されていない",
         "AMAZON_API_ERROR": "一時的なAmazon APIの問題または認証情報が無効",
         "CONNECTION_UNAVAILABLE": "MCF接続が一時的に利用できない"
-      }
+      },
+      "goToSettings": "設定へ移動",
+      "goToShipments": "出荷へ移動",
+      "goToBilling": "課金へ移動"
     },
     "docsApi": {
       "title": "APIリファレンス",
@@ -844,6 +848,23 @@
         "tokenEncryption": "Amazon認証情報は保存時に暗号化されます",
         "dataDeletion": "アプリのアンインストール時にすべてのショップデータが削除されます"
       }
+    },
+    "documentation": {
+      "title": "ドキュメント",
+      "subtitle": "Amazon Connectorのユーザーガイドとドキュメント",
+      "backToDocs": "← ドキュメントに戻る",
+      "setup": "セットアップガイド",
+      "setupDescription": "ステップバイステップのセットアップ手順",
+      "setupDetails": "Amazon MCF接続の設定方法とルーティングのセットアップを学ぶ",
+      "productMapping": "商品マッピング",
+      "productMappingDescription": "商品をAmazon SKUにリンク",
+      "productMappingDetails": "Shopify商品をAmazon FBA在庫にマッピングする方法を理解する",
+      "troubleshooting": "トラブルシューティング",
+      "troubleshootingDescription": "一般的な問題を解決",
+      "troubleshootingDetails": "頻繁に遭遇する問題の解決策を見つける",
+      "api": "APIリファレンス",
+      "apiDescription": "技術ドキュメント",
+      "apiDetails": "Webhook、データモデル、APIエンドポイントの開発者向けリファレンス"
     }
   }
 }
