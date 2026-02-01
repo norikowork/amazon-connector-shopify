@@ -5,7 +5,6 @@ import { BillingAlert } from "@/components/BillingAlert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { RefreshCw, ExternalLink, AlertCircle, Package, Truck, Clock, XCircle, Info, BookOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -176,7 +175,6 @@ export function ShipmentsPage({ onGoToSettings, onGoToDocumentation }: { onGoToS
             <BookOpen className="w-4 h-4 mr-1" />
             Documentation
           </Button>
-          <LanguageSwitcher />
         </div>
       </div>
 
