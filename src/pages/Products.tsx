@@ -119,7 +119,7 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
     if (!product.enabled && (!product.amazonSku || product.amazonSku.trim() === "")) {
       toast({
         title: t("products.skuMatch.warnMissingSku"),
-        description: "Please set an Amazon SKU before enabling FBA fulfillment.",
+        description: t("products.skuMatch.warnMissingSkuLong"),
         variant: "destructive",
       });
       return;
@@ -159,7 +159,7 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
     if (!pendingSku || pendingSku.trim() === "") {
       toast({
         title: t("products.amazonSku"),
-        description: "Please enter an Amazon SKU first",
+        description: t("products.skuMatch.pleaseEnterSku"),
         variant: "destructive",
       });
       return;
@@ -182,13 +182,13 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
         
         toast({
           title: t("products.skuVerified"),
-          description: `"${pendingSku}" is now linked to this product`,
+          description: t("products.skuMatch.linkedToProduct", { sku: pendingSku }),
         });
       } else {
         // SKU not found, show error but don't save
         toast({
           title: t("products.skuNotFound"),
-          description: verification.message || "The SKU could not be found in your Amazon catalog",
+          description: verification.message || t("products.skuMatch.skuNotFoundInCatalog"),
           variant: "destructive",
         });
       }
@@ -430,7 +430,7 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                   {t("products.skuMatch.warnMissingSku")}
                 </p>
                 <p className="text-sm text-red-600/80 dark:text-red-400/80 mt-1">
-                  {enabledWithoutSku.length} {enabledWithoutSku.length === 1 ? "product" : "products"} {enabledWithoutSku.length === 1 ? "is" : "are"} enabled but missing Amazon SKU. Orders containing these products cannot be fulfilled.
+                  {enabledWithoutSku.length} {t("products.product" + (enabledWithoutSku.length === 1 ? "" : "s"))} {t("products." + (enabledWithoutSku.length === 1 ? "is" : "are"))} {t("products.enabledWithoutSku")}
                 </p>
                 <Button 
                   variant="outline" 
@@ -438,7 +438,7 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                   className="mt-2 border-red-400 text-red-700 hover:bg-red-100 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950"
                   onClick={() => setSkuFilter("unmatched")}
                 >
-                  View Unmatched Products
+                  {t("products.viewUnmatched")}
                 </Button>
               </div>
             </div>
@@ -472,7 +472,7 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="all">{t("products.all")}</SelectItem>
                   <SelectItem value="matched">{t("products.skuMatch.matched")}</SelectItem>
                   <SelectItem value="unmatched">{t("products.skuMatch.unmatched")}</SelectItem>
                 </SelectContent>
@@ -515,7 +515,7 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                     <TableHead className="min-w-[280px] w-[280px]">{t("products.variant")}</TableHead>
                     <TableHead className="min-w-[120px] w-[120px]">{t("products.sku")}</TableHead>
                     <TableHead className="min-w-[130px] w-[130px]">{t("products.amazonSku")}</TableHead>
-                    <TableHead className="min-w-[160px] w-[160px]">Matching Status</TableHead>
+                    <TableHead className="min-w-[160px] w-[160px]">{t("products.matchingStatus")}</TableHead>
                     <TableHead className="min-w-[100px] w-[100px]">{t("products.inventory")}</TableHead>
                     <TableHead className="min-w-[90px] w-[90px]">{t("common.enabled")}</TableHead>
                     <TableHead className="min-w-[90px] w-[90px]">{t("common.actions")}</TableHead>

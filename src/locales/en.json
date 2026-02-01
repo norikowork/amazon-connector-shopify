@@ -251,11 +251,41 @@
     "toggleEnabled": "Toggle FBA fulfillment",
     "amazonSkuPlaceholder": "Enter Amazon SKU",
     "noProductsFound": "No products found",
+    "verifying": "Verifying...",
+    "verifySku": "Verify SKU",
+    "skuVerified": "SKU Verified",
+    "skuNotFound": "SKU Not Found",
+    "skuMatch": {
+      "matched": "Matched",
+      "unmatched": "Unmatched",
+      "warnMissingSku": "Missing Amazon SKU",
+      "warnMissingSkuLong": "Please set an Amazon SKU before enabling FBA fulfillment.",
+      "pleaseEnterSku": "Please enter an Amazon SKU first",
+      "skuNotFoundInCatalog": "The SKU could not be found in your Amazon catalog",
+      "linkedToProduct": "is now linked to this product"
+    },
+    "matchingStatus": "Matching Status",
+    "all": "All",
+    "viewUnmatched": "View Unmatched Products",
+    "enabledWithoutSku": "products are enabled but missing Amazon SKU. Orders containing these products cannot be fulfilled.",
+    "resyncSku": {
+      "title": "Resync Products from Shopify",
+      "description": "Fetch the latest products and variants from Shopify.",
+      "button": "Resync Now",
+      "resyncing": "Syncing...",
+      "success": "Resync completed",
+      "successDetails": "{{updated}} updated, {{skipped}} skipped",
+      "error": "Resync failed"
+    },
     "searchPlaceholder": "Search by product name or SKU...",
     "bulkActions": "Bulk Actions",
     "selectAll": "Select All",
     "bulkEnable": "Enable Selected",
-    "bulkDisable": "Disable Selected"
+    "bulkDisable": "Disable Selected",
+    "product": "product",
+    "products": "products",
+    "is": "is",
+    "are": "are"
   },
   "shipments": {
     "title": "Shipments",

@@ -193,11 +193,41 @@
     "toggleEnabled": "FBAフルフィルメントの切り替え",
     "amazonSkuPlaceholder": "Amazon SKUを入力",
     "noProductsFound": "商品が見つかりません",
+    "verifying": "検証中...",
+    "verifySku": "SKUを検証",
+    "skuVerified": "SKU検証成功",
+    "skuNotFound": "SKUが見つかりません",
+    "skuMatch": {
+      "matched": "一致済み",
+      "unmatched": "未一致",
+      "warnMissingSku": "Amazon SKUが未設定",
+      "warnMissingSkuLong": "Amazon SKUを入力してからFBAフルフィルメントを有効にしてください。",
+      "pleaseEnterSku": "まずAmazon SKUを入力してください",
+      "skuNotFoundInCatalog": "このSKUはAmazonカタログで見つかりませんでした",
+      "linkedToProduct": "がこの商品にリンクされました"
+    },
+    "matchingStatus": "マッチング状態",
+    "all": "すべて",
+    "viewUnmatched": "未一致の商品を表示",
+    "enabledWithoutSku": "件の商品が有効ですがAmazon SKUが未設定です。これらの商品を含む注文はフルフィルメントできません。",
+    "resyncSku": {
+      "title": "Shopifyから商品を再同期",
+      "description": "Shopifyから最新の商品とバリアントデータを取得します。",
+      "button": "今すぐ再同期",
+      "resyncing": "同期中...",
+      "success": "再同期が完了しました",
+      "successDetails": "{{updated}}件更新、{{skipped}}件スキップ",
+      "error": "再同期に失敗しました"
+    },
     "searchPlaceholder": "商品名またはSKUで検索...",
     "bulkActions": "一括操作",
     "selectAll": "すべて選択",
     "bulkEnable": "選択項目を有効化",
-    "bulkDisable": "選択項目を無効化"
+    "bulkDisable": "選択項目を無効化",
+    "product": "商品",
+    "products": "商品",
+    "is": "が",
+    "are": "が"
   },
   "shipments": {
     "title": "出荷",
