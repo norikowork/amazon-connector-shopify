@@ -26,13 +26,13 @@ export function DocumentationPage() {
               </div>
               <div>
                 <CardTitle>{t("documentation.setup")}</CardTitle>
-                <CardDescription>Learn how to configure your Amazon MCF connections</CardDescription>
+                <CardDescription>{t("documentation.setupDescription")}</CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Step-by-step instructions for connecting your Amazon Seller Central account and configuring MCF settings.
+              {t("documentation.setupDetails")}
             </p>
           </CardContent>
         </Card>
@@ -46,13 +46,13 @@ export function DocumentationPage() {
               </div>
               <div>
                 <CardTitle>{t("documentation.productMapping")}</CardTitle>
-                <CardDescription>Understand how to link Shopify products to Amazon SKUs</CardDescription>
+                <CardDescription>{t("documentation.productMappingDescription")}</CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Learn how to map your Shopify products and variants to Amazon SKUs for automatic fulfillment.
+              {t("documentation.productMappingDetails")}
             </p>
           </CardContent>
         </Card>
@@ -66,13 +66,13 @@ export function DocumentationPage() {
               </div>
               <div>
                 <CardTitle>{t("documentation.troubleshooting")}</CardTitle>
-                <CardDescription>Common issues and their solutions</CardDescription>
+                <CardDescription>{t("documentation.troubleshootingDescription")}</CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Find solutions to common problems with Amazon MCF integration, order fulfillment, and billing.
+              {t("documentation.troubleshootingDetails")}
             </p>
           </CardContent>
         </Card>
@@ -86,13 +86,13 @@ export function DocumentationPage() {
               </div>
               <div>
                 <CardTitle>{t("documentation.api")}</CardTitle>
-                <CardDescription>Technical documentation for developers</CardDescription>
+                <CardDescription>{t("documentation.apiDescription")}</CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Explore the API endpoints, webhook handlers, and integration patterns for advanced customization.
+              {t("documentation.apiDetails")}
             </p>
           </CardContent>
         </Card>

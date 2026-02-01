@@ -465,7 +465,10 @@
         "monitor": "出荷ページでステータス更新を監視",
         "tracking": "追跡情報がShopifyに書き戻されることを確認",
         "support": "問題が発生した場合はサポートに連絡"
-      }
+      },
+      "goToSettings": "設定へ移動",
+      "goToProductMapping": "商品マッピングへ移動",
+      "goToShipments": "出荷へ移動"
     },
     "docsProductMapping": {
       "title": "商品マッピングガイド",

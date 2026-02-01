@@ -505,7 +505,10 @@
         "monitor": "Monitor the Shipments page for status updates",
         "tracking": "Verify tracking is written back to Shopify",
         "support": "Contact support if you encounter any issues"
-      }
+      },
+      "goToSettings": "Go to Settings",
+      "goToProductMapping": "Go to Product Mapping",
+      "goToShipments": "Go to Shipments"
     },
     "docsProductMapping": {
       "title": "Product Mapping Guide",

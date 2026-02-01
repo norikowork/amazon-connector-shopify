@@ -501,9 +501,24 @@ const enTranslations = {
     },
     documentation: {
       title: "Documentation",
+      subtitle: "User guides and documentation for Amazon Connector",
       setup: "Setup Guide",
+      setupDescription: "Learn how to configure your Amazon MCF connections",
+      setupDetails: "Step-by-step instructions for connecting your Amazon Seller Central account and configuring MCF settings.",
+      productMapping: "Product Mapping",
+      productMappingDescription: "Understand how to link Shopify products to Amazon SKUs",
+      productMappingDetails: "Learn how to map your Shopify products and variants to Amazon SKUs for automatic fulfillment.",
+      troubleshooting: "Troubleshooting",
+      troubleshootingDescription: "Common issues and their solutions",
+      troubleshootingDetails: "Find solutions to common problems with Amazon MCF integration, order fulfillment, and billing.",
       api: "API Reference",
-      support: "Support"
+      apiDescription: "Technical documentation for developers",
+      apiDetails: "Explore the API endpoints, webhook handlers, and integration patterns for advanced customization.",
+      backToDocs: "← Back to Documentation",
+      support: "Support",
+      goToSettings: "Go to Settings",
+      goToProductMapping: "Go to Product Mapping",
+      goToShipments: "Go to Shipments"
     }
   },
   support: {
@@ -1086,9 +1101,24 @@ const jaTranslations = {
     },
     documentation: {
       title: "ドキュメント",
+      subtitle: "Amazon Connectorのユーザーガイドとドキュメント",
       setup: "セットアップガイド",
+      setupDescription: "Amazon MCF接続の設定方法を学びます",
+      setupDetails: "Amazonセントラルアカウントに接続してMCF設定を構成するためのステップバイステップの手順。",
+      productMapping: "商品マッピング",
+      productMappingDescription: "Shopify商品をAmazon SKUにリンクする方法を理解します",
+      productMappingDetails: "自動フルフィルメントのためにShopify商品とバリアントをAmazon SKUにマッピングする方法を学びます。",
+      troubleshooting: "トラブルシューティング",
+      troubleshootingDescription: "一般的な問題とその解決策",
+      troubleshootingDetails: "Amazon MCF統合、注文フルフィルメント、課金に関する一般的な問題の解決策を見つけます。",
       api: "APIリファレンス",
-      support: "サポート"
+      apiDescription: "開発者向け技術ドキュメント",
+      apiDetails: "高度なカスタマイズのためのAPIエンドポイント、Webhookハンドラー、統合パターンを確認します。",
+      backToDocs: "← ドキュメントに戻る",
+      support: "サポート",
+      goToSettings: "設定へ移動",
+      goToProductMapping: "商品マッピングへ移動",
+      goToShipments: "出荷へ移動"
     }
   },
   support: {
