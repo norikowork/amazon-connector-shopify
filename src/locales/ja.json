@@ -341,7 +341,7 @@
     },
     "proPlan": {
       "title": "Proプランにアップグレード",
-      "description": "無制限の出荷と優先サポートを利用",
+      "description": "月間最大200出荷と優先サポートを利用",
       "currentPlan": "現在のプラン",
       "buttonText": "Proプランにアップグレード",
       "upgradeSuccess": "Proプランに正常にアップグレードされました！",

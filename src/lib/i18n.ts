@@ -430,14 +430,14 @@ const enTranslations = {
     },
     proPlan: {
       title: "Upgrade to Pro Plan",
-      description: "Get unlimited monthly shipments for just $14/month. No more limits!",
+      description: "Get up to 200 shipments per month and priority support",
       features: [
-        "Unlimited shipments per month",
+        "Up to 200 shipments per month",
         "No free tier restrictions",
         "Priority support",
         "Advanced analytics"
       ],
-      buttonText: "Upgrade to Pro - $14/month",
+      buttonText: "Upgrade to Pro - $14.99/month",
       currentPlan: "Current Plan",
       upgradeSuccess: "Successfully upgraded to Pro Plan!",
       upgradeError: "Failed to upgrade. Please try again."
@@ -998,14 +998,14 @@ const jaTranslations = {
     },
     proPlan: {
       title: "Proプランにアップグレード",
-      description: "月額$14で無制限の月間出荷。もう制限はありません！",
+      description: "月間最大200出荷と優先サポート",
       features: [
-        "毎月無制限の出荷",
+        "月間最大200出荷",
         "無料枠の制限なし",
         "優先サポート",
         "高度な分析"
       ],
-      buttonText: "Proにアップグレード - 月額$14",
+      buttonText: "Proにアップグレード - 月額$14.99",
       currentPlan: "現在のプラン",
       upgradeSuccess: "Proプランへのアップグレードが成功しました！",
       upgradeError: "アップグレードに失敗しました。もう一度お試しください。"

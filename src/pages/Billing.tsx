@@ -158,66 +158,66 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
         </CardContent>
       </Card>
 
-      {/* Pro Plan Upgrade Card (for free users) */}
-      {settings.billing.plan === "free" && (
-        <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-2 border-green-200 dark:border-green-900">
-          <CardHeader>
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-3 rounded-full bg-green-600 text-white">
-                  <Zap className="h-6 w-6" />
+          {/* Pro Plan Upgrade Card (for free users) */}
+          {settings.billing.plan === "free" && (
+            <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-2 border-green-200 dark:border-green-900">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 rounded-full bg-green-600 text-white">
+                      <Zap className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl text-green-800 dark:text-green-300">{t("billing.proPlan.title")}</CardTitle>
+                      <CardDescription className="text-green-700 dark:text-green-400">{t("billing.proPlan.description")}</CardDescription>
+                    </div>
+                  </div>
+                  <Badge variant="outline" className="border-green-600 text-green-700 dark:text-green-400 bg-white/80 dark:bg-green-950/80">
+                    {t("billing.proPlan.currentPlan")}: {t("billing.plan." + settings.billing.plan)}
+                  </Badge>
                 </div>
-                <div>
-                  <CardTitle className="text-2xl text-green-800 dark:text-green-300">{t("billing.proPlan.title")}</CardTitle>
-                  <CardDescription className="text-green-700 dark:text-green-400">{t("billing.proPlan.description")}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  {[
+                    "Up to 200 shipments per month",
+                    "No free tier restrictions",
+                    "Priority support",
+                    "Advanced analytics"
+                  ].map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <Check className="h-5 w-5 text-green-600 flex-shrink-0" />
+                      <span className="text-green-800 dark:text-green-300">{feature}</span>
+                    </div>
+                  ))}
                 </div>
-              </div>
-              <Badge variant="outline" className="border-green-600 text-green-700 dark:text-green-400 bg-white/80 dark:bg-green-950/80">
-                {t("billing.proPlan.currentPlan")}: {t("billing.plan." + settings.billing.plan)}
-              </Badge>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              {[
-                "Unlimited shipments per month",
-                "No free tier restrictions",
-                "Priority support",
-                "Advanced analytics"
-              ].map((feature, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <Check className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span className="text-green-800 dark:text-green-300">{feature}</span>
+                <div className="flex items-center justify-between bg-white/60 dark:bg-black/20 rounded-lg p-4">
+                  <div>
+                    <div className="text-3xl font-bold text-green-700 dark:text-green-400">$14.99<span className="text-lg font-medium">/month</span></div>
+                    <p className="text-sm text-green-600 dark:text-green-500 mt-1">Up to 200 shipments per month</p>
+                  </div>
+                  <Button 
+                    size="lg" 
+                    className="bg-green-600 hover:bg-green-700 text-white font-semibold text-lg px-8"
+                    onClick={handleUpgradeToPro}
+                    disabled={upgrading}
+                  >
+                    {upgrading ? (
+                      <>
+                        <span className="animate-spin mr-2">⏳</span>
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-5 h-5 mr-2" />
+                        {t("billing.proPlan.buttonText")}
+                      </>
+                    )}
+                  </Button>
                 </div>
-              ))}
-            </div>
-            <div className="flex items-center justify-between bg-white/60 dark:bg-black/20 rounded-lg p-4">
-              <div>
-                <div className="text-3xl font-bold text-green-700 dark:text-green-400">$14<span className="text-lg font-medium">/month</span></div>
-                <p className="text-sm text-green-600 dark:text-green-500 mt-1">{t("billing.freeTier.upgradeToProDescription")}</p>
-              </div>
-              <Button 
-                size="lg" 
-                className="bg-green-600 hover:bg-green-700 text-white font-semibold text-lg px-8"
-                onClick={handleUpgradeToPro}
-                disabled={upgrading}
-              >
-                {upgrading ? (
-                  <>
-                    <span className="animate-spin mr-2">⏳</span>
-                    Processing...
-                  </>
-                ) : (
-                  <>
-                    <Zap className="w-5 h-5 mr-2" />
-                    {t("billing.proPlan.buttonText")}
-                  </>
-                )}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+              </CardContent>
+            </Card>
+          )}
 
       {/* Current Cycle Info */}
       <Card className="border-blue-200 dark:border-blue-900">

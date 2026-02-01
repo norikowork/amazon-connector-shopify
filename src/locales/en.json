@@ -69,7 +69,7 @@
     },
     "proPlan": {
       "title": "Upgrade to Pro Plan",
-      "description": "Get unlimited shipments and priority support",
+      "description": "Get up to 200 shipments per month and priority support",
       "currentPlan": "Current Plan",
       "buttonText": "Upgrade to Pro",
       "upgradeSuccess": "Successfully upgraded to Pro plan!",
