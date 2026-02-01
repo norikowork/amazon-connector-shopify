@@ -199,8 +199,8 @@
       "description": {
         "intro": "This app charges based on the number of shipments processed through Amazon MCF:",
         "free": "First 5 shipments each month: FREE",
-        "tier1": "Shipments 6-200: $20 one-time charge per month (billed when you reach the 6th shipment)",
-        "tier2": "Shipments 201 and beyond: $0.50 per additional shipment",
+        "tier1": "Shipments 6-200: $14.99 one-time charge (billed when you reach the 6th shipment)",
+        "tier2": "Pro Plan (recommended for 201+ shipments): $12.99/month for up to 200 shipments, then $0.50 per additional shipment",
         "important": {
           "title": "Important Notice",
           "noReduction": "Cancellations, returns, refunds do NOT reduce your shipment count or charges",
@@ -215,7 +215,8 @@
         "free": "Free",
         "base": "Base",
         "scale": "200+",
-        "perMonth": "per month",
+        "pro": "Pro",
+        "perMonth": "month",
         "shipments": "shipments",
         "oneTime": "one-time",
         "eachAdditional": "each additional",

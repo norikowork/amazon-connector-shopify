@@ -787,15 +787,15 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
               </div>
             </div>
 
-            {/* Over 200 Tier */}
+            {/* Pro Tier (Over 200) */}
             <div className="rounded-lg border-2 border-purple-200 bg-purple-50 dark:bg-purple-950 dark:border-purple-900 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm">3</div>
-                <div className="font-semibold text-purple-700 dark:text-purple-400">{t("settings.billingDisclosure.tier.scale")}</div>
+                <div className="font-semibold text-purple-700 dark:text-purple-400">{t("settings.billingDisclosure.tier.pro") || "Pro"}</div>
               </div>
-              <div className="text-2xl font-bold text-purple-700 dark:text-purple-400 mb-1">+$0.50</div>
-              <div className="text-sm text-muted-foreground">{t("settings.billingDisclosure.tier.perMonth")} {t("settings.billingDisclosure.tier.shipments")}</div>
-              <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">{t("settings.billingDisclosure.tier.eachAdditional")}</div>
+              <div className="text-2xl font-bold text-purple-700 dark:text-purple-400 mb-1">$12.99<span className="text-sm font-normal">/{t("settings.billingDisclosure.tier.perMonth")}</span></div>
+              <div className="text-sm text-muted-foreground">200 {t("settings.billingDisclosure.tier.shipments")} included</div>
+              <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">$0.50 {t("settings.billingDisclosure.tier.eachAdditional")}</div>
               <div className="mt-3 flex items-center gap-2 text-purple-600 dark:text-purple-400">
                 <TrendingUp className="w-4 h-4" />
                 <span className="text-xs">{t("settings.billingDisclosure.tier.scaleTier")}</span>

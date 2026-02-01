@@ -112,6 +112,8 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
   const FREE_SHIPMENTS_LIMIT = 5;
   const TIER1_LIMIT = 200;
   const BASE_CHARGE = 14.99;
+  const PRO_MONTHLY_FEE = 12.99;
+  const PRO_OVERAGE_RATE = 0.50;
 
   return (
     <div className="space-y-6">
@@ -180,8 +182,8 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   {[
-                    "Up to 200 shipments per month",
-                    "No free tier restrictions",
+                    "Up to 200 shipments included",
+                    "$0.50 per shipment over 200",
                     "Priority support",
                     "Advanced analytics"
                   ].map((feature, idx) => (
@@ -193,8 +195,9 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
                 </div>
                 <div className="flex items-center justify-between bg-white/60 dark:bg-black/20 rounded-lg p-4">
                   <div>
-                    <div className="text-3xl font-bold text-green-700 dark:text-green-400">$14.99<span className="text-lg font-medium">/month</span></div>
+                    <div className="text-3xl font-bold text-green-700 dark:text-green-400">$12.99<span className="text-lg font-medium">/month</span></div>
                     <p className="text-sm text-green-600 dark:text-green-500 mt-1">Up to 200 shipments per month</p>
+                    <p className="text-xs text-green-600/70 dark:text-green-500/70 mt-1">Over 200: $0.50 per shipment</p>
                   </div>
                   <Button 
                     size="lg" 
@@ -315,35 +318,71 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between py-2 border-b">
-              <div>
-                <div className="font-medium">{t("billing.breakdown.baseCharge")}</div>
-                <div className="text-sm text-muted-foreground">
-                  Charge applied when shipment #6 is reached
+            {settings.billing.plan === "free" ? (
+              <>
+                <div className="flex items-center justify-between py-2 border-b">
+                  <div>
+                    <div className="font-medium">{t("billing.breakdown.baseCharge")}</div>
+                    <div className="text-sm text-muted-foreground">
+                      Charge applied when shipment #6 is reached
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold">{usage.baseChargeApplied ? formatCurrency(BASE_CHARGE) : formatCurrency(0)}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {usage.baseChargeApplied ? "Applied" : `Reach shipment #6 to activate`}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="text-right">
-                <div className="font-bold">{usage.baseChargeApplied ? formatCurrency(BASE_CHARGE) : formatCurrency(0)}</div>
-                <div className="text-sm text-muted-foreground">
-                  {usage.baseChargeApplied ? "Applied" : `Reach shipment #6 to activate`}
-                </div>
-              </div>
-            </div>
 
-            <div className="flex items-center justify-between py-2 border-b">
-              <div>
-                <div className="font-medium">{t("billing.breakdown.over200Charges")}</div>
-                <div className="text-sm text-muted-foreground">
-                  Over {TIER1_LIMIT} shipments @ $0.50 each
+                <div className="flex items-center justify-between py-2 border-b">
+                  <div>
+                    <div className="font-medium">{t("billing.breakdown.over200Charges")}</div>
+                    <div className="text-sm text-muted-foreground">
+                      Over {TIER1_LIMIT} shipments @ $0.50 each
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold">{formatCurrency(usage.over200Charges)}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {usage.over200Count > 0 ? `${usage.over200Count} extra shipments` : "No extra shipments yet"}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="text-right">
-                <div className="font-bold">{formatCurrency(usage.over200Charges)}</div>
-                <div className="text-sm text-muted-foreground">
-                  {usage.over200Count > 0 ? `${usage.over200Count} extra shipments` : "No extra shipments yet"}
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-between py-2 border-b">
+                  <div>
+                    <div className="font-medium">Pro Plan Monthly Fee</div>
+                    <div className="text-sm text-muted-foreground">
+                      {formatCurrency(PRO_MONTHLY_FEE)} per month
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold">{formatCurrency(PRO_MONTHLY_FEE)}</div>
+                    <div className="text-sm text-muted-foreground">
+                      Included up to 200 shipments
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+
+                <div className="flex items-center justify-between py-2 border-b">
+                  <div>
+                    <div className="font-medium">Over 200 Shipments</div>
+                    <div className="text-sm text-muted-foreground">
+                      Over {TIER1_LIMIT} shipments @ ${PRO_OVERAGE_RATE} each
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold">{formatCurrency(usage.over200Charges)}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {usage.over200Count > 0 ? `${usage.over200Count} extra shipments` : "No extra shipments yet"}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
 
             <div className="flex items-center justify-between py-4 bg-muted rounded-lg px-4">
               <div className="font-bold text-lg">{t("billing.breakdown.total")}</div>
@@ -420,9 +459,9 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
             <span className="text-muted-foreground">- One-time charge when you reach shipment #6</span>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="min-w-[60px] justify-center border-orange-500 text-orange-500">200+</Badge>
-            <span className="font-semibold">$0.50/shipment</span>
-            <span className="text-muted-foreground">- Additional shipments beyond 200</span>
+            <Badge variant="outline" className="min-w-[60px] justify-center border-purple-500 text-purple-500">201+</Badge>
+            <span className="font-semibold">Pro: ${PRO_MONTHLY_FEE}/mo + $0.50/shipment</span>
+            <span className="text-muted-foreground">- Up to 200 included, then $0.50 each</span>
           </div>
         </CardContent>
       </Card>

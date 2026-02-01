@@ -152,8 +152,8 @@ const enTranslations = {
       description: {
         intro: "This app charges based on the number of shipments processed through Amazon MCF:",
         free: "First 5 shipments each month: FREE",
-        tier1: "Shipments 6-200: $20 one-time charge per month (billed when you reach the 6th shipment)",
-        tier2: "Shipments 201 and beyond: $0.50 per additional shipment",
+        tier1: "Shipments 6-200: $14.99 one-time charge (billed when you reach the 6th shipment)",
+        tier2: "Pro Plan (recommended for 201+ shipments): $12.99/month for up to 200 shipments, then $0.50 per additional shipment",
         important: {
           title: "Important Notice",
           noReduction: "Cancellations, returns, refunds do NOT reduce your shipment count or charges",
@@ -168,7 +168,8 @@ const enTranslations = {
         free: "Free",
         base: "Base",
         scale: "200+",
-        perMonth: "per month",
+        pro: "Pro",
+        perMonth: "month",
         shipments: "shipments",
         oneTime: "one-time",
         eachAdditional: "each additional",
@@ -432,12 +433,12 @@ const enTranslations = {
       title: "Upgrade to Pro Plan",
       description: "Get up to 200 shipments per month and priority support",
       features: [
-        "Up to 200 shipments per month",
-        "No free tier restrictions",
+        "Up to 200 shipments included",
+        "$0.50 per shipment over 200",
         "Priority support",
         "Advanced analytics"
       ],
-      buttonText: "Upgrade to Pro - $14.99/month",
+      buttonText: "Upgrade to Pro - $12.99/month",
       currentPlan: "Current Plan",
       upgradeSuccess: "Successfully upgraded to Pro Plan!",
       upgradeError: "Failed to upgrade. Please try again."
@@ -720,8 +721,8 @@ const jaTranslations = {
       description: {
         intro: "このアプリはAmazon MCFを通じて処理された出荷数に基づいて課金されます：",
         free: "毎月の最初の5出荷：無料",
-        tier1: "出荷6〜200回：月額$20の定額課金（6回目の出荷時に請求）",
-        tier2: "出荷201回以降：追加出荷1回につき$0.50",
+        tier1: "出荷6〜200回：$14.99の1回限りの課金（6回目の出荷時に請求）",
+        tier2: "Proプラン（201出荷以上推奨）：月額$12.99で200出荷まで、その後は追加出荷1回につき$0.50",
         important: {
           title: "重要なお知らせ",
           noReduction: "キャンセル、返品、退款は出荷数や課金金額を減額しません",
@@ -736,6 +737,7 @@ const jaTranslations = {
         free: "無料",
         base: "基本",
         scale: "200+",
+        pro: "Pro",
         perMonth: "月額",
         shipments: "出荷",
         oneTime: "1回限り",
@@ -1000,12 +1002,12 @@ const jaTranslations = {
       title: "Proプランにアップグレード",
       description: "月間最大200出荷と優先サポート",
       features: [
-        "月間最大200出荷",
-        "無料枠の制限なし",
+        "200出荷まで含まれる",
+        "200出荷超過: $0.50/出荷",
         "優先サポート",
         "高度な分析"
       ],
-      buttonText: "Proにアップグレード - 月額$14.99",
+      buttonText: "Proにアップグレード - 月額$12.99",
       currentPlan: "現在のプラン",
       upgradeSuccess: "Proプランへのアップグレードが成功しました！",
       upgradeError: "アップグレードに失敗しました。もう一度お試しください。"
