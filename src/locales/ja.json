@@ -462,7 +462,37 @@
       }
     }
   },
-    "generic": "エラーが発生しました。もう一度お試しください。",
+  "support": {
+    "title": "サポート",
+    "subtitle": "Amazon Connectorのヘルプを受ける",
+    "shopifyConnection": {
+      "title": "Shopify接続ステータス",
+      "connected": "接続済み",
+      "disconnected": "未接続"
+    },
+    "form": {
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "your-email@example.com",
+      "commentLabel": "どのようにお手伝いできますか？",
+      "commentPlaceholder": "問題や質問について詳細をお聞かせください...",
+      "submit": "メッセージを送信",
+      "submitting": "送信中...",
+      "success": "メッセージを送信しました！",
+      "successDescription": "お問い合わせを確認し、できるだけ早くお返事いたします。"
+    },
+    "validation": {
+      "emailRequired": "メールアドレスは必須です",
+      "emailInvalid": "有効なメールアドレスを入力してください",
+      "commentRequired": "メッセージを入力してください"
+    },
+    "resources": {
+      "title": "参考資料",
+      "setupGuide": "セットアップガイド：Amazon MCF接続の設定方法を学ぶ",
+      "productMapping": "商品マッピング：Shopify商品をAmazon SKUにリンクする方法を理解する",
+      "troubleshooting": "トラブルシューティング：一般的な問題と解決策"
+    }
+  },
+  "errors": {
     "network": "ネットワークエラー。接続を確認してください。",
     "shopifyConnection": "Shopifyへの接続に失敗しました。認証情報を確認してください。",
     "amazonConnection": "Amazon MCFへの接続に失敗しました。API認証情報を確認してください。",

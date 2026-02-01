@@ -519,6 +519,36 @@
       }
     }
   },
+  "support": {
+    "title": "Support",
+    "subtitle": "Get help with Amazon Connector",
+    "shopifyConnection": {
+      "title": "Shopify Connection Status",
+      "connected": "Connected",
+      "disconnected": "Disconnected"
+    },
+    "form": {
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "your-email@example.com",
+      "commentLabel": "How can we help you?",
+      "commentPlaceholder": "Please describe your issue or question in detail...",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "success": "Message sent successfully!",
+      "successDescription": "We'll review your inquiry and get back to you as soon as possible."
+    },
+    "validation": {
+      "emailRequired": "Email address is required",
+      "emailInvalid": "Please enter a valid email address",
+      "commentRequired": "Please enter a message"
+    },
+    "resources": {
+      "title": "Helpful Resources",
+      "setupGuide": "Setup Guide: Learn how to configure your Amazon MCF connections",
+      "productMapping": "Product Mapping: Understand how to link Shopify products to Amazon SKUs",
+      "troubleshooting": "Troubleshooting: Common issues and their solutions"
+    }
+  },
   "errors": {
     "generic": "An error occurred. Please try again.",
     "network": "Network error. Please check your connection.",
