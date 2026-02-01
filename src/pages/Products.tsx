@@ -517,8 +517,8 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                       />
                     </TableHead>
                     <TableHead className="min-w-[280px] w-[280px]">{t("products.variant")}</TableHead>
-                    <TableHead className="min-w-[140px] w-[140px]">{t("products.sku")}</TableHead>
-                    <TableHead className="min-w-[380px] w-[380px]">{t("products.amazonSku")}</TableHead>
+                    <TableHead className="min-w-[120px] w-[120px]">{t("products.sku")}</TableHead>
+                    <TableHead className="min-w-[130px] w-[130px]">{t("products.amazonSku")}</TableHead>
                     <TableHead className="min-w-[160px] w-[160px]">Matching Status</TableHead>
                     <TableHead className="min-w-[100px] w-[100px]">{t("products.inventory")}</TableHead>
                     <TableHead className="min-w-[90px] w-[90px]">{t("common.enabled")}</TableHead>
@@ -540,23 +540,23 @@ export function ProductsPage({ onGoToSettings, onGoToDocumentation }: { onGoToSe
                           <div className="text-sm text-muted-foreground">{product.variantTitle}</div>
                         </div>
                       </TableCell>
-                      <TableCell className="min-w-[140px] w-[140px]">
+                      <TableCell className="min-w-[120px] w-[120px]">
                         <Badge variant="outline">{product.sku}</Badge>
                       </TableCell>
-                      <TableCell className="min-w-[380px] w-[380px]">
+                      <TableCell className="min-w-[130px] w-[130px]">
                         <div className="space-y-2">
-                          <div className="flex gap-2">
+                          <div className="space-y-2">
                             <Input
                               placeholder={t("products.amazonSkuPlaceholder")}
                               value={pendingSkuInputs[product.id] ?? product.amazonSku ?? ""}
                               onChange={(e) => handleSkuInputChange(product.id, e.target.value)}
                               disabled={verifying[product.id] || saving[product.id]}
-                              className={`h-9 flex-1 ${!product.amazonSku && product.enabled ? "border-orange-400 bg-orange-50 dark:border-orange-800 dark:bg-orange-950/30" : ""}`}
+                              className={`h-9 w-full ${!product.amazonSku && product.enabled ? "border-orange-400 bg-orange-50 dark:border-orange-800 dark:bg-orange-950/30" : ""}`}
                             />
                             <Button
                               variant="outline"
                               size="sm"
-                              className="h-9 px-3"
+                              className="h-8 w-full"
                               onClick={() => handleVerifySku(product)}
                               disabled={verifying[product.id] || saving[product.id] || !(pendingSkuInputs[product.id] || "").trim()}
                             >
