@@ -317,7 +317,7 @@
       "accepted": "Accepted",
       "shipped": "Shipped",
       "failed": "Failed",
-      "pending_retry": "Pending Retry"
+      "pendingRetry": "Pending Retry"
     },
     "empty": "No shipments found for the selected filter",
     "failure": {
