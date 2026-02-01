@@ -761,14 +761,14 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
             <div className="rounded-lg border-2 border-green-200 bg-green-50 dark:bg-green-950 dark:border-green-900 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm">1</div>
-                <div className="font-semibold text-green-700 dark:text-green-400">Free</div>
+                <div className="font-semibold text-green-700 dark:text-green-400">{t("settings.billingDisclosure.tier.free")}</div>
               </div>
-              <div className="text-2xl font-bold text-green-700 dark:text-green-400 mb-1">5 shipments</div>
-              <div className="text-sm text-muted-foreground">per month</div>
+              <div className="text-2xl font-bold text-green-700 dark:text-green-400 mb-1">5 {t("settings.billingDisclosure.tier.shipments")}</div>
+              <div className="text-sm text-muted-foreground">{t("settings.billingDisclosure.tier.perMonth")}</div>
               <div className="mt-2 text-xs text-green-600 dark:text-green-500 font-semibold">$0</div>
               <div className="mt-3 flex items-center gap-2 text-green-600 dark:text-green-400">
                 <Package className="w-4 h-4" />
-                <span className="text-xs">Starter tier</span>
+                <span className="text-xs">{t("settings.billingDisclosure.tier.starterTier")}</span>
               </div>
             </div>
 
@@ -776,14 +776,14 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
             <div className="rounded-lg border-2 border-blue-200 bg-blue-50 dark:bg-blue-950 dark:border-blue-900 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm">2</div>
-                <div className="font-semibold text-blue-700 dark:text-blue-400">Base</div>
+                <div className="font-semibold text-blue-700 dark:text-blue-400">{t("settings.billingDisclosure.tier.base")}</div>
               </div>
               <div className="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-1">6-200</div>
-              <div className="text-sm text-muted-foreground">shipments</div>
-              <div className="mt-2 text-xs text-blue-600 dark:text-blue-500 font-semibold">$14.99 one-time</div>
+              <div className="text-sm text-muted-foreground">{t("settings.billingDisclosure.tier.shipments")}</div>
+              <div className="mt-2 text-xs text-blue-600 dark:text-blue-500 font-semibold">$14.99 {t("settings.billingDisclosure.tier.oneTime")}</div>
               <div className="mt-3 flex items-center gap-2 text-blue-600 dark:text-blue-400">
                 <Zap className="w-4 h-4" />
-                <span className="text-xs">Growth tier</span>
+                <span className="text-xs">{t("settings.billingDisclosure.tier.growthTier")}</span>
               </div>
             </div>
 
@@ -791,14 +791,14 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
             <div className="rounded-lg border-2 border-purple-200 bg-purple-50 dark:bg-purple-950 dark:border-purple-900 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm">3</div>
-                <div className="font-semibold text-purple-700 dark:text-purple-400">200+</div>
+                <div className="font-semibold text-purple-700 dark:text-purple-400">{t("settings.billingDisclosure.tier.scale")}</div>
               </div>
               <div className="text-2xl font-bold text-purple-700 dark:text-purple-400 mb-1">+$0.50</div>
-              <div className="text-sm text-muted-foreground">per shipment</div>
-              <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">each additional</div>
+              <div className="text-sm text-muted-foreground">{t("settings.billingDisclosure.tier.perMonth")} {t("settings.billingDisclosure.tier.shipments")}</div>
+              <div className="mt-2 text-xs text-purple-600 dark:text-purple-500 font-semibold">{t("settings.billingDisclosure.tier.eachAdditional")}</div>
               <div className="mt-3 flex items-center gap-2 text-purple-600 dark:text-purple-400">
                 <TrendingUp className="w-4 h-4" />
-                <span className="text-xs">Scale tier</span>
+                <span className="text-xs">{t("settings.billingDisclosure.tier.scaleTier")}</span>
               </div>
             </div>
           </div>
@@ -807,7 +807,7 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
           <div className="rounded-lg border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950 p-4">
             <div className="flex items-start gap-2 mb-2">
               <AlertTriangle className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
-              <div className="font-semibold text-orange-700 dark:text-orange-400">Important Notice</div>
+              <div className="font-semibold text-orange-700 dark:text-orange-400">{t("settings.billingDisclosure.description.important.title")}</div>
             </div>
             <ul className="space-y-2 text-sm text-orange-800 dark:text-orange-300 ml-7">
               <li className="flex items-start gap-2">
@@ -834,7 +834,7 @@ export function SettingsPage({ onGoToDocumentation }: { onGoToDocumentation?: ()
               className="mt-1"
             />
             <Label htmlFor="billing-ack" className="cursor-pointer">
-              <span className="font-semibold">I understand and agree to the billing terms above</span>
+              <span className="font-semibold">{t("settings.billingDisclosure.checkbox")}</span>
               <span className="block text-sm text-muted-foreground mt-1">
                 {t("settings.billingDisclosure.description.outro")}
               </span>
