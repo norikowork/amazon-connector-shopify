@@ -535,336 +535,337 @@
       "api": "APIリファレンス",
       "support": "サポート",
       "backToDocs": "← ドキュメントに戻る"
+,
+  "docsSetup": {
+    "title": "セットアップガイド",
+    "subtitle": "Amazon Connectorを使い始めるためのステップバイステップ手順",
+    "overview": {
+      "title": "概要",
+      "description": "Amazon Connectorは、マルチチャネルフルフィルメント（MCF）を通じてAmazon FBA在庫を使用してShopify注文をフルフィルメントできます。このガイドではセットアッププロセスを説明します。"
     },
-    "docsSetup": {
-      "title": "セットアップガイド",
-      "subtitle": "Amazon Connectorを使い始めるためのステップバイステップ手順",
-      "overview": {
-        "title": "概要",
-        "description": "Amazon Connectorは、マルチチャネルフルフィルメント（MCF）を通じてAmazon FBA在庫を使用してShopify注文をフルフィルメントできます。このガイドではセットアッププロセスを説明します。"
-      },
-      "step1": {
-        "title": "ステップ1：アプリをインストール",
-        "description": "Shopify App StoreからAmazon Connectorをインストールします。アプリがShopifyストアの注文、商品、フルフィルメントデータにアクセスする権限を付与する必要があります。",
-        "permissions": {
-          "title": "必要な権限",
-          "orders": "注文の読み取り - フルフィルメント処理のため",
-          "products": "商品の読み取り - SKUマッピングのため",
-          "fulfillments": "フルフィルメントの作成/更新 - 追跡情報をShopifyに書き戻すため"
-        }
-      },
-      "step2": {
-        "title": "ステップ2：Amazon MCFアカウントを接続",
-        "description": "設定ページでAmazon MCF認証情報を設定します：",
-        "credentials": {
-          "sellerId": "セラーID - Amazonセントラルで確認",
-          "developerId": "デベロッパーID - MWSアプリケーションから",
-          "authToken": "MWS認証トークン - セントラルで生成"
-        },
-        "regions": {
-          "title": "サポート対象マーケットプレイス",
-          "us": "アメリカ合衆国 (US)",
-          "jp": "日本 (JP)",
-          "eu": "欧州連合 (DE, FR, IT, ES)"
-        },
-        "findCredentials": "Amazon MCF認証情報の見つけ方：セントラル → 設定 → MWS/Marketplace Web Service"
-      },
-      "step3": {
-        "title": "ステップ3：ルーティングを設定",
-        "description": "さまざまな配送先に使用するAmazon接続先を設定します：",
-        "enabled": "使用するマーケットプレイス接続先を有効化（最大5つ）",
-        "euDefault": "EU配送先の場合、デフォルト接続先を選択（DE/FR/IT/ES）",
-        "overrides": "必要に応じて国別オーバーライドを追加",
-        "test": "テストルーティング機能を使用して設定を確認"
-      },
-      "step4": {
-        "title": "ステップ4：商品をマッピング",
-        "description": "Shopify商品をAmazon SKUにリンクします：",
-        "enable": "フルフィルメントしたい商品でFBAを有効化",
-        "sku": "各バリアントの対応するAmazon SKUを入力",
-        "verify": "検証ボタンでSKUが一致することを確認",
-        "inventory": "有効化前に在庫レベルを確認"
-      },
-      "step5": {
-        "title": "ステップ5：課金を設定",
-        "description": "課金条件を確認して同意します：",
-        "free": "毎月の最初の5出荷は無料",
-        "tier1": "5出荷を超えた場合月額$20（最大200出荷まで）",
-        "tier2": "200出荷を超えた分は1出荷あたり$0.50",
-        "connectionFee": "有効な接続先ごとに月額$20",
-        "acknowledge": "キャンセル/返品が課金を減額しないことに同意する必要があります"
-      },
-      "step6": {
-        "title": "ステップ6：セットアップをテスト",
-        "description": "本番開始前に：",
-        "testOrder": "FBA有効商品でテスト注文を作成",
-        "monitor": "出荷ページでステータス更新を監視",
-        "tracking": "追跡情報がShopifyに書き戻されることを確認",
-        "support": "問題が発生した場合はサポートに連絡"
-      },
-      "goToSettings": "設定へ移動",
-      "goToProductMapping": "商品マッピングへ移動",
-      "goToShipments": "出荷へ移動"
-    },
-    "docsProductMapping": {
-      "title": "商品マッピングガイド",
-      "subtitle": "Shopify商品をAmazon SKUにリンクする方法を学ぶ",
-      "overview": {
-        "title": "商品マッピングとは？",
-        "description": "商品マッピングは、Shopify商品とバリアントを対応するAmazon SKUにリンクします。マッピングされた商品を含む注文がある場合、Amazon ConnectorはFBA在庫を使用して自動的にフルフィルメントできます。"
-      },
-      "howTo": {
-        "title": "商品をマッピングする方法",
-        "step1": {
-          "title": "商品マッピングに移動",
-          "description": "アプリサイドバーの商品マッピングページを開きます。"
-        },
-        "step2": {
-          "title": "商品を見つける",
-          "description": "検索バーを使用して商品名またはSKUで商品を検索します。"
-        },
-        "step3": {
-          "title": "FBAフルフィルメントを有効化",
-          "description": "AmazonでフルフィルメントするバリアントのFBAスイッチをオンにします。"
-        },
-        "step4": {
-          "title": "Amazon SKUを入力",
-          "description": "FBA在庫に一致する正確なAmazonマーチャントSKUを入力します。"
-        },
-        "step5": {
-          "title": "SKUを検証",
-          "description": "検証ボタンをクリックして、SKUがFBA在庫に存在することを確認します。"
-        }
-      },
-      "skuTips": {
-        "title": "SKU一致のヒント",
-        "exactMatch": "SKUは完全に一致する必要があります（大文字小文字区別）",
-        "checkAmazon": "Amazonセントラルの在庫でSKUを確認してください",
-        "trailingChars": "末尾のスペースや特殊文字に注意してください",
-        "variantSkus": "各バリアントは独自の一意のAmazon SKUが必要です"
-      },
-      "inventorySync": {
-        "title": "在庫同期",
-        "description": "商品でFBAフルフィルメントを有効にすると、アプリはFBA在庫レベルを表示します。設定で自動在庫同期も設定できます。",
-        "autoSync": "自動同期を有効にして、FBAからShopify在庫を自動更新"
-      },
-      "bulkActions": {
-        "title": "一括操作",
-        "description": "複数の商品の場合、一括操作を使用します：",
-        "selectAll": "すべて選択で表示されたすべての商品を選択",
-        "bulkEnable": "一括有効化で選択した商品のFBAを有効化",
-        "bulkDisable": "一括無効化で選択した商品のFBAを無効化"
-      },
-      "troubleshooting": {
-        "title": "一般的な問題",
-        "notFound": "SKUがFBA在庫で見つかりません - SKUが正しくAmazonに存在することを確認してください",
-        "inventoryZero": "在庫が0と表示 - FBA倉庫で在庫切れの可能性があります",
-        "mismatch": "追跡情報が更新されない - SKUマッピングが正しいことを確認してください"
-      },
-      "goToProductMapping": "商品マッピングへ移動"
-    },
-    "docsTroubleshooting": {
-      "title": "トラブルシューティングガイド",
-      "subtitle": "Amazon Connectorの一般的な問題と解決策",
-      "overview": {
-        "title": "ヘルプを入手する",
-        "description": "ほとんどの問題は以下のトラブルシューティング手順で解決できます。追加のヘルプについては、サポートページでチームにお問い合わせください。"
-      },
-      "connectionIssues": {
-        "title": "接続の問題",
-        "amazonNotConnected": {
-          "title": "Amazon MCF接続に失敗しました",
-          "description": "アプリに「Amazon MCFに未接続」と表示される場合：",
-          "solutions": [
-            "セラーIDが正しいことを確認（余分なスペースなし）",
-            "デベロッパーIDと認証トークンが有効であることを確認",
-            "AmazonセントラルでMWSが有効になっていることを確認",
-            "接続テストを再度クリックしてみてください"
-          ]
-        },
-        "shopifyNotConnected": {
-          "title": "Shopify接続の問題",
-          "description": "アプリに「Shopifyに未接続」と表示される場合：",
-          "solutions": [
-            "ショップドメインが正しいことを確認（例：your-store.myshopify.com）",
-            "アプリがShopifyストアにインストールされていることを確認",
-            "Shopify設定でアプリ権限が付与されていることを確認"
-          ]
-        }
-      },
-      "fulfillmentIssues": {
-        "title": "フルフィルメントの問題",
-        "shipmentsFailing": {
-          "title": "出荷が失敗し続ける",
-          "description": "出荷ページでエラーコードを確認してください：",
-          "codes": {
-            "MAPPING_MISSING": "商品マッピングでAmazon SKUを設定してください",
-            "DESTINATION_NOT_SUPPORTED": "この配送先をサポートする接続先を有効にしてください",
-            "NO_EU_ROUTE": "EU接続を有効にしてデフォルトとして設定してください",
-            "AMAZON_API_ERROR": "Amazon MCFステータスを確認するか、サポートに連絡してください"
-          }
-        },
-        "mixedOrders": {
-          "title": "混合注文の動作",
-          "description": "FBA商品と非FBA商品の両方を含む注文は「混合注文」としてマークされます：",
-          "behavior": [
-            "FBA商品はAmazon MCFに送信されてフルフィルメント",
-            "非FBA商品は手動フルフィルメントのために残される",
-            "両方のグループを別々にフルフィルメントする必要があります",
-            "追跡情報はFBA商品のみ書き戻されます"
-          ]
-        },
-        "trackingNotUpdating": {
-          "title": "追跡情報がShopifyに表示されない",
-          "description": "考えられる解決策：",
-          "solutions": [
-            "出荷ページで出荷ステータスを確認",
-            "Amazonが注文を受諾して出荷するのを待つ",
-            "Shopify API権限にフルフィルメント更新が含まれていることを確認",
-            "Shopifyで注文が手動でフルフィルメントされたかどうかを確認"
-          ]
-        }
-      },
-      "billingIssues": {
-        "title": "課金に関する質問",
-        "chargesSeemHigh": {
-          "title": "請求額について理解する",
-          "description": "以下の点に注意してください：",
-          "points": [
-            "キャンセルと返品は出荷数を減らしません",
-            "出荷が作成されると、その月の課金が適用されます",
-            "接続料金（接続先あたり$20）は別途請求されます",
-            "詳細な内訳については課金ページを確認してください"
-          ]
-        }
-      },
-      "errorCodes": {
-        "title": "エラーコードリファレンス",
-        "description": "一般的なエラーコードとその意味：",
-        "OVERRIDE_CONNECTION_DISABLED": "ルーティングオーバーライドが無効な接続先を指している",
-        "DESTINATION_CONNECTION_NOT_ENABLED": "配送先マーケットプレイスの接続先が無効",
-        "NO_EU_ROUTE": "EUデフォルト接続が設定されていない",
-        "NO_US_ROUTE": "米国向けの配送にはUS接続が必要",
-        "NO_JP_ROUTE": "日本向けの配送にはJP接続が必要",
-        "DESTINATION_NOT_SUPPORTED": "配送先国が有効な接続先でカバーされていない",
-        "MAPPING_MISSING": "この商品のAmazon SKUが設定されていない",
-        "AMAZON_API_ERROR": "一時的なAmazon APIの問題または認証情報が無効",
-        "CONNECTION_UNAVAILABLE": "MCF接続が一時的に利用できない"
-      },
-      "goToSettings": "設定へ移動",
-      "goToShipments": "出荷へ移動",
-      "goToBilling": "課金へ移動"
-    },
-    "docsApi": {
-      "title": "APIリファレンス",
-      "subtitle": "開発者向け技術ドキュメント",
-      "overview": {
-        "title": "API概要",
-        "description": "Amazon Connectorは、カスタム統合のためのWebhookハンドラーとAPIエンドポイントを提供します。このドキュメントは、カスタムワークフローを構築する開発者向けです。"
-      },
-      "webhooks": {
-        "title": "Webhook",
-        "description": "アプリは以下のWebhookをShopifyに登録します：",
-        "ordersPaid": {
-          "title": "orders/paid",
-          "description": "注文が支払われたときにトリガーされます。アプリはこのWebhookを処理して、有効な商品のMCFフルフィルメントリクエストを作成します。",
-          "behavior": [
-            "FBA有効商品についてラインアイテムを検査",
-            "非FBAアイテムをフィルタリング",
-            "FBAアイテムのMCFフルフィルメント注文を作成",
-            "追跡情報でShopifyフルフィルメントを更新"
-          ]
-        }
-      },
-      "dataModels": {
-        "title": "データモデル",
-        "shop": {
-          "title": "ショップ",
-          "description": "ショップ設定と接続ステータス",
-          "fields": {
-            "shop_domain": "Shopifyストアドメイン",
-            "access_token": "Shopify APIアクセストークン",
-            "billing_state": "課金承認ステータス",
-            "locale_pref": "言語設定"
-          }
-        },
-        "mapping": {
-          "title": "商品マッピング",
-          "description": "ShopifyバリアントとAmazon SKUのリンク",
-          "fields": {
-            "shop": "ショップドメイン",
-            "variant_id": "ShopifyバリアントID",
-            "enabled": "FBAフルフィルメント有効フラグ",
-            "amazon_sku": "対応するAmazon SKU",
-            "updated_at": "最終変更タイムスタンプ"
-          }
-        },
-        "shipment": {
-          "title": "出荷",
-          "description": "Amazon MCFへのフルフィルメントリクエスト",
-          "fields": {
-            "id": "一意の出荷識別子",
-            "shop": "ショップドメイン",
-            "order_id": "Shopify注文ID",
-            "status": "pending、sent、accepted、shipped、failed、pending_retry",
-            "amazon_order_id": "Amazonの注文識別子",
-            "tracking_numbers": "追跡番号の配列",
-            "carrier": "配送業者名",
-            "items": "フルフィルメントされたラインアイテムの配列",
-            "failure_code": "失敗時のエラーコード",
-            "created_at": "作成タイムスタンプ",
-            "updated_at": "最終更新タイムスタンプ"
-          }
-        },
-        "usageCounter": {
-          "title": "使用カウンター",
-          "description": "月次課金サイクルの追跡",
-          "fields": {
-            "shop": "ショップドメイン",
-            "cycle_month": "課金サイクル (YYYY-MM)",
-            "shipment_count": "サイクル内の総出荷数",
-            "charged_20": "$20基本課金が適用されたかどうか",
-            "over_200_count": "200を超える出荷数"
-          }
-        }
-      },
-      "endpoints": {
-        "title": "APIエンドポイント",
-        "description": "以下のエンドポイントが利用可能です（Shopify経由でプロキシ）：",
-        "list": [
-          "GET /api/shipments - すべての出荷を一覧表示",
-          "POST /api/shipments/{id}/retry - 失敗した出荷を再試行",
-          "GET /api/products - マッピングされた商品を一覧表示",
-          "POST /api/products/sync - Shopifyから商品を同期",
-          "GET /api/billing - 現在の課金ステータスを取得",
-          "GET /api/settings - アプリ設定を取得",
-          "POST /api/settings - アプリ設定を更新"
-        ]
-      },
-      "security": {
-        "title": "セキュリティ",
-        "description": "実装されているセキュリティ対策：",
-        "webhookVerification": "すべてのShopify WebhookはHMAC署名で検証されます",
-        "tokenEncryption": "Amazon認証情報は保存時に暗号化されます",
-        "dataDeletion": "アプリのアンインストール時にすべてのショップデータが削除されます"
+    "step1": {
+      "title": "ステップ1：アプリをインストール",
+      "description": "Shopify App StoreからAmazon Connectorをインストールします。アプリがShopifyストアの注文、商品、フルフィルメントデータにアクセスする権限を付与する必要があります。",
+      "permissions": {
+        "title": "必要な権限",
+        "orders": "注文の読み取り - フルフィルメント処理のため",
+        "products": "商品の読み取り - SKUマッピングのため",
+        "fulfillments": "フルフィルメントの作成/更新 - 追跡情報をShopifyに書き戻すため"
       }
     },
-    "documentation": {
-      "title": "ドキュメント",
-      "subtitle": "Amazon Connectorのユーザーガイドとドキュメント",
-      "backToDocs": "← ドキュメントに戻る",
-      "setup": "セットアップガイド",
-      "setupDescription": "ステップバイステップのセットアップ手順",
-      "setupDetails": "Amazon MCF接続の設定方法とルーティングのセットアップを学ぶ",
-      "productMapping": "商品マッピング",
-      "productMappingDescription": "商品をAmazon SKUにリンク",
-      "productMappingDetails": "Shopify商品をAmazon FBA在庫にマッピングする方法を理解する",
-      "troubleshooting": "トラブルシューティング",
-      "troubleshootingDescription": "一般的な問題を解決",
-      "troubleshootingDetails": "頻繁に遭遇する問題の解決策を見つける",
-      "api": "APIリファレンス",
-      "apiDescription": "技術ドキュメント",
-      "apiDetails": "Webhook、データモデル、APIエンドポイントの開発者向けリファレンス"
+    "step2": {
+      "title": "ステップ2：Amazon MCFアカウントを接続",
+      "description": "設定ページでAmazon MCF認証情報を設定します：",
+      "credentials": {
+        "sellerId": "セラーID - Amazonセントラルで確認",
+        "developerId": "デベロッパーID - MWSアプリケーションから",
+        "authToken": "MWS認証トークン - セントラルで生成"
+      },
+      "regions": {
+        "title": "サポート対象マーケットプレイス",
+        "us": "アメリカ合衆国 (US)",
+        "jp": "日本 (JP)",
+        "eu": "欧州連合 (DE, FR, IT, ES)"
+      },
+      "findCredentials": "Amazon MCF認証情報の見つけ方：セントラル → 設定 → MWS/Marketplace Web Service"
+    },
+    "step3": {
+      "title": "ステップ3：ルーティングを設定",
+      "description": "さまざまな配送先に使用するAmazon接続先を設定します：",
+      "enabled": "使用するマーケットプレイス接続先を有効化（最大5つ）",
+      "euDefault": "EU配送先の場合、デフォルト接続先を選択（DE/FR/IT/ES）",
+      "overrides": "必要に応じて国別オーバーライドを追加",
+      "test": "テストルーティング機能を使用して設定を確認"
+    },
+    "step4": {
+      "title": "ステップ4：商品をマッピング",
+      "description": "Shopify商品をAmazon SKUにリンクします：",
+      "enable": "フルフィルメントしたい商品でFBAを有効化",
+      "sku": "各バリアントの対応するAmazon SKUを入力",
+      "verify": "検証ボタンでSKUが一致することを確認",
+      "inventory": "有効化前に在庫レベルを確認"
+    },
+    "step5": {
+      "title": "ステップ5：課金を設定",
+      "description": "課金条件を確認して同意します：",
+      "free": "毎月の最初の5出荷は無料",
+      "tier1": "5出荷を超えた場合月額$20（最大200出荷まで）",
+      "tier2": "200出荷を超えた分は1出荷あたり$0.50",
+      "connectionFee": "有効な接続先ごとに月額$20",
+      "acknowledge": "キャンセル/返品が課金を減額しないことに同意する必要があります"
+    },
+    "step6": {
+      "title": "ステップ6：セットアップをテスト",
+      "description": "本番開始前に：",
+      "testOrder": "FBA有効商品でテスト注文を作成",
+      "monitor": "出荷ページでステータス更新を監視",
+      "tracking": "追跡情報がShopifyに書き戻されることを確認",
+      "support": "問題が発生した場合はサポートに連絡"
+    },
+    "goToSettings": "設定へ移動",
+    "goToProductMapping": "商品マッピングへ移動",
+    "goToShipments": "出荷へ移動"
+  },
+  "docsProductMapping": {
+    "title": "商品マッピングガイド",
+    "subtitle": "Shopify商品をAmazon SKUにリンクする方法を学ぶ",
+    "overview": {
+      "title": "商品マッピングとは？",
+      "description": "商品マッピングは、Shopify商品とバリアントを対応するAmazon SKUにリンクします。マッピングされた商品を含む注文がある場合、Amazon ConnectorはFBA在庫を使用して自動的にフルフィルメントできます。"
+    },
+    "howTo": {
+      "title": "商品をマッピングする方法",
+      "step1": {
+        "title": "商品マッピングに移動",
+        "description": "アプリサイドバーの商品マッピングページを開きます。"
+      },
+      "step2": {
+        "title": "商品を見つける",
+        "description": "検索バーを使用して商品名またはSKUで商品を検索します。"
+      },
+      "step3": {
+        "title": "FBAフルフィルメントを有効化",
+        "description": "AmazonでフルフィルメントするバリアントのFBAスイッチをオンにします。"
+      },
+      "step4": {
+        "title": "Amazon SKUを入力",
+        "description": "FBA在庫と一致する正確なAmazonマーチャントSKUを入力します。"
+      },
+      "step5": {
+        "title": "SKUを検証",
+        "description": "検証ボタンをクリックして、SKUがFBA在庫に存在することを確認します。"
+      }
+    },
+    "skuTips": {
+      "title": "SKU一致のコツ",
+      "exactMatch": "SKUは完全に一致する必要があります（大文字小文字を区別）",
+      "checkAmazon": "Amazonセントラル在庫でSKUを確認してください",
+      "trailingChars": "末尾のスペースや特殊文字に注意してください",
+      "variantSkus": "各バリアントには独自の一意のAmazon SKUが必要です"
+    },
+    "inventorySync": {
+      "title": "在庫同期",
+      "description": "商品でFBAフルフィルメントを有効にすると、アプリはFBA在庫レベルを表示します。設定で自動在庫同期を設定することもできます。",
+      "autoSync": "自動同期を有効にして、FBAからShopify在庫を自動的に更新します"
+    },
+    "bulkActions": {
+      "title": "一括操作",
+      "description": "複数の商品の場合、一括操作を使用します：",
+      "selectAll": "すべて選択で表示されたすべての商品を選択",
+      "bulkEnable": "一括有効化で選択した商品のFBAを有効化",
+      "bulkDisable": "一括無効化で選択した商品のFBAを無効化"
+    },
+    "troubleshooting": {
+      "title": "一般的な問題",
+      "notFound": "FBA在庫でSKUが見つかりません - SKUがAmazonに正しく存在することを確認してください",
+      "inventoryZero": "在庫が0と表示されます - FBA倉庫で在庫切れの可能性があります",
+      "mismatch": "追跡情報が更新されていません - SKUマッピングが正しいことを確認してください"
+    },
+    "goToProductMapping": "商品マッピングへ移動"
+  },
+  "docsTroubleshooting": {
+    "title": "トラブルシューティングガイド",
+    "subtitle": "Amazon Connectorの一般的な問題と解決策",
+    "overview": {
+      "title": "ヘルプの利用",
+      "description": "ほとんどの問題はこれらのトラブルシューティング手順で解決できます。追加のヘルプについては、サポートページのサポートチームにお問い合わせください。"
+    },
+    "connectionIssues": {
+      "title": "接続の問題",
+      "amazonNotConnected": {
+        "title": "Amazon MCF接続に失敗しました",
+        "description": "アプリに「Amazon MCFに未接続」と表示される場合：",
+        "solutions": [
+          "セラーIDが正しいことを確認します（余分なスペースなし）",
+          "デベロッパーIDと認証トークンが有効であることを確認します",
+          "AmazonセントラルでMWSが有効になっていることを確認します",
+          "もう一度接続テストをクリックしてください"
+        ]
+      },
+      "shopifyNotConnected": {
+        "title": "Shopify接続の問題",
+        "description": "アプリに「Shopifyに未接続」と表示される場合：",
+        "solutions": [
+          "ショップドメインが正しいことを確認します（例：your-store.myshopify.com）",
+          "アプリがShopifyストアにインストールされていることを確認します",
+          "Shopify設定でアプリ権限が付与されていることを確認します"
+        ]
+      }
+    },
+    "fulfillmentIssues": {
+      "title": "フルフィルメントの問題",
+      "shipmentsFailing": {
+        "title": "出荷が失敗し続ける",
+        "description": "出荷ページでエラーコードを確認してください：",
+        "codes": {
+          "MAPPING_MISSING": "商品マッピングでAmazon SKUを設定してください",
+          "DESTINATION_NOT_SUPPORTED": "この配送先をサポートする接続先を有効にしてください",
+          "NO_EU_ROUTE": "EU接続を有効にしてデフォルトとして設定してください",
+          "AMAZON_API_ERROR": "Amazon MCFステータスを確認するか、サポートに連絡してください"
+        }
+      },
+      "mixedOrders": {
+        "title": "混合注文の動作",
+        "description": "FBA商品と非FBA商品の両方を含む注文は「混合注文」としてマークされます：",
+        "behavior": [
+          "FBA商品はAmazon MCFに送信されてフルフィルメント",
+          "非FBA商品は手動フルフィルメントのために残される",
+          "両方のグループを別々にフルフィルメントする必要があります",
+          "追跡情報はFBA商品のみ書き戻されます"
+        ]
+      },
+      "trackingNotUpdating": {
+        "title": "追跡情報がShopifyに表示されない",
+        "description": "考えられる解決策：",
+        "solutions": [
+          "出荷ページで出荷ステータスを確認",
+          "Amazonが注文を受諾して出荷するのを待つ",
+          "Shopify API権限にフルフィルメント更新が含まれていることを確認",
+          "Shopifyで注文が手動でフルフィルメントされたかどうかを確認"
+        ]
+      }
+    },
+    "billingIssues": {
+      "title": "課金に関する質問",
+      "chargesSeemHigh": {
+        "title": "請求額について理解する",
+        "description": "以下の点に注意してください：",
+        "points": [
+          "キャンセルと返品は出荷数を減らしません",
+          "出荷が作成されると、その月の課金が適用されます",
+          "接続料金（接続先あたり$20）は別途請求されます",
+          "詳細な内訳については課金ページを確認してください"
+        ]
+      }
+    },
+    "errorCodes": {
+      "title": "エラーコードリファレンス",
+      "description": "一般的なエラーコードとその意味：",
+      "OVERRIDE_CONNECTION_DISABLED": "ルーティングオーバーライドが無効な接続先を指している",
+      "DESTINATION_CONNECTION_NOT_ENABLED": "配送先マーケットプレイスの接続先が無効",
+      "NO_EU_ROUTE": "EUデフォルト接続が設定されていない",
+      "NO_US_ROUTE": "米国向けの配送にはUS接続が必要",
+      "NO_JP_ROUTE": "日本向けの配送にはJP接続が必要",
+      "DESTINATION_NOT_SUPPORTED": "配送先国が有効な接続先でカバーされていない",
+      "MAPPING_MISSING": "この商品のAmazon SKUが設定されていない",
+      "AMAZON_API_ERROR": "一時的なAmazon APIの問題または認証情報が無効",
+      "CONNECTION_UNAVAILABLE": "MCF接続が一時的に利用できない"
+    },
+    "goToSettings": "設定へ移動",
+    "goToShipments": "出荷へ移動",
+    "goToBilling": "課金へ移動"
+  },
+  "docsApi": {
+    "title": "APIリファレンス",
+    "subtitle": "開発者向け技術ドキュメント",
+    "overview": {
+      "title": "API概要",
+      "description": "Amazon Connectorは、カスタム統合のためのWebhookハンドラーとAPIエンドポイントを提供します。このドキュメントは、カスタムワークフローを構築する開発者向けです。"
+    },
+    "webhooks": {
+      "title": "Webhook",
+      "description": "アプリは以下のWebhookをShopifyに登録します：",
+      "ordersPaid": {
+        "title": "orders/paid",
+        "description": "注文が支払われたときにトリガーされます。アプリはこのWebhookを処理して、有効な商品のMCFフルフィルメントリクエストを作成します。",
+        "behavior": [
+          "FBA有効商品についてラインアイテムを検査",
+          "非FBAアイテムをフィルタリング",
+          "FBAアイテムのMCFフルフィルメント注文を作成",
+          "追跡情報でShopifyフルフィルメントを更新"
+        ]
+      }
+    },
+    "dataModels": {
+      "title": "データモデル",
+      "shop": {
+        "title": "ショップ",
+        "description": "ショップ設定と接続ステータス",
+        "fields": {
+          "shop_domain": "Shopifyストアドメイン",
+          "access_token": "Shopify APIアクセストークン",
+          "billing_state": "課金承認ステータス",
+          "locale_pref": "言語設定"
+        }
+      },
+      "mapping": {
+        "title": "商品マッピング",
+        "description": "ShopifyバリアントとAmazon SKUのリンク",
+        "fields": {
+          "shop": "ショップドメイン",
+          "variant_id": "ShopifyバリアントID",
+          "enabled": "FBAフルフィルメント有効フラグ",
+          "amazon_sku": "対応するAmazon SKU",
+          "updated_at": "最終変更タイムスタンプ"
+        }
+      },
+      "shipment": {
+        "title": "出荷",
+        "description": "Amazon MCFへのフルフィルメントリクエスト",
+        "fields": {
+          "id": "一意の出荷識別子",
+          "shop": "ショップドメイン",
+          "order_id": "Shopify注文ID",
+          "status": "pending、sent、accepted、shipped、failed、pending_retry",
+          "amazon_order_id": "Amazonの注文識別子",
+          "tracking_numbers": "追跡番号の配列",
+          "carrier": "配送業者名",
+          "items": "フルフィルメントされたラインアイテムの配列",
+          "failure_code": "失敗時のエラーコード",
+          "created_at": "作成タイムスタンプ",
+          "updated_at": "最終更新タイムスタンプ"
+        }
+      },
+      "usageCounter": {
+        "title": "使用カウンター",
+        "description": "月次課金サイクルの追跡",
+        "fields": {
+          "shop": "ショップドメイン",
+          "cycle_month": "課金サイクル (YYYY-MM)",
+          "shipment_count": "サイクル内の総出荷数",
+          "charged_20": "$20基本課金が適用されたかどうか",
+          "over_200_count": "200を超える出荷数"
+        }
+      }
+    },
+    "endpoints": {
+      "title": "APIエンドポイント",
+      "description": "以下のエンドポイントが利用可能です（Shopify経由でプロキシ）：",
+      "list": [
+        "GET /api/shipments - すべての出荷を一覧表示",
+        "POST /api/shipments/{id}/retry - 失敗した出荷を再試行",
+        "GET /api/products - マッピングされた商品を一覧表示",
+        "POST /api/products/sync - Shopifyから商品を同期",
+        "GET /api/billing - 現在の課金ステータスを取得",
+        "GET /api/settings - アプリ設定を取得",
+        "POST /api/settings - アプリ設定を更新"
+      ]
+    },
+    "security": {
+      "title": "セキュリティ",
+      "description": "実装されているセキュリティ対策：",
+      "webhookVerification": "すべてのShopify WebhookはHMAC署名で検証されます",
+      "tokenEncryption": "Amazon認証情報は保存時に暗号化されます",
+      "dataDeletion": "アプリのアンインストール時にすべてのショップデータが削除されます"
     }
+  },
+  "documentation": {
+    "title": "ドキュメント",
+    "subtitle": "Amazon Connectorのユーザーガイドとドキュメント",
+    "backToDocs": "← ドキュメントに戻る",
+    "setup": "セットアップガイド",
+    "setupDescription": "ステップバイステップのセットアップ手順",
+    "setupDetails": "Amazon MCF接続の設定方法とルーティングのセットアップを学ぶ",
+    "productMapping": "商品マッピング",
+    "productMappingDescription": "商品をAmazon SKUにリンク",
+    "productMappingDetails": "Shopify商品をAmazon FBA在庫にマッピングする方法を理解する",
+    "troubleshooting": "トラブルシューティング",
+    "troubleshootingDescription": "一般的な問題を解決",
+    "troubleshootingDetails": "頻繁に遭遇する問題の解決策を見つける",
+    "api": "APIリファレンス",
+    "apiDescription": "技術ドキュメント",
+    "apiDetails": "Webhook、データモデル、APIエンドポイントの開発者向けリファレンス"
   }
+}
+}
 }
