@@ -163,7 +163,19 @@ const enTranslations = {
         outro: "By checking the box below, you acknowledge that you have read and understood these billing terms."
       },
       checkbox: "I acknowledge and accept the billing terms above",
-      checkboxError: "Please accept the billing terms to continue"
+      checkboxError: "Please accept the billing terms to continue",
+      tier: {
+        free: "Free",
+        base: "Base",
+        scale: "200+",
+        perMonth: "per month",
+        shipments: "shipments",
+        oneTime: "one-time",
+        eachAdditional: "each additional",
+        starterTier: "Starter tier",
+        growthTier: "Growth tier",
+        scaleTier: "Scale tier"
+      }
     },
     locale: {
       title: "Language Preference",
@@ -719,7 +731,19 @@ const jaTranslations = {
         outro: "以下のチェックボックスをオンにすることで、課金条件を読み理解したことを確認します。"
       },
       checkbox: "上記の課金条件に同意します",
-      checkboxError: "続行するには課金条件に同意してください"
+      checkboxError: "続行するには課金条件に同意してください",
+      tier: {
+        free: "無料",
+        base: "基本",
+        scale: "200+",
+        perMonth: "月額",
+        shipments: "出荷",
+        oneTime: "1回限り",
+        eachAdditional: "各追加",
+        starterTier: "スターターティア",
+        growthTier: "成長ティア",
+        scaleTier: "スケールティア"
+      }
     },
     locale: {
       title: "言語設定",
