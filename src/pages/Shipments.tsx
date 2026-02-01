@@ -170,12 +170,6 @@ export function ShipmentsPage({ onGoToSettings, onGoToDocumentation }: { onGoToS
           <h1 className="text-3xl font-bold">{t("shipments.title")}</h1>
           <p className="text-muted-foreground">{t("shipments.subtitle")}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" onClick={onGoToDocumentation} className="text-muted-foreground hover:text-primary">
-            <BookOpen className="w-4 h-4 mr-1" />
-            Documentation
-          </Button>
-        </div>
       </div>
 
       {/* Stats */}
