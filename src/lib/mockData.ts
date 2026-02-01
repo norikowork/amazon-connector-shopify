@@ -38,6 +38,42 @@ export type FailureCode =
   | "CONNECTION_UNAVAILABLE"
   | "UNKNOWN_ERROR";
 
+// Shopify Order Tags for MCF processing
+export type OrderTag = "SEND_TO_MCF" | "MCF_MIXED_ERROR";
+
+// Order line item with MCF eligibility
+export interface OrderLineItem {
+  variantId: string;
+  variantTitle: string;
+  sku: string;
+  quantity: number;
+  isMcfEligible: boolean; // True if product is enabled and has Amazon SKU
+  amazonSku?: string;
+}
+
+// Shopify Order with tags
+export interface ShopifyOrder {
+  id: string;
+  orderNumber: string;
+  lineItems: OrderLineItem[];
+  tags: OrderTag[];
+  destinationCountry: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Failure codes for routing and configuration issues
+export type FailureCode =
+  | "OVERRIDE_CONNECTION_DISABLED"
+  | "DESTINATION_CONNECTION_NOT_ENABLED"
+  | "NO_EU_ROUTE"
+  | "NO_US_ROUTE"
+  | "NO_JP_ROUTE"
+  | "DESTINATION_NOT_SUPPORTED"
+  | "MAPPING_MISSING"
+  | "AMAZON_API_ERROR"
+  | "CONNECTION_UNAVAILABLE"
+  | "UNKNOWN_ERROR";
 // EU countries (for routing logic)
 const EU_COUNTRIES = [
   "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR",
@@ -939,6 +975,172 @@ export const mockApi = {
     return {
       updated: updatedCount,
       skipped: skippedCount,
+    };
+  },
+
+  /**
+   * ===== ORDER TAG PROCESSING =====
+   * These functions handle Shopify order tags for MCF processing
+   */
+
+  /**
+   * Evaluate order and determine appropriate MCF tags
+   * Called when order is created or updated
+   */
+  evaluateOrderTags: async (orderPayload: {
+    id: string;
+    order_number: string;
+    line_items: Array<Record<string, unknown>>;
+    shipping_address: Record<string, unknown>;
+    tags: string[];
+  }): Promise<{ tags: OrderTag[]; shouldSendToMcf: boolean; reason: string }> => {
+    console.log("[Tag Processor] Evaluating order tags for:", orderPayload.order_number);
+
+    // Get current tags from the order
+    const existingTags = orderPayload.tags || [];
+    
+    // Check if order already has MCF_MIXED_ERROR tag
+    const hasMixedErrorTag = existingTags.includes("MCF_MIXED_ERROR");
+    
+    if (hasMixedErrorTag) {
+      console.log("[Tag Processor] Order has MCF_MIXED_ERROR tag - will NOT send to MCF");
+      return {
+        tags: ["MCF_MIXED_ERROR"],
+        shouldSendToMcf: false,
+        reason: "Order tagged with MCF_MIXED_ERROR - requires manual review after split/edit"
+      };
+    }
+
+    // Analyze line items for MCF eligibility
+    const allLineItems = orderPayload.line_items || [];
+    
+    // Check MCF eligibility for each line item
+    const mcfEligibleItems: OrderLineItem[] = [];
+    const mfnItems: OrderLineItem[] = [];
+    
+    for (const item of allLineItems) {
+      const product = mockProducts.find(p => p.sku === item.sku);
+      const isMcfEligible = product && product.enabled && product.amazonSku;
+      
+      const lineItem: OrderLineItem = {
+        variantId: String(item.variant_id || ""),
+        variantTitle: String(item.title || ""),
+        sku: String(item.sku || ""),
+        quantity: Number(item.quantity || 1),
+        isMcfEligible: !!isMcfEligible,
+        amazonSku: isMcfEligible ? product.amazonSku : undefined,
+      };
+      
+      if (isMcfEligible) {
+        mcfEligibleItems.push(lineItem);
+      } else {
+        mfnItems.push(lineItem);
+      }
+    }
+    
+    console.log("[Tag Processor] MCF eligible items:", mcfEligibleItems.length);
+    console.log("[Tag Processor] MFN items:", mfnItems.length);
+    
+    // Determine tags based on item eligibility
+    const newTags: OrderTag[] = [];
+    
+    if (mfnItems.length > 0 && mcfEligibleItems.length > 0) {
+      // Mixed order: has both MCF and MFN items
+      console.log("[Tag Processor] Mixed order detected - adding MCF_MIXED_ERROR tag");
+      newTags.push("MCF_MIXED_ERROR");
+      
+      return {
+        tags: newTags,
+        shouldSendToMcf: false,
+        reason: "Mixed order: contains both MCF-eligible and MFN items. Order must be split or edited before MCF processing."
+      };
+    } else if (mcfEligibleItems.length > 0 && mfnItems.length === 0) {
+      // All items are MCF eligible
+      console.log("[Tag Processor] All items MCF eligible - adding SEND_TO_MCF tag");
+      newTags.push("SEND_TO_MCF");
+      
+      return {
+        tags: newTags,
+        shouldSendToMcf: true,
+        reason: "All items are MCF-eligible. Order will be sent to Amazon MCF."
+      };
+    } else {
+      // No MCF eligible items
+      console.log("[Tag Processor] No MCF eligible items");
+      
+      return {
+        tags: [],
+        shouldSendToMcf: false,
+        reason: "No MCF-eligible items found in order."
+      };
+    }
+  },
+
+  /**
+   * Re-evaluate order after split/edit
+   * Call this when an order is updated (items removed, SKU changed, etc.)
+   * 
+   * If MCF_MIXED_ERROR is present:
+   *   - Check if remaining items are all MCF-eligible
+   *   - If yes: remove MCF_MIXED_ERROR, add SEND_TO_MCF
+   *   - If no: keep MCF_MIXED_ERROR
+   */
+  reevaluateOrderAfterEdit: async (orderPayload: {
+    id: string;
+    order_number: string;
+    line_items: Array<Record<string, unknown>>;
+    shipping_address: Record<string, unknown>;
+    tags: string[];
+  }): Promise<{
+    tags: OrderTag[];
+    previousTags: string[];
+    shouldSendToMcf: boolean;
+    actions: string[];
+  }> => {
+    console.log("[Tag Processor] Re-evaluating order after edit:", orderPayload.order_number);
+    
+    const previousTags = [...(orderPayload.tags || [])];
+    const actions: string[] = [];
+    
+    // Get current evaluation
+    const evaluation = await mockApi.evaluateOrderTags(orderPayload);
+    
+    // Special handling for MCF_MIXED_ERROR removal
+    const hadMixedErrorTag = previousTags.includes("MCF_MIXED_ERROR");
+    const nowAllMcfEligible = evaluation.tags.includes("SEND_TO_MCF");
+    
+    if (hadMixedErrorTag && nowAllMcfEligible) {
+      actions.push("Removed MCF_MIXED_ERROR tag (order now fully MCF-eligible after split/edit)");
+      actions.push("Added SEND_TO_MCF tag");
+      console.log("[Tag Processor] Order is now fully MCF-eligible - cleared error and enabled MCF");
+    } else if (hadMixedErrorTag && !nowAllMcfEligible) {
+      actions.push("Kept MCF_MIXED_ERROR tag (order still has MFN items after split/edit)");
+      console.log("[Tag Processor] Order still has MFN items - keeping error tag");
+    } else if (!hadMixedErrorTag && evaluation.tags.length > 0) {
+      actions.push(`Added tag: ${evaluation.tags.join(", ")}`);
+    }
+    
+    return {
+      tags: evaluation.tags,
+      previousTags,
+      shouldSendToMcf: evaluation.shouldSendToMcf,
+      actions,
+    };
+  },
+
+  /**
+   * Remove MCF_MIXED_ERROR tag manually
+   * Use this after merchant has manually reviewed/split the order
+   */
+  removeMixedErrorTag: async (orderId: string): Promise<{ success: boolean; message: string }> => {
+    console.log("[Tag Processor] Manually removing MCF_MIXED_ERROR tag for order:", orderId);
+    
+    // In production, this would call Shopify Admin API to update order tags
+    // For mock, we just log the action
+    
+    return {
+      success: true,
+      message: "MCF_MIXED_ERROR tag removed. Order will be re-evaluated on next update."
     };
   },
 };

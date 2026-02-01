@@ -311,6 +311,44 @@ const enTranslations = {
     },
     empty: "No shipments found for the selected filter"
   },
+  orderTags: {
+    title: "Order Tags",
+    description: "Shopify order tags control MCF fulfillment behavior",
+    sendToMcf: {
+      title: "SEND_TO_MCF",
+      description: "Order will be automatically fulfilled by Amazon MCF"
+    },
+    mixedError: {
+      title: "MCF_MIXED_ERROR",
+      description: "Order contains both MCF-eligible and MFN items. Must be split or edited before MCF processing.",
+      notice: "This order was NOT sent to Amazon MCF because it contains mixed items.",
+      instructions: "To enable MCF fulfillment:",
+      step1: "Split the order to separate MCF and MFN items into different orders", 
+      step2: "Edit the order to remove MFN items", 
+      step3: "After split/edit, the app will automatically re-evaluate and remove this tag if all items are MCF-eligible",
+      step4: "The SEND_TO_MCF tag will be added automatically when the order is fully MCF-eligible"
+    },
+    evaluation: {
+      title: "Tag Evaluation",
+      evaluating: "Evaluating order...",
+      allMcfEligible: "All items are MCF-eligible",
+      hasMfnItems: "Order contains MFN items (not MCF-eligible)",
+      noMcfEligible: "No MCF-eligible items found",
+      mixedOrder: "Mixed order detected",
+      willNotSendToMcf: "Will NOT send to MCF",
+      willSendToMcf: "Will send to MCF"
+    },
+    reevaluation: {
+      title: "Order Re-evaluation",
+      description: "After order split or edit",
+      previousTags: "Previous Tags",
+      newTags: "New Tags",
+      actions: "Actions Taken",
+      tagRemoved: "Tag Removed",
+      tagAdded: "Tag Added",
+      tagKept: "Tag Kept"
+    }
+  },
   billing: {
     title: "Billing & Usage",
     subtitle: "View your usage and charges for this month",
@@ -812,6 +850,44 @@ const jaTranslations = {
       }
     },
     empty: "選択したフィルターで出荷が見つかりません"
+  },
+  orderTags: {
+    title: "注文タグ",
+    description: "Shopify注文タグはMCFフルフィルメント動作を制御します",
+    sendToMcf: {
+      title: "SEND_TO_MCF",
+      description: "注文はAmazon MCFによって自動的にフルフィルメントされます"
+    },
+    mixedError: {
+      title: "MCF_MIXED_ERROR",
+      description: "注文にはMCF対象商品とMFN商品の両方が含まれています。MCF処理前に分割または編集する必要があります。",
+      notice: "この注文は混合商品を含むため、Amazon MCFに送信されませんでした。",
+      instructions: "MCFフルフィルメントを有効にするには：",
+      step1: "注文を分割してMCF商品とMFN商品を別の注文に分離します",
+      step2: "注文を編集してMFN商品を削除します",
+      step3: "分割/編集後、すべての商品がMCF対象の場合、アプリが自動的に再評価してこのタグを削除します",
+      step4: "注文が完全にMCF対象になると、SEND_TO_MCFタグが自動的に追加されます"
+    },
+    evaluation: {
+      title: "タグ評価",
+      evaluating: "注文を評価中...",
+      allMcfEligible: "すべての商品がMCF対象です",
+      hasMfnItems: "注文にMFN商品（MCF対象外）が含まれています",
+      noMcfEligible: "MCF対象商品が見つかりません",
+      mixedOrder: "混合注文が検出されました",
+      willNotSendToMcf: "MCFに送信しません",
+      willSendToMcf: "MCFに送信します"
+    },
+    reevaluation: {
+      title: "注文の再評価",
+      description: "注文分割または編集後",
+      previousTags: "以前のタグ",
+      newTags: "新しいタグ",
+      actions: "実行されたアクション",
+      tagRemoved: "タグ削除",
+      tagAdded: "タグ追加",
+      tagKept: "タグ保持"
+    }
   },
   billing: {
     title: "課金と使用量",
