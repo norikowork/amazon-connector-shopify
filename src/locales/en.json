@@ -31,6 +31,7 @@
       "enabledConnections": "Enabled Connections",
       "monthlyFee": "Monthly Fee",
       "perConnection": "per connection",
+      "perMonthShort": "/ month",
       "maxConnections": "(max 5)"
     },
     "currentCycle": "Current Billing Cycle",
@@ -44,7 +45,14 @@
     "breakdown": {
       "title": "Billing Breakdown",
       "baseCharge": "Base Charge (Shipment #6)",
+      "basePlanMonthlyFee": "Base Plan Monthly Fee",
+      "upTo200Shipments": "Up to 200 shipments",
+      "applied": "Applied",
+      "reachShipment6": "Reach shipment #6 to activate",
       "over200Charges": "Over 200 Shipments",
+      "over200Description": "Over {tier1} shipments @ $0.50 each",
+      "extraShipments": "{count} extra shipments",
+      "noExtraShipments": "No extra shipments yet",
       "total": "Total"
     },
     "history": {
@@ -61,13 +69,13 @@
       "title": "Connection Fees Notice",
       "description": "Connection fees are billed monthly based on the number of enabled MCF connections. Changes take effect on the next billing cycle."
     },
-    "freeTier": {
-      "limitReached": "Free Tier Limit Reached - Fulfillment Paused",
-      "limitReachedDescription": "You've reached the 5 free shipment limit for this month. Fulfillment is paused until you upgrade to a paid plan or the next billing cycle begins.",
-      "shipmentsUsed": "{{count}}/5 free shipments used",
-      "upgradeToProDescription": "Upgrade to Pro plan for unlimited shipments per month, or wait for the next billing cycle when your free allowance resets."
+    "tierSummary": {
+      "title": "Billing Tier Summary",
+      "free": "First 5 shipments each month",
+      "base": "Monthly charge for up to 200 shipments",
+      "scale": "Same plan, $0.50 for each shipment over 200"
     },
-    "proPlan": {
+    "plan": {
       "free": "Free",
       "pro": "Pro"
     }

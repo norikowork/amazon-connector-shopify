@@ -406,7 +406,14 @@ const enTranslations = {
     breakdown: {
       title: "Billing Breakdown",
       baseCharge: "Base Charge (Shipment #6)",
+      basePlanMonthlyFee: "Base Plan Monthly Fee",
+      upTo200Shipments: "Up to 200 shipments",
+      applied: "Applied",
+      reachShipment6: "Reach shipment #6 to activate",
       over200Charges: "Over 200 Shipments",
+      over200Description: "Over {tier1} shipments @ $0.50 each",
+      extraShipments: "{count} extra shipments",
+      noExtraShipments: "No extra shipments yet",
       total: "Total"
     },
     history: {
@@ -421,6 +428,7 @@ const enTranslations = {
       enabledConnections: "Enabled Connections",
       monthlyFee: "Monthly Fee",
       perConnection: "per connection",
+      perMonthShort: "/ month",
       maxConnections: "max 5"
     },
     disclaimer: {
@@ -983,7 +991,14 @@ const jaTranslations = {
     breakdown: {
       title: "請求内訳",
       baseCharge: "基本料金（6回目出荷時）",
+      basePlanMonthlyFee: "基本プラン月額料金",
+      upTo200Shipments: "最大200出荷まで",
+      applied: "適用済み",
+      reachShipment6: "6回目の出荷で有効化",
       over200Charges: "200出荷超過分",
+      over200Description: "{tier1}出荷超過につき$0.50ずつ",
+      extraShipments: "{count}回の追加出荷",
+      noExtraShipments: "まだ追加出荷はありません",
       total: "合計"
     },
     history: {
@@ -998,6 +1013,7 @@ const jaTranslations = {
       enabledConnections: "有効な接続先",
       monthlyFee: "月額料金",
       perConnection: "接続先あたり",
+      perMonthShort: "月額",
       maxConnections: "最大5つ"
     },
     disclaimer: {

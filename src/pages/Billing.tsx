@@ -135,7 +135,7 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
             </div>
             <div className="text-right">
               <div className="text-2xl font-bold text-purple-600">{formatCurrency(connectionFee.monthlyFee)}</div>
-              <div className="text-sm text-muted-foreground">/ month</div>
+              <div className="text-sm text-muted-foreground">{t("billing.connectionFee.perMonthShort")}</div>
             </div>
           </div>
         </CardHeader>
@@ -320,15 +320,15 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
           <div className="space-y-4">
             <div className="flex items-center justify-between py-2 border-b">
               <div>
-                <div className="font-medium">Base Plan Monthly Fee</div>
+                <div className="font-medium">{t("billing.breakdown.basePlanMonthlyFee")}</div>
                 <div className="text-sm text-muted-foreground">
-                  Up to 200 shipments
+                  {t("billing.breakdown.upTo200Shipments")}
                 </div>
               </div>
               <div className="text-right">
                 <div className="font-bold">{usage.baseChargeApplied ? formatCurrency(BASE_CHARGE) : formatCurrency(0)}</div>
                 <div className="text-sm text-muted-foreground">
-                  {usage.baseChargeApplied ? "Applied" : `Reach shipment #6 to activate`}
+                  {usage.baseChargeApplied ? t("billing.breakdown.applied") : t("billing.breakdown.reachShipment6")}
                 </div>
               </div>
             </div>
@@ -337,13 +337,13 @@ export function BillingPage({ onGoToSettings, onGoToDocumentation }: { onGoToSet
               <div>
                 <div className="font-medium">{t("billing.breakdown.over200Charges")}</div>
                 <div className="text-sm text-muted-foreground">
-                  Over {TIER1_LIMIT} shipments @ $0.50 each
+                  {t("billing.breakdown.over200Description", { tier1: TIER1_LIMIT })}
                 </div>
               </div>
               <div className="text-right">
                 <div className="font-bold">{formatCurrency(usage.over200Charges)}</div>
                 <div className="text-sm text-muted-foreground">
-                  {usage.over200Count > 0 ? `${usage.over200Count} extra shipments` : "No extra shipments yet"}
+                  {usage.over200Count > 0 ? t("billing.breakdown.extraShipments", { count: usage.over200Count }) : t("billing.breakdown.noExtraShipments")}
                 </div>
               </div>
             </div>
