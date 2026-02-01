@@ -320,6 +320,24 @@
     "connectionDisclaimer": {
       "title": "接続料金に関するお知らせ",
       "description": "接続料金は有効なMCF接続先の数に基づいて毎月請求されます。変更は次の請求サイクルから適用されます。"
+    },
+    "freeTier": {
+      "limitReached": "無料枠に達しました - フルフィルメント一時停止中",
+      "limitReachedDescription": "今月の5回までの無料出荷枠に達しました。有料プランにアップグレードするか、次の請求サイクルが始まるまでフルフィルメントは一時停止されています。",
+      "shipmentsUsed": "{{count}}/5 無料出荷枠使用済み",
+      "upgradeToProDescription": "Proプランにアップグレードして月間無制限の出荷を利用するか、次の請求サイクルで無料枠がリセットされるまでお待ちください。"
+    },
+    "proPlan": {
+      "title": "Proプランにアップグレード",
+      "description": "無制限の出荷と優先サポートを利用",
+      "currentPlan": "現在のプラン",
+      "buttonText": "Proプランにアップグレード",
+      "upgradeSuccess": "Proプランに正常にアップグレードされました！",
+      "upgradeError": "Proプランへのアップグレードに失敗しました。もう一度お試しください。"
+    },
+    "plan": {
+      "free": "無料",
+      "pro": "Pro"
     }
   },
   "errors": {

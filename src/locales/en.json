@@ -22,6 +22,64 @@
     "message": "You must accept the billing terms before using the app. Please go to Settings and accept the terms.",
     "goToSettings": "Go to Settings"
   },
+  "billing": {
+    "title": "Billing & Usage",
+    "subtitle": "View your usage and charges for this month",
+    "connectionFee": {
+      "title": "Connection Fees",
+      "description": "Monthly charge for enabled MCF connections. Separate from shipment-based charges.",
+      "enabledConnections": "Enabled Connections",
+      "monthlyFee": "Monthly Fee",
+      "perConnection": "per connection",
+      "maxConnections": "(max 5)"
+    },
+    "currentCycle": "Current Billing Cycle",
+    "usage": {
+      "totalShipments": "Total Shipments",
+      "freeRemaining": "Free Shipments Remaining",
+      "tier1Remaining": "Included in Base Plan",
+      "over200Count": "Over 200 Shipments",
+      "totalBilled": "Total Billed This Month"
+    },
+    "breakdown": {
+      "title": "Billing Breakdown",
+      "baseCharge": "Base Charge (Shipment #6)",
+      "over200Charges": "Over 200 Shipments",
+      "total": "Total"
+    },
+    "history": {
+      "title": "Usage History",
+      "month": "Month",
+      "shipments": "Shipments",
+      "charged": "Amount Billed"
+    },
+    "disclaimer": {
+      "title": "Billing Disclaimer",
+      "noReductions": "Note: Cancellations, returns, and refunds do NOT reduce your shipment count or any charges already applied for this monthly cycle."
+    },
+    "connectionDisclaimer": {
+      "title": "Connection Fees Notice",
+      "description": "Connection fees are billed monthly based on the number of enabled MCF connections. Changes take effect on the next billing cycle."
+    },
+    "freeTier": {
+      "limitReached": "Free Tier Limit Reached - Fulfillment Paused",
+      "limitReachedDescription": "You've reached the 5 free shipment limit for this month. Fulfillment is paused until you upgrade to a paid plan or the next billing cycle begins.",
+      "shipmentsUsed": "{{count}}/5 free shipments used",
+      "upgradeToProDescription": "Upgrade to Pro plan for unlimited shipments per month, or wait for the next billing cycle when your free allowance resets."
+    },
+    "proPlan": {
+      "title": "Upgrade to Pro Plan",
+      "description": "Get unlimited shipments and priority support",
+      "currentPlan": "Current Plan",
+      "buttonText": "Upgrade to Pro",
+      "upgradeSuccess": "Successfully upgraded to Pro plan!",
+      "upgradeError": "Failed to upgrade to Pro plan. Please try again."
+    },
+    "plan": {
+      "free": "Free",
+      "pro": "Pro"
+    }
+  },
   "language": {
     "title": "Language",
     "english": "English",

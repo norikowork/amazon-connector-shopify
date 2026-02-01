@@ -105,7 +105,7 @@ export function BillingAlert({ acknowledged = false, onGoToSettings, onUpgradeTo
           </div>
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <Badge variant="outline" className="text-red-700 border-red-500 bg-white/50 dark:bg-red-900/50">
-              {t("billing.freeTier.shipmentsUsed", { count: billingUsage.totalShipments })}
+              {t("billing.freeTier.shipmentsUsed", { count: Math.min(billingUsage.totalShipments, 5) })}
             </Badge>
             <div className="flex gap-2">
               <Button 
