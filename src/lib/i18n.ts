@@ -30,16 +30,22 @@ function t(key: string, locale: Locale, params?: Record<string, string | number>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let value: any = locale === "ja" ? jaTranslations : enTranslations;
 
+  console.log("[i18n] Looking up key:", key, "locale:", locale);
+  console.log("[i18n] Root translations object keys:", Object.keys(value));
+
   for (const k of keys) {
     if (value && typeof value === "object" && k in value) {
       value = value[k];
+      console.log("[i18n] After traversing", k, "value:", value);
     } else {
       // Key not found, return the key itself
+      console.log("[i18n] Key not found:", k, "in", Object.keys(value));
       return key;
     }
   }
 
   if (typeof value !== "string") {
+    console.log("[i18n] Value is not a string:", typeof value);
     return key;
   }
 
