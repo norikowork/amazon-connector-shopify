@@ -119,6 +119,7 @@
       "removeOverride": "Remove",
       "connectionFee": "Connection Fee",
       "connectionFeeDescription": "$20 per enabled connection per month. Separate from shipment charges.",
+      "maxConnections": "You can enable up to 5 connections.",
       "testRoutingTitle": "Test Routing",
       "testRoutingDescription": "Enter a destination country to see which MCF connection would be used.",
       "testRoutingPlaceholder": "Enter country code (e.g., US, JP, DE, NL)",
@@ -144,6 +145,7 @@
     },
     "amazon": {
       "title": "Amazon MCF Connection",
+      "apiCredentials": "API Credentials",
       "connected": "Connected to Amazon MCF",
       "disconnected": "Not connected to Amazon MCF",
       "region": "Region",

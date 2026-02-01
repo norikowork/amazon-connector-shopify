@@ -61,6 +61,7 @@
       "removeOverride": "削除",
       "connectionFee": "接続料金",
       "connectionFeeDescription": "有効なMCF接続先ごとに月額$20。出荷ごとの課金とは別です。",
+      "maxConnections": "最大5つの接続先を有効にできます。",
       "testRoutingTitle": "ルーティングテスト",
       "testRoutingDescription": "配送先国を入力して、どのMCF接続先が使用されるかを確認します。",
       "testRoutingPlaceholder": "国コードを入力 (例: US, JP, DE, NL)",
@@ -86,6 +87,7 @@
     },
     "amazon": {
       "title": "Amazon MCF連携",
+      "apiCredentials": "API認証情報",
       "connected": "Amazon MCFに接続済み",
       "disconnected": "Amazon MCFに未接続",
       "region": "リージョン",
